@@ -19,7 +19,6 @@ public abstract class BaseRecyclerFragment<T> extends Fragment implements Common
     RecyclerView recyclerView;
 
     private CommonRecyclerAdapter<T> adapter;
-    private boolean longClickable;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -75,12 +74,20 @@ public abstract class BaseRecyclerFragment<T> extends Fragment implements Common
         return new DividerItemDecoration(getActivity());
     }
 
-    protected void setLongClickable(boolean longClickable) {
-        this.longClickable = longClickable;
-    }
-
     public void updateItems(List<T> data) {
         adapter.updateItems(data);
+    }
+
+    public void addItem(T data) {
+        adapter.add(data);
+    }
+
+    public void removeItem (T data) {
+        adapter.remove(data);
+    }
+
+    public void removeItem (int position) {
+        adapter.remove(position);
     }
 
     public void onRefresh() {
@@ -95,7 +102,7 @@ public abstract class BaseRecyclerFragment<T> extends Fragment implements Common
     @Override
     public boolean onLongItemClicked(int position, View view) {
         //Empty Impl
-        return longClickable;
+        return false;
     }
 
     protected abstract CommonRecyclerAdapter<T> createAdapter();

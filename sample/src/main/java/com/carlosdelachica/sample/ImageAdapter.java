@@ -8,6 +8,7 @@ import com.carlosdelachica.easyrecycleradapters.CommonRecyclerAdapter;
 import java.util.List;
 
 public class ImageAdapter extends CommonRecyclerAdapter<ImageData> {
+
     public ImageAdapter(Context context) {
         super(context);
     }

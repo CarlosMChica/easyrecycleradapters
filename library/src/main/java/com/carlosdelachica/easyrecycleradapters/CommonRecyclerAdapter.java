@@ -107,6 +107,12 @@ public abstract class CommonRecyclerAdapter<T> extends RecyclerView.Adapter<Comm
         notifyItemInserted(position);
     }
 
+    public void remove(T data) {
+        if (dataList.contains(data)) {
+            dataList.remove(data);
+        }
+    }
+
     public void remove(int position) {
         if (position >= 0 && position < getItemCount()) {
             dataList.remove(position);

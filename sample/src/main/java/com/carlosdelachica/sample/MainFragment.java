@@ -16,12 +16,6 @@ import carlosdelachica.com.myapplication.R;
 public class MainFragment extends BaseRecyclerFragment<ImageData> {
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setLongClickable(true);
-    }
-
-    @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         generateRandomData();
