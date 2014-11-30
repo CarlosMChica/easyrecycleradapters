@@ -13,9 +13,9 @@ You can find a sample project that shows up how to use.
 
 Here's an example of basic use:
 
-Extend from CommonRecyclerAdapter and provide a type for the data that is used on this particular adapter
-Inflate the custom view for each item that is contained on this particular adapter
-Bind each custom view with its data
+Extend from CommonRecyclerAdapter and provide a type for the data that is used on this particular adapter.
+Inflate the custom view for each item that is contained on this particular adapter.
+Bind each custom view with its data.
 
 ```java
 
@@ -42,7 +42,7 @@ public class ImageAdapter extends CommonRecyclerAdapter<ImageData> {
 
 ```
 
-Later create your fragment that will contain a recyclerview and extend it from BaseRecylcerFragment
+Later create your fragment that will contain a recyclerview and extend it from BaseRecylcerFragment.
 Implement the methods to create your custom adapter and define the layout manager you want to use.
 
 
@@ -59,7 +59,7 @@ Implement the methods to create your custom adapter and define the layout manage
     }
 ```
 
-### Override clicks methods for callbacks on items clicks and long clicks
+Override clicks methods for callbacks on items clicks and long clicks
 ```java
 
     @Override
@@ -74,7 +74,7 @@ Implement the methods to create your custom adapter and define the layout manage
     }
 ```
 
-### Call the methods provided by BaseRecyclerFragment to interact with the items contained in the adapter
+Call the methods provided by BaseRecyclerFragment to interact with the items contained in the adapter
 ```java
 
     public void updateItems(List<T> data) {
@@ -98,7 +98,7 @@ Implement the methods to create your custom adapter and define the layout manage
     }
 ```
 
-### Override for custom divider drawable
+Override for custom divider drawable
 
     protected DividerItemDecoration getDivider() {
         return new DividerItemDecoration(getActivity());
