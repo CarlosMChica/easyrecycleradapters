@@ -5,31 +5,7 @@ It also offers out of the box a DividerItemDecoration that handles the drawing o
 
 ---
 
-### What's New
-
-###### Version 0.3.0
-
-> 1. `MaterialDialogCompat` allows easy migration from use of `AlertDialog` (see below).
-> 2. Convenience `show()` method in Builder, to skip call to `build()`.
-> 3. Various important fixes from pull requests and the maintainer.
-
-###### Version 0.2.0
-
-> 1. Action buttons must be explicitly shown by setting text to them. The buttons will be hidden in any dialog type if no text is passed for them. This also allows you to display neutral or negative action buttons individually without relying on positive text.
-> 2. List dialogs now use CharSequence arrays rather than String arrays.
-> 3. Other bug fixes are included.
-
----
-
-### Gradle Dependency
-
-Reference adding to `build.gradle` file:
-
-```Groovy
-dependencies {
-    compile 'compile depency'
-}
-```
+### Gradle Dependency (Coming soon)
 
 ### Basic use
 
@@ -37,9 +13,9 @@ You can find a sample project that shows up how to use.
 
 Here's an example of basic use:
 
-1. Extend from CommonRecyclerAdapter and provide a type for the data that is used on this particular adapter
-2. Inflate the custom view for each item that is contained on this particular adapter
-3. Bind each custom view with its data
+### Extend from CommonRecyclerAdapter and provide a type for the data that is used on this particular adapter
+### Inflate the custom view for each item that is contained on this particular adapter
+### Bind each custom view with its data
 
 ```java
 
@@ -66,8 +42,8 @@ public class ImageAdapter extends CommonRecyclerAdapter<ImageData> {
 
 ```
 
-4. Later create your fragment that will contain a recyclerview and extend it from BaseRecylcerFragment
-5. Implement the methods to create your custom adapter and define the layout manager you want to use.
+### Later create your fragment that will contain a recyclerview and extend it from BaseRecylcerFragment
+### Implement the methods to create your custom adapter and define the layout manager you want to use.
 
 
 ```java
@@ -83,7 +59,7 @@ public class ImageAdapter extends CommonRecyclerAdapter<ImageData> {
     }
 ```
 
-6. Override clicks methods for callbacks on items clicks and long clicks
+### Override clicks methods for callbacks on items clicks and long clicks
 ```java
 
     @Override
@@ -98,7 +74,7 @@ public class ImageAdapter extends CommonRecyclerAdapter<ImageData> {
     }
 ```
 
-7. Call the methods provided by BaseRecyclerFragment to interact with the items contained in the adapter
+### Call the methods provided by BaseRecyclerFragment to interact with the items contained in the adapter
 ```java
 
     public void updateItems(List<T> data) {
@@ -122,7 +98,7 @@ public class ImageAdapter extends CommonRecyclerAdapter<ImageData> {
     }
 ```
 
-8.- Override for custom divider drawable
+### Override for custom divider drawable
 
     protected DividerItemDecoration getDivider() {
         return new DividerItemDecoration(getActivity());
