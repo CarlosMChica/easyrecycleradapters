@@ -3,6 +3,7 @@ package com.carlosdelachica.sample;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Toast;
 
@@ -35,7 +36,7 @@ public class MainFragment extends BaseRecyclerFragment<ImageData> {
     }
 
     @Override
-    protected GridLayoutManager createLayoutManager() {
+    protected RecyclerView.LayoutManager createLayoutManager() {
         return new GridLayoutManager(getActivity(), getResources().getInteger(R.integer.grid_columns));
     }
 

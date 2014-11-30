@@ -54,7 +54,7 @@ Implement the methods to create your custom adapter and define the layout manage
     }
 
     @Override
-    protected GridLayoutManager createLayoutManager() {
+    protected RecyclerView.LayoutManager createLayoutManager() {
         return new GridLayoutManager(getActivity(), getResources().getInteger(R.integer.grid_columns));
     }
 ```
@@ -104,7 +104,3 @@ Override for custom divider drawable
         return new DividerItemDecoration(getActivity());
     }
 ```java
-
-
----
-
