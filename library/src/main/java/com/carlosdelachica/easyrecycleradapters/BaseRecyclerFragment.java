@@ -1,5 +1,6 @@
 package com.carlosdelachica.easyrecycleradapters;
 
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -8,89 +9,62 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.carlosdelachica.easyrecycleradapters.decorations.DividerItemDecoration;
+
 import java.util.List;
 
-import carlosdelachica.com.easyrecycleradapters.R;
-
 public abstract class BaseRecyclerFragment<T> extends Fragment implements CommonRecyclerAdapter.OnItemClickListener,
-        CommonRecyclerAdapter.OnItemLongClickListener {
+        CommonRecyclerAdapter.OnItemLongClickListener, RecyclerStandalone.RecyclerFragmentStandaloneCallback {
 
-    RecyclerView recyclerView;
+    private RecyclerStandalone<T> recyclerStandalone;
 
-    private CommonRecyclerAdapter<T> adapter;
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        recyclerStandalone = new RecyclerStandalone<>();
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.common_recycler_view, container, false);
-        recyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerView);
-        return rootView;
+        return inflater.inflate(R.layout.common_recycler_view, container, false);
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        initRecyclerView();
+        initStandalone(view);
     }
 
-    public void initRecyclerView() {
-        recyclerView.setHasFixedSize(true);
-        initItemDecorations();
-        initAdapter();
-        initLayoutManager();
-        initDivider();
+    private void initStandalone(View view) {
+        recyclerStandalone.attachToRecyclerView(
+                ((RecyclerView) view.findViewById(R.id.recyclerView)),
+                createAdapter(),
+                createLayoutManager());
+        recyclerStandalone.setCallback(this);
     }
 
-    private void initItemDecorations() {
-        addRecyclerViewDivider();
-    }
-
-    private void addRecyclerViewDivider() {
-        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(getActivity());
-        recyclerView.addItemDecoration(dividerItemDecoration);
-    }
-
-    private void initAdapter() {
-        adapter = createAdapter();
-        recyclerView.setAdapter(adapter);
-        initListeners();
-    }
-
-    private void initListeners() {
-        adapter.setOnItemClickListener(this);
-        adapter.setOnItemLongClickListener(this);
-    }
-
-    private void initLayoutManager() {
-        recyclerView.setLayoutManager(createLayoutManager());
-    }
-
-    private void initDivider() {
-        DividerItemDecoration dividerItemDecoration = getDivider();
-        recyclerView.addItemDecoration(dividerItemDecoration);
-    }
-
-    protected DividerItemDecoration getDivider() {
-        return new DividerItemDecoration(getActivity());
+    private void setDivider(Drawable divider) {
+        recyclerStandalone.setDivider(new DividerItemDecoration(getActivity(), divider));
     }
 
     public void updateItems(List<T> data) {
-        adapter.updateItems(data);
+        recyclerStandalone.updateItems(data);
     }
 
     public void addItem(T data) {
-        adapter.add(data);
+        recyclerStandalone.addItem(data);
     }
 
     public void removeItem (T data) {
-        adapter.remove(data);
+        recyclerStandalone.removeItem(data);
     }
 
     public void removeItem (int position) {
-        adapter.remove(position);
+        recyclerStandalone.removeItem(position);
     }
 
     public void onRefresh() {
-        adapter.clearItems();
+        recyclerStandalone.onRefresh();
     }
 
     @Override

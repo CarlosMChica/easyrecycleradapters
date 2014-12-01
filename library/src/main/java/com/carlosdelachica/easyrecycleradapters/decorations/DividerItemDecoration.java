@@ -1,4 +1,4 @@
-package com.carlosdelachica.easyrecycleradapters;
+package com.carlosdelachica.easyrecycleradapters.decorations;
 
 import android.content.Context;
 import android.content.res.TypedArray;

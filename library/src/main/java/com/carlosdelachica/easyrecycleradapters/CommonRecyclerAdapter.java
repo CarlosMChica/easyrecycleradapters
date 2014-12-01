@@ -16,7 +16,6 @@ public abstract class CommonRecyclerAdapter<T> extends RecyclerView.Adapter<Comm
     private OnItemLongClickListener onItemLongClickListener;
     private AdapterCallback bottomReachedCallback;
     private final List<T> dataList;
-    private boolean update = true;
     private ViewHolder viewHolder;
 
     public CommonRecyclerAdapter(Context context) {
@@ -94,7 +93,6 @@ public abstract class CommonRecyclerAdapter<T> extends RecyclerView.Adapter<Comm
         this.dataList.clear();
         this.dataList.addAll(dataList);
         notifyDataSetChanged();
-        update = true;
     }
 
     public void add(T item) {
@@ -102,7 +100,6 @@ public abstract class CommonRecyclerAdapter<T> extends RecyclerView.Adapter<Comm
     }
 
     public void add(T item, int position) {
-        position = position == -1 ? getItemCount() : position;
         dataList.add(position, item);
         notifyItemInserted(position);
     }
@@ -121,10 +118,8 @@ public abstract class CommonRecyclerAdapter<T> extends RecyclerView.Adapter<Comm
     }
 
     public T getItem(int position) {
-        int offset = 8;
-        if (position >= dataList.size() - offset && update) {
+        if (position >= dataList.size()) {
             if (bottomReachedCallback != null) {
-                update = false;
                 bottomReachedCallback.bottomReached();
             }
         }

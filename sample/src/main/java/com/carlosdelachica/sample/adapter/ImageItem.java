@@ -1,4 +1,4 @@
-package com.carlosdelachica.sample;
+package com.carlosdelachica.sample.adapter;
 
 import android.annotation.TargetApi;
 import android.content.Context;

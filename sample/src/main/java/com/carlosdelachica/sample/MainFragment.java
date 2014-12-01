@@ -9,8 +9,9 @@ import android.widget.Toast;
 
 import com.carlosdelachica.easyrecycleradapters.BaseRecyclerFragment;
 import com.carlosdelachica.easyrecycleradapters.CommonRecyclerAdapter;
-
-import java.util.ArrayList;
+import com.carlosdelachica.sample.adapter.ImageAdapter;
+import com.carlosdelachica.sample.adapter.ImageData;
+import com.carlosdelachica.sample.data.DataGenerator;
 
 import carlosdelachica.com.myapplication.R;
 
@@ -19,15 +20,7 @@ public class MainFragment extends BaseRecyclerFragment<ImageData> {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        generateRandomData();
-    }
-
-    private void generateRandomData() {
-        ArrayList<ImageData> data = new ArrayList<>();
-        for (int i = 0; i < 20; i++) {
-            data.add(new ImageData("http://placeimg.com/400/200/nature/" + i, "Image " + i));
-        }
-        updateItems(data);
+        updateItems(DataGenerator.generateRandomData());
     }
 
     @Override

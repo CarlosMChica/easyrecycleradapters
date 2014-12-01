@@ -1,4 +1,4 @@
-package com.carlosdelachica.sample;
+package com.carlosdelachica.sample.adapter;
 
 import android.content.Context;
 import android.view.ViewGroup;

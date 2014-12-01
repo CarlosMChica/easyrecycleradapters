@@ -31,4 +31,3 @@ local.properties
 signing.properties
 lic.properties
 gradle.properties
-*.properties
