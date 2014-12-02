@@ -5,6 +5,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.carlosdelachica.easyrecycleradapters.R;
+import com.carlosdelachica.easyrecycleradapters.ViewUtils;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -154,6 +157,7 @@ public abstract class CommonRecyclerAdapter<T> extends RecyclerView.Adapter<Comm
         public ViewHolder(View view) {
             super(view);
             this.view = view;
+            ViewUtils.setBackground(view, view.getContext().getResources().getDrawable(R.drawable.default_selector));
         }
 
         public void setOnClickListener(View.OnClickListener listener) {

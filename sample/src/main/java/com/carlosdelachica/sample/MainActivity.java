@@ -1,5 +1,9 @@
 package com.carlosdelachica.sample;
 
+import android.content.res.ColorStateList;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.RippleDrawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -41,6 +45,19 @@ public class MainActivity extends ActionBarActivity{
             setSupportActionBar(toolbar);
             getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         }
+        ColorStateList myColorStateList = new ColorStateList(
+                new int[][]{
+                        new int[]{android.R.attr.state_pressed}, //1
+                        new int[]{android.R.attr.state_focused}, //2
+                        new int[]{android.R.attr.state_focused, android.R.attr.state_pressed} //3
+                },
+                new int[] {
+                        Color.RED, //1
+                        Color.GREEN, //2
+                        Color.BLUE //3
+                }
+        );
+        new RippleDrawable(myColorStateList, null, new ColorDrawable(getResources().getColor(R.color.accentColor)));
     }
 
 

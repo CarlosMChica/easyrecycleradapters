@@ -4,8 +4,7 @@
 
         <item name="android:windowNoTitle">true</item>
         <item name="windowActionBar">false</item>
-        <item name="android:selectableItemBackground">@drawable/default_selector</item>
-
+        <!--<item name="android:selectableItemBackground">@drawable/custom_selector</item>-->
     </style>
 
 </resources>
