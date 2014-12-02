@@ -8,10 +8,10 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.carlosdelachica.easyrecycleradapters.sample.R;
+
 import butterknife.ButterKnife;
 import butterknife.InjectView;
-import carlosdelachica.com.myapplication.R;
-
 
 public class MainActivity extends ActionBarActivity{
 

@@ -9,6 +9,7 @@ android {
         buildToolsVersion parent.ext.buildToolsVersion
 
         defaultConfig {
+            applicationId "com.carlosdelachica.easyrecycleradapters.sample"
             minSdkVersion parent.ext.minSdkVersion
             targetSdkVersion parent.ext.targetSdkVersion
             versionCode = parent.ext.versionCode;

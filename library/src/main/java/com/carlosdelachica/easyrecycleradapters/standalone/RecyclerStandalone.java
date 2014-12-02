@@ -1,4 +1,4 @@
-package com.carlosdelachica.easyrecycleradapters;
+package com.carlosdelachica.easyrecycleradapters.standalone;
 
 import android.content.Context;
 import android.support.v7.widget.GridLayoutManager;
@@ -6,6 +6,8 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
+import com.carlosdelachica.easyrecycleradapters.R;
+import com.carlosdelachica.easyrecycleradapters.adapter.CommonRecyclerAdapter;
 import com.carlosdelachica.easyrecycleradapters.decorations.DividerItemDecoration;
 
 import java.util.List;

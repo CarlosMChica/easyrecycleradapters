@@ -77,30 +77,21 @@ Override clicks methods for callbacks on items clicks and long clicks
 Call the methods provided by BaseRecyclerFragment to interact with the items contained in the adapter
 ```java
 
-    public void updateItems(List<T> data) {
-        adapter.updateItems(data);
-    }
+    public void updateItems(List<T> data);
 
-    public void addItem(T data) {
-        adapter.add(data);
-    }
+    public void addItem(T data);
 
-    public void removeItem (T data) {
-        adapter.remove(data);
-    }
+    public void removeItem (T data);
 
-    public void removeItem (int position) {
-        adapter.remove(position);
-    }
+    public void removeItem (int position);
 
-    public void onRefresh() {
-        adapter.clearItems();
-    }
+    public void onRefresh();
+
 ```
 
-Override for custom divider drawable
+Call for custom divider drawable
 
-    protected DividerItemDecoration getDivider() {
-        return new DividerItemDecoration(getActivity());
-    }
 ```java
+    public void setDivider(Drawable divider);
+```
+

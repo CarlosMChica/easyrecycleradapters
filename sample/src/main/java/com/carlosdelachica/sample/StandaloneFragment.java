@@ -10,14 +10,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.carlosdelachica.easyrecycleradapters.RecyclerStandalone;
+import com.carlosdelachica.easyrecycleradapters.sample.R;
+import com.carlosdelachica.easyrecycleradapters.standalone.RecyclerStandalone;
 import com.carlosdelachica.sample.adapter.ImageAdapter;
 import com.carlosdelachica.sample.adapter.ImageData;
 import com.carlosdelachica.sample.data.DataGenerator;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
-import carlosdelachica.com.myapplication.R;
 
 public class StandaloneFragment extends Fragment implements RecyclerStandalone.RecyclerFragmentStandaloneCallback {
 

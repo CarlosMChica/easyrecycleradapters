@@ -3,7 +3,7 @@ package com.carlosdelachica.sample.adapter;
 import android.content.Context;
 import android.view.ViewGroup;
 
-import com.carlosdelachica.easyrecycleradapters.CommonRecyclerAdapter;
+import com.carlosdelachica.easyrecycleradapters.adapter.CommonRecyclerAdapter;
 
 import java.util.List;
 

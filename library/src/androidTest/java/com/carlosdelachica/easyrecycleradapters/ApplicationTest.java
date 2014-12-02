@@ -1,4 +1,4 @@
-package carlosdelachica.com.easyrecycleradapters;
+package com.carlosdelachica.easyrecycleradapters;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

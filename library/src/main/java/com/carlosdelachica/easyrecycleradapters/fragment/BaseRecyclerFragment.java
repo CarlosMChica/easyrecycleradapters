@@ -1,4 +1,4 @@
-package com.carlosdelachica.easyrecycleradapters;
+package com.carlosdelachica.easyrecycleradapters.fragment;
 
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -9,6 +9,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.carlosdelachica.easyrecycleradapters.R;
+import com.carlosdelachica.easyrecycleradapters.standalone.RecyclerStandalone;
+import com.carlosdelachica.easyrecycleradapters.adapter.CommonRecyclerAdapter;
 import com.carlosdelachica.easyrecycleradapters.decorations.DividerItemDecoration;
 
 import java.util.List;
@@ -43,7 +46,7 @@ public abstract class BaseRecyclerFragment<T> extends Fragment implements Common
         recyclerStandalone.setCallback(this);
     }
 
-    private void setDivider(Drawable divider) {
+    public void setDivider(Drawable divider) {
         recyclerStandalone.setDivider(new DividerItemDecoration(getActivity(), divider));
     }
 

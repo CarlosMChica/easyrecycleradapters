@@ -7,19 +7,19 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Toast;
 
-import com.carlosdelachica.easyrecycleradapters.BaseRecyclerFragment;
-import com.carlosdelachica.easyrecycleradapters.CommonRecyclerAdapter;
+import com.carlosdelachica.easyrecycleradapters.adapter.CommonRecyclerAdapter;
+import com.carlosdelachica.easyrecycleradapters.fragment.BaseRecyclerFragment;
+import com.carlosdelachica.easyrecycleradapters.sample.R;
 import com.carlosdelachica.sample.adapter.ImageAdapter;
 import com.carlosdelachica.sample.adapter.ImageData;
 import com.carlosdelachica.sample.data.DataGenerator;
-
-import carlosdelachica.com.myapplication.R;
 
 public class MainFragment extends BaseRecyclerFragment<ImageData> {
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        setDivider(getResources().getDrawable(R.drawable.custom_divider));
         updateItems(DataGenerator.generateRandomData());
     }
 

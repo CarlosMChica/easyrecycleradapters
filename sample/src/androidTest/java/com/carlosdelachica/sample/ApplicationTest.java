@@ -1,4 +1,4 @@
-package carlosdelachica.com.myapplication;
+package com.carlosdelachica.sample;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

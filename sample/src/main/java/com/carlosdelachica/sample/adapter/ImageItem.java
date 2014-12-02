@@ -10,11 +10,11 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.carlosdelachica.easyrecycleradapters.sample.R;
 import com.squareup.picasso.Picasso;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
-import carlosdelachica.com.myapplication.R;
 
 public class ImageItem extends FrameLayout {
 
