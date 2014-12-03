@@ -6,8 +6,8 @@ import android.os.Build;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.carlosdelachica.easyrecycleradapters.sample.R;
@@ -16,7 +16,7 @@ import com.squareup.picasso.Picasso;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 
-public class ImageItem extends LinearLayout {
+public class ImageItem extends FrameLayout {
 
     @InjectView(R.id.image)
     ImageView image;
@@ -45,11 +45,9 @@ public class ImageItem extends LinearLayout {
     }
 
     private void initLayout() {
-        setOrientation(VERTICAL);
         LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View rootView = inflater.inflate(R.layout.image_item, this, true);
         ButterKnife.inject(this, rootView);
-//        setForeground(getResources().getDrawable(R.drawable.custom_selector));
     }
 
     public void bindTo(ImageData item) {

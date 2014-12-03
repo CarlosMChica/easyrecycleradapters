@@ -1,9 +1,14 @@
 package com.carlosdelachica.easyrecycleradapters.adapter;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
+import android.os.Build;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
+import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 
 import com.carlosdelachica.easyrecycleradapters.R;
 import com.carlosdelachica.easyrecycleradapters.ViewUtils;
@@ -14,8 +19,8 @@ import java.util.List;
 public abstract class CommonRecyclerAdapter<T> extends RecyclerView.Adapter<CommonRecyclerAdapter.ViewHolder> {
 
     protected Context context;
-
     private OnItemClickListener onItemClickListener;
+
     private OnItemLongClickListener onItemLongClickListener;
     private AdapterCallback bottomReachedCallback;
     private final List<T> dataList;
@@ -44,7 +49,28 @@ public abstract class CommonRecyclerAdapter<T> extends RecyclerView.Adapter<Comm
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int position) {
-        return inflateViewHolder(viewGroup);
+        ViewHolder viewHolder = inflateViewHolder(viewGroup);
+        applySelector(viewHolder.getView());
+        return viewHolder;
+    }
+
+    private void applySelector(View view) {
+        Drawable selectorDrawable = generateSelectorDrawable();
+        if (view instanceof FrameLayout) {
+            ((FrameLayout) view).setForeground(selectorDrawable);
+        } else {
+            ViewUtils.setBackground(view, selectorDrawable);
+        }
+    }
+
+    private Drawable generateSelectorDrawable() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            return ContextCompat.getDrawable(context, R.drawable.default_selector);
+        } else {
+            TypedValue typedValue = new TypedValue();
+            context.getTheme().resolveAttribute(R.attr.selectorDrawable, typedValue, true);
+            return ContextCompat.getDrawable(context, typedValue.resourceId);
+        }
     }
 
     @Override
@@ -157,7 +183,6 @@ public abstract class CommonRecyclerAdapter<T> extends RecyclerView.Adapter<Comm
         public ViewHolder(View view) {
             super(view);
             this.view = view;
-            ViewUtils.setBackground(view, view.getContext().getResources().getDrawable(R.drawable.default_selector));
         }
 
         public void setOnClickListener(View.OnClickListener listener) {

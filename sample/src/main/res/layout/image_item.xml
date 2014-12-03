@@ -26,7 +26,7 @@
         android:layout_gravity="bottom"
         android:textColor="@android:color/white"
         android:gravity="center"
-        android:background="@android:color/transparent"/>
+        android:background="@color/primaryDark"/>
     </LinearLayout>
 
 </merge>
