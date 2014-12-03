@@ -43,6 +43,7 @@ public class ImageAdapter extends CommonRecyclerAdapter<ImageData> {
 }
 
 ```
+---
 
 ### 1.- Extend From BaseRecyclerFragment
 
