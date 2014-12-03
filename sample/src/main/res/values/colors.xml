@@ -1,7 +1,6 @@
 <resources>
     <color name="windowBackgroundColor">#dedede</color>
     <color name="accentColor">#42A5F5</color>
-    <color name="primaryDark">#FF6D00</color>
+    <color name="primaryDark">#88FF6D00</color>
     <color name="primaryColor">#FF9100</color>
-
 </resources>

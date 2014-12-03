@@ -48,7 +48,6 @@ public class ImageItem extends FrameLayout {
         LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View rootView = inflater.inflate(R.layout.image_item, this, true);
         ButterKnife.inject(this, rootView);
-        setForeground(getResources().getDrawable(R.drawable.default_selector));
     }
 
     public void bindTo(ImageData item) {
