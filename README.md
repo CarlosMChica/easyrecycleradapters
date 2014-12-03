@@ -7,6 +7,8 @@ It also offers out of the box a DividerItemDecoration that handles the drawing o
 
 ### Gradle Dependency (Coming soon)
 
+---
+
 ### Basic use
 
 You can find a sample project that shows up how to use.
@@ -42,7 +44,10 @@ public class ImageAdapter extends CommonRecyclerAdapter<ImageData> {
 
 ```
 
-Later create your fragment that will contain a recyclerview and extend it from BaseRecylcerFragment.
+### 1.- Extend From BaseRecyclerFragment
+
+Create your fragment that will contain a recyclerview and extend it from BaseRecylcerFragment.
+
 Implement the methods to create your custom adapter and define the layout manager you want to use.
 
 
@@ -95,3 +100,22 @@ Call for custom divider drawable
     public void setDivider(Drawable divider);
 ```
 
+---
+
+### 2.- Standalone version
+
+
+If you can't extend from BaseRecyclerFragment, there is a standalone class that offers the same features.
+
+Just attach the standalone object to the recyclerView. Define an adapter and layout manager, set callback if needed:
+
+```java
+
+        standalone.attachToRecyclerView(recyclerView,
+                new ImageAdapter(getActivity()),
+                new GridLayoutManager(getActivity(), getResources().getInteger(R.integer.grid_columns)));
+        standalone.setCallback(this);
+
+```
+
+Use the same methods defined for BaseRecyclerFragment to interact with the data set
