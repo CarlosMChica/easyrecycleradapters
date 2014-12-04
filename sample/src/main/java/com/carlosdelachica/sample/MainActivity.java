@@ -25,7 +25,7 @@ public class MainActivity extends ActionBarActivity{
         ButterKnife.inject(this);
         initToolbar();
         if (savedInstanceState == null) {
-            navigateToFragment(new MainFragment());
+            navigateToFragment(new RecyclerFragment());
         }
     }
 
@@ -43,7 +43,6 @@ public class MainActivity extends ActionBarActivity{
         }
     }
 
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -57,8 +56,8 @@ public class MainActivity extends ActionBarActivity{
             case R.id.standalone:
                 navigateToFragment(new StandaloneFragment());
                 return true;
-            case R.id.BaseRecyclerFragment:
-                navigateToFragment(new MainFragment());
+            case R.id.baseRecyclerFragment:
+                navigateToFragment(new RecyclerFragment());
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

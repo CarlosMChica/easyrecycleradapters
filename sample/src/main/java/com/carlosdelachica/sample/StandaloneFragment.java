@@ -12,14 +12,14 @@ import android.widget.Toast;
 
 import com.carlosdelachica.easyrecycleradapters.sample.R;
 import com.carlosdelachica.easyrecycleradapters.standalone.RecyclerStandalone;
-import com.carlosdelachica.sample.adapter.ImageAdapter;
+import com.carlosdelachica.sample.adapter.ImageBackgroundSelectorAdapter;
 import com.carlosdelachica.sample.adapter.ImageData;
 import com.carlosdelachica.sample.data.DataGenerator;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 
-public class StandaloneFragment extends Fragment implements RecyclerStandalone.RecyclerFragmentStandaloneCallback {
+public class StandaloneFragment extends Fragment implements RecyclerStandalone.RecyclerStandaloneCallback {
 
     @InjectView(R.id.recyclerView)
     RecyclerView recyclerView;
@@ -42,7 +42,7 @@ public class StandaloneFragment extends Fragment implements RecyclerStandalone.R
 
     private void initStandalone() {
         standalone.attachToRecyclerView(recyclerView,
-                new ImageAdapter(getActivity()),
+                new ImageBackgroundSelectorAdapter(getActivity()),
                 new GridLayoutManager(getActivity(), getResources().getInteger(R.integer.grid_columns)));
         standalone.setCallback(this);
     }

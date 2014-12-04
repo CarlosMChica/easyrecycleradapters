@@ -19,7 +19,7 @@ public class RecyclerStandalone<T> implements CommonRecyclerAdapter.OnItemClickL
     private CommonRecyclerAdapter<T> adapter;
     private RecyclerView.LayoutManager layoutManager;
     private Context context;
-    private RecyclerFragmentStandaloneCallback callback;
+    private RecyclerStandaloneCallback callback;
     private DividerItemDecoration dividerItemDecoration;
 
     public void attachToRecyclerView(RecyclerView recyclerView, CommonRecyclerAdapter<T> adapter) {
@@ -34,7 +34,7 @@ public class RecyclerStandalone<T> implements CommonRecyclerAdapter.OnItemClickL
         initRecyclerView();
     }
 
-    public void setCallback(RecyclerFragmentStandaloneCallback callback) {
+    public void setCallback(RecyclerStandaloneCallback callback) {
         this.callback = callback;
     }
 
@@ -114,7 +114,7 @@ public class RecyclerStandalone<T> implements CommonRecyclerAdapter.OnItemClickL
         return false;
     }
 
-    public interface RecyclerFragmentStandaloneCallback {
+    public interface RecyclerStandaloneCallback {
         void onItemClick(int position, View view);
         boolean onLongItemClicked(int position, View view);
     }

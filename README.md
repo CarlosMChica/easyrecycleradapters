@@ -95,14 +95,6 @@ Call the methods provided by BaseRecyclerFragment to interact with the items con
 
 ```
 
-Call for custom divider drawable
-
-```java
-    public void setDivider(Drawable divider);
-```
-
----
-
 ### 2.- Standalone version
 
 
@@ -111,7 +103,6 @@ If you can't extend from BaseRecyclerFragment, there is a standalone class that 
 Just attach the standalone object to the recyclerView. Define an adapter and layout manager, set callback if needed:
 
 ```java
-
         standalone.attachToRecyclerView(recyclerView,
                 new ImageAdapter(getActivity()),
                 new GridLayoutManager(getActivity(), getResources().getInteger(R.integer.grid_columns)));
@@ -120,3 +111,40 @@ Just attach the standalone object to the recyclerView. Define an adapter and lay
 ```
 
 Use the same methods defined for BaseRecyclerFragment to interact with the data set
+
+---
+
+### Misc
+
+
+Call for custom divider drawable
+
+```java
+    public void setDivider(Drawable divider);
+```
+
+---
+
+
+Extend your custom view from FrameLayout for foreground selector (The selector will be drawn above your view)
+
+```java
+public class ImageForegroundSelectorItem extends FrameLayout {
+.
+.
+.
+.
+}
+```
+Extend from any other view type for background selector (The selector will be drawn under your view)
+
+```java
+public class ImageBackgroundSelectorItem extends LinearLayout {
+.
+.
+.
+
+}
+```
+
+---

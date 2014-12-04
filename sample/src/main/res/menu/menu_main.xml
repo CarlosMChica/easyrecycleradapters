@@ -9,7 +9,7 @@
         app:showAsAction="never" />
 
     <item
-        android:id="@+id/BaseRecyclerFragment"
+        android:id="@+id/baseRecyclerFragment"
         android:title="@string/base_recycler_fragment"
         app:showAsAction="never" />
 

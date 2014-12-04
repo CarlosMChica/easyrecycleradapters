@@ -7,23 +7,24 @@ import com.carlosdelachica.easyrecycleradapters.adapter.CommonRecyclerAdapter;
 
 import java.util.List;
 
-public class ImageAdapter extends CommonRecyclerAdapter<ImageData> {
+public class ImageBackgroundSelectorAdapter extends CommonRecyclerAdapter<ImageData> {
 
-    public ImageAdapter(Context context) {
+    public ImageBackgroundSelectorAdapter(Context context) {
         super(context);
     }
 
-    public ImageAdapter(List<ImageData> dataList, Context context) {
+    public ImageBackgroundSelectorAdapter(List<ImageData> dataList, Context context) {
         super(dataList, context);
     }
 
     @Override
     protected ViewHolder inflateViewHolder(ViewGroup viewGroup) {
-        return new ViewHolder(new ImageItem(context));
+        return new ViewHolder(new ImageBackgroundSelectorItem(context));
     }
 
     @Override
     public void bindViewHolder(ViewHolder viewHolder, ImageData item) {
-        ((ImageItem) viewHolder.getView()).bindTo(item);
+        ((ImageBackgroundSelectorItem) viewHolder.getView()).bindTo(item);
     }
+
 }

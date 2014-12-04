@@ -16,37 +16,37 @@ import com.squareup.picasso.Picasso;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 
-public class ImageItem extends FrameLayout {
+public class ImageForegroundSelectorItem extends FrameLayout {
 
     @InjectView(R.id.image)
     ImageView image;
     @InjectView(R.id.text)
     TextView title;
 
-    public ImageItem(Context context) {
+    public ImageForegroundSelectorItem(Context context) {
         super(context);
         initLayout();
     }
 
-    public ImageItem(Context context, AttributeSet attrs) {
+    public ImageForegroundSelectorItem(Context context, AttributeSet attrs) {
         super(context, attrs);
         initLayout();
     }
 
-    public ImageItem(Context context, AttributeSet attrs, int defStyleAttr) {
+    public ImageForegroundSelectorItem(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         initLayout();
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    public ImageItem(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+    public ImageForegroundSelectorItem(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
         initLayout();
     }
 
     private void initLayout() {
         LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View rootView = inflater.inflate(R.layout.image_item, this, true);
+        View rootView = inflater.inflate(R.layout.image_foreground_item, this, true);
         ButterKnife.inject(this, rootView);
     }
 
