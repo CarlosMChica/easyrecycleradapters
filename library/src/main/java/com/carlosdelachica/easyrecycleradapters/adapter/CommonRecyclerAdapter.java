@@ -135,7 +135,7 @@ public abstract class CommonRecyclerAdapter<T> extends RecyclerView.Adapter<Comm
 
     public void remove(T data) {
         if (dataList.contains(data)) {
-            dataList.remove(data);
+            remove(dataList.indexOf(data));
         }
     }
 
