@@ -146,5 +146,3 @@ public class ImageBackgroundSelectorItem extends LinearLayout {
 
 }
 ```
-
----
