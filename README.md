@@ -1,7 +1,7 @@
 # EasyRecyclerAdapters
 
-The code brings up an easy way of using recyclerView, with new recycler adapters. It also contains a BaseRecyclerFragment that removes a lot of boiler plate for fragments that contains either grids or lists.
-It also offers out of the box a DividerItemDecoration that handles the drawing of the divider in the recycler view.
+The code brings up an easy way of using recyclerView, with the new recycler adapters. It also contains a BaseRecyclerFragment and a RecyclerStandalone that removes a lot of boiler plate for fragments that contains either grids or lists.
+It also offers out of the box a DividerItemDecoration that handles the drawing of the divider in the recycler view. As well selectors for the items in your lists are handled.
 
 ---
 
@@ -15,8 +15,8 @@ You can find a sample project that shows up how to use.
 
 Here's an example of basic use:
 
-Extend from CommonRecyclerAdapter and provide a type for the data that is used on this particular adapter.
-Inflate the custom view for each item that is contained on this particular adapter.
+Extend from CommonRecyclerAdapter and provide a type for the data used on this particular adapter.
+Inflate the custom view for each item that is contained on the adapter.
 Bind each custom view with its data.
 
 ```java
@@ -43,6 +43,22 @@ public class ImageAdapter extends CommonRecyclerAdapter<ImageData> {
 }
 
 ```
+---
+
+### Define your selectors
+
+You need to define two items in your styles
+
+```java
+    <item name="rippleColor">@color/primaryDark</item>
+    <item name="selectorDrawable">@drawable/custom_selector</item>
+```
+
+rippleColor: Color reference (Defines the color of the ripple that is used as selector). API 21+
+selectorDrawable: Drawable reference that defines the states and values for your selector. API 21-
+
+Find an example on the sample project
+
 ---
 
 ### 1.- Extend From BaseRecyclerFragment
@@ -125,7 +141,6 @@ Call for custom divider drawable
 
 ---
 
-
 Extend your custom view from FrameLayout for foreground selector (The selector will be drawn above your view)
 
 ```java
@@ -146,3 +161,5 @@ public class ImageBackgroundSelectorItem extends LinearLayout {
 
 }
 ```
+
+
