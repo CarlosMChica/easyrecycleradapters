@@ -13,6 +13,9 @@ It also offers out of the box a DividerItemDecoration that handles the drawing o
 
 You can find a sample project that shows up how to use.
 
+The sample has two fragments, each one illustrates how to use the two variations of the lib (Extending BaseRecyclerFragment or composing with RecyclerStandalone.
+Customizations can also be found on the sample code (custom divider, foreground and background selectors)
+
 Here's an example of basic use:
 
 Extend from CommonRecyclerAdapter and provide a type for the data used on this particular adapter.
