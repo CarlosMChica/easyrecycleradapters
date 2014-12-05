@@ -5,7 +5,7 @@ It also offers out of the box a DividerItemDecoration that handles the drawing o
 
 ---
 
-### Gradle Dependency (Coming soon)
+### Gradle Dependency
 
 ```Groovy
 dependencies {
