@@ -9,7 +9,7 @@ It also offers out of the box a DividerItemDecoration that handles the drawing o
 
 ```Groovy
 dependencies {
-    compile 'com.github.cmc00022:easyrecycleradapters:0.0.1'
+    compile 'com.github.cmc00022:easyrecycleradapters:0.0.2'
 }
 ```
 
@@ -141,7 +141,6 @@ Use the same methods defined for BaseRecyclerFragment to interact with the data 
 
 ### Misc
 
-
 Call for custom divider drawable
 
 ```java
@@ -156,19 +155,33 @@ Extend your custom view from FrameLayout for foreground selector (The selector w
 public class ImageForegroundSelectorItem extends FrameLayout {
 .
 .
-.
-.
 }
 ```
+---
+
 Extend from any other view type for background selector (The selector will be drawn under your view)
 
 ```java
 public class ImageBackgroundSelectorItem extends LinearLayout {
 .
 .
-.
-
 }
 ```
+---
+
+Call for empty text customisations
+
+```java
+    public void setEmptyListText(@StringRes int messageStringRes);
+    public void setEmptyListTextColor(@ColorRes int colorRes);
+```
+
+First attach empty TextView to standalone object
+
+```java
+    recyclerStandalone.attachToEmptyList(emptyListTextView);
+```
+
+
 
 
