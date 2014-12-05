@@ -7,6 +7,12 @@ It also offers out of the box a DividerItemDecoration that handles the drawing o
 
 ### Gradle Dependency (Coming soon)
 
+```Groovy
+dependencies {
+    compile 'com.github.cmc00022:easyrecycleradapters:0.0.1'
+}
+```
+
 ---
 
 ### Basic use

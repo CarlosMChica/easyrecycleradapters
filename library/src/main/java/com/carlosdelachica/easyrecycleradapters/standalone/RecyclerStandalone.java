@@ -48,7 +48,7 @@ public class RecyclerStandalone<T> implements CommonRecyclerAdapter.OnItemClickL
         recyclerView.addItemDecoration(dividerItemDecoration);
     }
 
-    public void initRecyclerView() {
+    private void initRecyclerView() {
         recyclerView.setHasFixedSize(true);
         initAdapter();
         initLayoutManager();
