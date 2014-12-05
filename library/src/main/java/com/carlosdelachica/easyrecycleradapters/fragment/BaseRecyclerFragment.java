@@ -2,12 +2,16 @@ package com.carlosdelachica.easyrecycleradapters.fragment;
 
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.annotation.ColorRes;
 import android.support.annotation.Nullable;
+import android.support.annotation.StringRes;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
+import android.widget.TextView;
 
 import com.carlosdelachica.easyrecycleradapters.R;
 import com.carlosdelachica.easyrecycleradapters.adapter.CommonRecyclerAdapter;
@@ -20,6 +24,8 @@ public abstract class BaseRecyclerFragment<T> extends Fragment implements Common
         CommonRecyclerAdapter.OnItemLongClickListener, RecyclerStandalone.RecyclerStandaloneCallback {
 
     private RecyclerStandalone<T> recyclerStandalone;
+    private FrameLayout container;
+    private TextView emptyListTextView;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -35,6 +41,7 @@ public abstract class BaseRecyclerFragment<T> extends Fragment implements Common
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        container = (FrameLayout) view.findViewById(R.id.recycler_view_container);
         initStandalone(view);
     }
 
@@ -44,6 +51,23 @@ public abstract class BaseRecyclerFragment<T> extends Fragment implements Common
                 createAdapter(),
                 createLayoutManager());
         recyclerStandalone.setCallback(this);
+    }
+
+    public void setEmptyListText(@StringRes int messageStringRes) {
+        initEmptyListTextView();
+        recyclerStandalone.setEmptyListText(messageStringRes);
+    }
+
+    public void setEmptyListTextColor(@ColorRes int colorRes) {
+        initEmptyListTextView();
+        recyclerStandalone.setEmptyListTextColor(colorRes);
+    }
+
+    private void initEmptyListTextView() {
+        if (emptyListTextView == null) {
+            emptyListTextView = (TextView) container.findViewById(R.id.empty_list);
+            recyclerStandalone.attachToEmptyList(emptyListTextView);
+        }
     }
 
     public void setDivider(Drawable divider) {

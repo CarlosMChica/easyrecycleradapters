@@ -1,6 +1,7 @@
 package com.carlosdelachica.sample;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
@@ -8,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.carlosdelachica.easyrecycleradapters.sample.R;
@@ -23,8 +25,11 @@ public class StandaloneFragment extends Fragment implements RecyclerStandalone.R
 
     @InjectView(R.id.recyclerView)
     RecyclerView recyclerView;
+    @InjectView(R.id.empty_list)
+    TextView emptyList;
 
     private RecyclerStandalone<ImageData> standalone = new RecyclerStandalone<>();
+    private Handler handler;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -37,7 +42,24 @@ public class StandaloneFragment extends Fragment implements RecyclerStandalone.R
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initStandalone();
-        standalone.updateItems(DataGenerator.generateRandomData());
+        initEmptyList();
+        initData();
+    }
+
+    private void initEmptyList() {
+        standalone.attachToEmptyList(emptyList);
+        standalone.setEmptyListText(R.string.loading);
+        standalone.setEmptyListTextColor(R.color.accentColor);
+    }
+
+    private void initData() {
+        handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                standalone.updateItems(DataGenerator.generateRandomData());
+            }
+        }, 2000);
     }
 
     private void initStandalone() {
@@ -56,6 +78,15 @@ public class StandaloneFragment extends Fragment implements RecyclerStandalone.R
     @Override
     public void onItemClick(int position, View view) {
         Toast.makeText(getActivity(), "painting selected " + position, Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (handler != null) {
+            handler.removeCallbacksAndMessages(null);
+            handler = null;
+        }
     }
 
 }

@@ -11,4 +11,13 @@
         android:layout_height="match_parent"
         />
 
+    <TextView
+        android:id="@+id/empty_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:textSize="@dimen/text_size_small"
+        android:textColor="@color/empty_list_text_color"
+        />
+
 </FrameLayout>
