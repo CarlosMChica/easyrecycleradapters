@@ -9,13 +9,13 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.carlosdelachica.easyrecycleradapters.adapter.CommonRecyclerAdapter;
-import com.carlosdelachica.easyrecycleradapters.fragment.BaseRecyclerFragment;
+import com.carlosdelachica.easyrecycleradapters.fragment.BaseRecyclerFragmentV4;
 import com.carlosdelachica.easyrecycleradapters.sample.R;
 import com.carlosdelachica.sample.adapter.ImageData;
 import com.carlosdelachica.sample.adapter.ImageForegroundSelectorAdapter;
 import com.carlosdelachica.sample.data.DataGenerator;
 
-public class RecyclerFragment extends BaseRecyclerFragment<ImageData> {
+public class RecyclerFragment extends BaseRecyclerFragmentV4<ImageData> {
 
     private Handler handler;
 

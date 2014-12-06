@@ -1,11 +1,11 @@
 package com.carlosdelachica.easyrecycleradapters.fragment;
 
-import android.app.Fragment;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.ColorRes;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,7 +20,7 @@ import com.carlosdelachica.easyrecycleradapters.standalone.RecyclerStandalone;
 
 import java.util.List;
 
-public abstract class BaseRecyclerFragment<T> extends Fragment implements CommonRecyclerAdapter.OnItemClickListener,
+public abstract class BaseRecyclerFragmentV4<T> extends Fragment implements CommonRecyclerAdapter.OnItemClickListener,
         CommonRecyclerAdapter.OnItemLongClickListener, RecyclerStandalone.RecyclerStandaloneCallback {
 
     private RecyclerStandalone<T> recyclerStandalone;
