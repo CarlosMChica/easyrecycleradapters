@@ -7,6 +7,10 @@ It also offers out of the box a DividerItemDecoration that handles the drawing o
 
 ### What's New
 
+###### Version 0.0.5
+
+> 1. Solve bug
+
 ###### Version 0.0.4
 
 > 1. Adds support for native fragments.

@@ -125,7 +125,8 @@ public abstract class CommonRecyclerAdapter<T> extends RecyclerView.Adapter<Comm
     }
 
     public void add(T item) {
-        add(item, -1);
+        dataList.add(item);
+        notifyItemInserted(dataList.indexOf(item));
     }
 
     public void add(T item, int position) {
