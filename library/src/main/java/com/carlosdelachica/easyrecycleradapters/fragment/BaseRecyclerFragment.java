@@ -74,6 +74,10 @@ public abstract class BaseRecyclerFragment<T> extends Fragment implements Common
         recyclerStandalone.setDivider(new DividerItemDecoration(getActivity(), divider));
     }
 
+    public RecyclerView getRecyclerView() {
+        return recyclerStandalone.getRecyclerView();
+    }
+
     public T getItem(int position) {
         return recyclerStandalone.getItem(position);
     }

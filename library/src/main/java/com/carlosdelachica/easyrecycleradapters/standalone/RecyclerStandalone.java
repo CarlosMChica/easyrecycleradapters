@@ -99,6 +99,10 @@ public class RecyclerStandalone<T> implements CommonRecyclerAdapter.OnItemClickL
         initDivider(dividerItemDecoration);
     }
 
+    public RecyclerView getRecyclerView() {
+        return recyclerView;
+    }
+
     public T getItem(int position) {
         return adapter.getItem(position);
     }
