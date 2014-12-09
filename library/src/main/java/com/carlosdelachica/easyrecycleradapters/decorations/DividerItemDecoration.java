@@ -33,7 +33,7 @@ public class DividerItemDecoration extends RecyclerView.ItemDecoration {
     }
 
     public void setDivider(@DrawableRes int dividerDrawableRes) {
-        divider = context.getDrawable(dividerDrawableRes);
+        divider = context.getResources().getDrawable(dividerDrawableRes);
     }
 
     public void setInsets(@DimenRes int insets) {
@@ -54,12 +54,15 @@ public class DividerItemDecoration extends RecyclerView.ItemDecoration {
         View currentChild;
         for (int i = 0; i < childCount; i++) {
             currentChild = parent.getChildAt(i);
-            left = currentChild.getLeft();
-            right = currentChild.getRight();
-            top = insets + currentChild.getBottom() + insets;
-            bottom = top + divider.getIntrinsicHeight();
-            divider.setBounds(left, top, right, bottom);
-            divider.draw(c);
+            int currentChildBottom = currentChild.getBottom();
+            if (currentChildBottom > parent.getPaddingTop() && currentChildBottom < parent.getBottom() - parent.getPaddingBottom()) {
+                left = currentChild.getLeft();
+                right = currentChild.getRight();
+                top = insets + currentChildBottom + insets;
+                bottom = top + divider.getIntrinsicHeight();
+                divider.setBounds(left, top, right, bottom);
+                divider.draw(c);
+            }
         }
     }
 
@@ -70,12 +73,15 @@ public class DividerItemDecoration extends RecyclerView.ItemDecoration {
         View currentChild;
         for (int i = 0; i < childCount; i++) {
             currentChild = parent.getChildAt(i);
-            top = currentChild.getTop();
-            bottom = currentChild.getBottom() + divider.getIntrinsicHeight();
-            left = currentChild.getRight() + insets;
-            right = left + divider.getIntrinsicWidth();
-            divider.setBounds(left, top, right, bottom);
-            divider.draw(c);
+            int offset = 2;
+            if (currentChild.getRight() < parent.getRight() - parent.getPaddingRight() - offset) {
+                top = currentChild.getTop();
+                bottom = currentChild.getBottom() + divider.getIntrinsicHeight();
+                left = currentChild.getRight() + insets;
+                right = left + divider.getIntrinsicWidth();
+                divider.setBounds(left, top, right, bottom);
+                divider.draw(c);
+            }
         }
     }
 
