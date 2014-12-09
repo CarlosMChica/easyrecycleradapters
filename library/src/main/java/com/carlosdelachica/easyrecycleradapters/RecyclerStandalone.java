@@ -1,7 +1,8 @@
-package com.carlosdelachica.easyrecycleradapters.standalone;
+package com.carlosdelachica.easyrecycleradapters;
 
 import android.content.Context;
 import android.support.annotation.ColorRes;
+import android.support.annotation.DrawableRes;
 import android.support.annotation.StringRes;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -9,7 +10,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
-import com.carlosdelachica.easyrecycleradapters.R;
 import com.carlosdelachica.easyrecycleradapters.adapter.CommonRecyclerAdapter;
 import com.carlosdelachica.easyrecycleradapters.decorations.DividerItemDecoration;
 
@@ -40,9 +40,16 @@ public class RecyclerStandalone<T> implements CommonRecyclerAdapter.OnItemClickL
 
     private void initRecyclerView() {
         recyclerView.setHasFixedSize(true);
+        initRecyclerViewPadding();
         initAdapter();
         initLayoutManager();
         initItemDecorations();
+    }
+
+    private void initRecyclerViewPadding() {
+        //Apply padding as described in Material Design specs
+        int topBottomPadding = context.getResources().getDimensionPixelSize(R.dimen.material_design_list_top_bottom_padding);
+        setRecyclerViewPadding(0, topBottomPadding, 0, topBottomPadding);
     }
 
     private void initAdapter() {
@@ -60,18 +67,22 @@ public class RecyclerStandalone<T> implements CommonRecyclerAdapter.OnItemClickL
     }
 
     private void initItemDecorations() {
+        initDivider();
+    }
+
+    private void initDivider() {
         int dividerRes;
         if (layoutManager instanceof GridLayoutManager) {
             dividerRes = R.drawable.grid_divider;
         } else {
             dividerRes = R.drawable.list_divider;
         }
-        initDivider(new DividerItemDecoration(context, context.getResources().getDrawable(dividerRes)));
+        this.dividerItemDecoration = new DividerItemDecoration(context, context.getResources().getDrawable(dividerRes));
+        recyclerView.addItemDecoration(dividerItemDecoration);
     }
 
-    private void initDivider(DividerItemDecoration dividerItemDecoration) {
-        this.dividerItemDecoration = dividerItemDecoration;
-        recyclerView.addItemDecoration(dividerItemDecoration);
+    public void setDivider(@DrawableRes int dividerDrawableRes) {
+        dividerItemDecoration.setDivider(dividerDrawableRes);
     }
 
     public void setEmptyListTextColor(@ColorRes int colorRes) {
@@ -94,13 +105,12 @@ public class RecyclerStandalone<T> implements CommonRecyclerAdapter.OnItemClickL
         this.callback = callback;
     }
 
-    public void setDivider(DividerItemDecoration dividerItemDecoration) {
-        recyclerView.removeItemDecoration(this.dividerItemDecoration);
-        initDivider(dividerItemDecoration);
-    }
-
     public RecyclerView getRecyclerView() {
         return recyclerView;
+    }
+
+    public void setRecyclerViewPadding(int left, int top, int right, int bottom) {
+        recyclerView.setPadding(left, top, right, bottom);
     }
 
     public T getItem(int position) {

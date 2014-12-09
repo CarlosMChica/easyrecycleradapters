@@ -9,7 +9,7 @@
         <item name="android:windowNoTitle">true</item>
         <item name="windowActionBar">false</item>
         <item name="android:windowBackground">@color/windowBackgroundColor</item>
-        <item name="rippleColor">@color/primaryDark</item>
+        <item name="rippleColor">@color/accentColor</item>
         <item name="selectorDrawable">@drawable/custom_selector</item>
     </style>
 

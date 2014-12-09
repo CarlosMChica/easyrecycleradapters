@@ -1,10 +1,12 @@
 package com.carlosdelachica.sample;
 
+import android.graphics.Point;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Display;
 import android.view.View;
 import android.widget.Toast;
 
@@ -22,14 +24,20 @@ public class RecyclerFragment extends BaseRecyclerFragmentV4<ImageData> {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        setDivider(getResources().getDrawable(R.drawable.custom_divider));
-        initEmptyList();
+        initUI();
         initData();
+    }
+
+    private void initUI() {
+        setDivider(R.drawable.custom_divider);
+        initEmptyList();
+        int customPadding = getResources().getDimensionPixelSize(R.dimen.custom_padding);
+        setRecyclerViewPadding(customPadding, customPadding, customPadding, customPadding);
     }
 
     private void initEmptyList() {
         setEmptyListText(R.string.loading);
-        setEmptyListTextColor(R.color.primaryDark);
+        setEmptyListTextColor(R.color.accent_material_dark);
     }
 
     private void initData() {
@@ -37,7 +45,12 @@ public class RecyclerFragment extends BaseRecyclerFragmentV4<ImageData> {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                updateItems(DataGenerator.generateRandomData());
+                Display display = getActivity().getWindowManager().getDefaultDisplay();
+                Point size = new Point();
+                display.getSize(size);
+                int width = size.x;
+                int grid_columns = getResources().getInteger(R.integer.grid_columns);
+                updateItems(DataGenerator.generateRandomData(width / grid_columns, width / grid_columns * 2));
             }
         }, 2000);
     }

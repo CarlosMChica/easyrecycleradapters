@@ -1,9 +1,9 @@
 package com.carlosdelachica.easyrecycleradapters.fragment;
 
 import android.app.Fragment;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.ColorRes;
+import android.support.annotation.DrawableRes;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 import android.support.v7.widget.RecyclerView;
@@ -14,9 +14,8 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.carlosdelachica.easyrecycleradapters.R;
+import com.carlosdelachica.easyrecycleradapters.RecyclerStandalone;
 import com.carlosdelachica.easyrecycleradapters.adapter.CommonRecyclerAdapter;
-import com.carlosdelachica.easyrecycleradapters.decorations.DividerItemDecoration;
-import com.carlosdelachica.easyrecycleradapters.standalone.RecyclerStandalone;
 
 import java.util.List;
 
@@ -70,12 +69,16 @@ public abstract class BaseRecyclerFragment<T> extends Fragment implements Common
         }
     }
 
-    public void setDivider(Drawable divider) {
-        recyclerStandalone.setDivider(new DividerItemDecoration(getActivity(), divider));
+    public void setDivider(@DrawableRes int dividerDrawableRes) {
+        recyclerStandalone.setDivider(dividerDrawableRes);
     }
 
     public RecyclerView getRecyclerView() {
         return recyclerStandalone.getRecyclerView();
+    }
+
+    public void setRecyclerViewPadding(int left, int top, int right, int bottom) {
+        recyclerStandalone.setRecyclerViewPadding(left, top, right, bottom);
     }
 
     public T getItem(int position) {

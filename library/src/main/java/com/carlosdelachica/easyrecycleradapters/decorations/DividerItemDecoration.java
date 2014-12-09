@@ -6,6 +6,7 @@ import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.DimenRes;
+import android.support.annotation.DrawableRes;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
@@ -29,6 +30,10 @@ public class DividerItemDecoration extends RecyclerView.ItemDecoration {
         TypedArray a = context.obtainStyledAttributes(ATTRS);
         divider = a.getDrawable(0);
         a.recycle();
+    }
+
+    public void setDivider(@DrawableRes int dividerDrawableRes) {
+        divider = context.getDrawable(dividerDrawableRes);
     }
 
     public void setInsets(@DimenRes int insets) {
