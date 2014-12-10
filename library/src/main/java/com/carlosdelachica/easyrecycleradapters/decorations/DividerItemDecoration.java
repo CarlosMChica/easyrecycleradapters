@@ -58,7 +58,7 @@ public class DividerItemDecoration extends RecyclerView.ItemDecoration {
             if (currentChildBottom > parent.getPaddingTop() && currentChildBottom < parent.getBottom() - parent.getPaddingBottom()) {
                 left = currentChild.getLeft();
                 right = currentChild.getRight();
-                top = insets + currentChildBottom + insets;
+                top = currentChildBottom;
                 bottom = top + divider.getIntrinsicHeight();
                 divider.setBounds(left, top, right, bottom);
                 divider.draw(c);
@@ -75,9 +75,18 @@ public class DividerItemDecoration extends RecyclerView.ItemDecoration {
             currentChild = parent.getChildAt(i);
             int offset = 2;
             if (currentChild.getRight() < parent.getRight() - parent.getPaddingRight() - offset) {
+                //Avoid drawing over top padding
                 top = currentChild.getTop();
+                if (top < parent.getPaddingTop()) {
+                    top = parent.getPaddingTop();
+                }
                 bottom = currentChild.getBottom() + divider.getIntrinsicHeight();
-                left = currentChild.getRight() + insets;
+                //Avoid drawing over bottom padding
+                int parentBottom = parent.getBottom() - parent.getPaddingBottom();
+                if (bottom > parentBottom) {
+                    bottom = parentBottom;
+                }
+                left = currentChild.getRight();
                 right = left + divider.getIntrinsicWidth();
                 divider.setBounds(left, top, right, bottom);
                 divider.draw(c);
