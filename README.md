@@ -157,7 +157,7 @@ Use the same methods defined for BaseRecyclerFragment to interact with the data 
 Call for custom divider drawable
 
 ```java
-    public void setDivider(Drawable divider);
+    public void setDivider(@DrawableRes int dividerDrawableRes);
 ```
 
 ---
@@ -181,20 +181,29 @@ public class ImageBackgroundSelectorItem extends LinearLayout {
 }
 ```
 ---
-
 Call for empty text customisations
 
 ```java
     public void setEmptyListText(@StringRes int messageStringRes);
     public void setEmptyListTextColor(@ColorRes int colorRes);
 ```
-
 First attach empty TextView to standalone object
 
 ```java
-    recyclerStandalone.attachToEmptyList(emptyListTextView);
+    public void attachToEmptyList(emptyListTextView);
 ```
+---
+Call for custom recyclerView padding
 
+```java
+ public void setRecyclerViewPadding(int left, int top, int right, int bottom)
+```
+---
+Call for getting recyclerView object
 
+```java
+public RecyclerView getRecyclerView()
+```
+---
 
 
