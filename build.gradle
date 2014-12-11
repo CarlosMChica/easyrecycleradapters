@@ -5,7 +5,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:1.0.0-rc1'
+        classpath 'com.android.tools.build:gradle:1.0.0'
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
@@ -44,8 +44,8 @@ ext {
 }
 
 ext.libraries = [
-        recyclerview   : 'com.android.support:recyclerview-v7:21.0.2',
-        appcompat      : 'com.android.support:appcompat-v7:21.0.2',
+        recyclerview   : 'com.android.support:recyclerview-v7:21.0.3',
+        appcompat      : 'com.android.support:appcompat-v7:21.0.3',
         butterknife    : 'com.jakewharton:butterknife:5.0.0',
         picasso        : 'com.squareup.picasso:picasso:2.2.0',
         easyrecycleradapters : 'com.github.cmc00022:easyrecycleradapters:0.0.6'
