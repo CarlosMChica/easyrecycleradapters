@@ -19,8 +19,7 @@ import com.carlosdelachica.easyrecycleradapters.adapter.CommonRecyclerAdapter;
 
 import java.util.List;
 
-public abstract class BaseRecyclerFragment<T> extends Fragment implements CommonRecyclerAdapter.OnItemClickListener,
-        CommonRecyclerAdapter.OnItemLongClickListener, RecyclerStandalone.RecyclerStandaloneCallback {
+public abstract class BaseRecyclerFragment<T> extends Fragment implements RecyclerStandalone.RecyclerStandaloneCallback {
 
     private RecyclerStandalone<T> recyclerStandalone;
     private FrameLayout container;
