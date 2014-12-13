@@ -90,7 +90,7 @@ public abstract class CommonRecyclerAdapter<T> extends RecyclerView.Adapter<Comm
             @Override
             public void onClick(View v) {
                 if (onItemClickListener != null) {
-                    onItemClickListener.onItemClick(position, viewHolder.getView());
+                    onItemClickListener.onItemClick(position, v);
                 }
             }
         });
@@ -103,7 +103,7 @@ public abstract class CommonRecyclerAdapter<T> extends RecyclerView.Adapter<Comm
                 if (onItemLongClickListener == null) {
                     return false;
                 }
-                return onItemLongClickListener.onLongItemClicked(position, viewHolder.getView());
+                return onItemLongClickListener.onLongItemClicked(position, v);
             }
         });
     }
