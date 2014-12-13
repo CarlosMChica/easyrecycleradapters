@@ -77,7 +77,7 @@ public abstract class CommonRecyclerAdapter<T> extends RecyclerView.Adapter<Comm
     public void onBindViewHolder(ViewHolder viewHolder, final int position) {
         this.viewHolder = viewHolder;
         bindListeners(position);
-        bindViewHolder(viewHolder, getItem(position));
+        bindViewHolder(viewHolder, getItem(position), position);
     }
 
     private void bindListeners(final int position) {
@@ -156,6 +156,10 @@ public abstract class CommonRecyclerAdapter<T> extends RecyclerView.Adapter<Comm
         return dataList.get(position);
     }
 
+    public int getItemIndex(T item) {
+        return dataList.indexOf(item);
+    }
+
     public void clearItems() {
         dataList.clear();
         notifyDataSetChanged();
@@ -163,7 +167,7 @@ public abstract class CommonRecyclerAdapter<T> extends RecyclerView.Adapter<Comm
 
     protected abstract ViewHolder inflateViewHolder(ViewGroup viewGroup);
 
-    public abstract void bindViewHolder(ViewHolder viewHolder, T item);
+    public abstract void bindViewHolder(ViewHolder viewHolder, T item, int position);
 
     public interface AdapterCallback {
         public void bottomReached();

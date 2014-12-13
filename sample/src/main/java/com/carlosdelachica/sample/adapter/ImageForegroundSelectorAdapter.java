@@ -23,7 +23,7 @@ public class ImageForegroundSelectorAdapter extends CommonRecyclerAdapter<ImageD
     }
 
     @Override
-    public void bindViewHolder(ViewHolder viewHolder, ImageData item) {
+    public void bindViewHolder(ViewHolder viewHolder, ImageData item, int position) {
         ((ImageForegroundSelectorItem) viewHolder.getView()).bindTo(item);
     }
 
