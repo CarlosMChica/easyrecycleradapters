@@ -51,21 +51,28 @@ public abstract class BaseRecyclerFragment<T> extends Fragment implements Recycl
         recyclerStandalone.setCallback(this);
     }
 
-    public void setEmptyListText(@StringRes int messageStringRes) {
-        initEmptyListTextView();
-        recyclerStandalone.setEmptyListText(messageStringRes);
+    public void setLoadingText(@StringRes int messageStringRes) {
+        recyclerStandalone.setLoadingText(messageStringRes);
+    }
+
+    public void setLoadingTextColor(@ColorRes int colorRes) {
+        recyclerStandalone.setLoadingTextColor(colorRes);
     }
 
     public void setEmptyListTextColor(@ColorRes int colorRes) {
-        initEmptyListTextView();
         recyclerStandalone.setEmptyListTextColor(colorRes);
     }
 
-    private void initEmptyListTextView() {
+    public void setEmptyListText(@StringRes int messageStringRes) {
+        recyclerStandalone.setEmptyListText(messageStringRes);
+    }
+
+    public void setAuxTextViewEnabled(boolean enabled) {
         if (emptyListTextView == null) {
             emptyListTextView = (TextView) container.findViewById(R.id.empty_list);
-            recyclerStandalone.attachToEmptyList(emptyListTextView);
+            recyclerStandalone.attachToAuxTextView(emptyListTextView);
         }
+        recyclerStandalone.setAuxTextViewEnabled(enabled);
     }
 
     public void setDivider(@DrawableRes int dividerDrawableRes) {

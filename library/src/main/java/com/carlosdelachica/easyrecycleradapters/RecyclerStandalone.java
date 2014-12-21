@@ -19,12 +19,17 @@ public class RecyclerStandalone<T> implements CommonRecyclerAdapter.OnItemClickL
         CommonRecyclerAdapter.OnItemLongClickListener {
 
     private RecyclerView recyclerView;
-    private TextView emptyListTextView;
+    private TextView auxTextView;
     private CommonRecyclerAdapter<T> adapter;
     private RecyclerView.LayoutManager layoutManager;
     private Context context;
     private RecyclerStandaloneCallback callback;
     private DividerItemDecoration dividerItemDecoration;
+    private int loadingTextColor;
+    private String loadingText;
+    private String emplyListText;
+    private int emptyListTextColor;
+    private boolean auxTextViewEnabled;
 
     public void attachToRecyclerView(RecyclerView recyclerView, CommonRecyclerAdapter<T> adapter) {
         this.attachToRecyclerView(recyclerView, adapter, new LinearLayoutManager(recyclerView.getContext()));
@@ -85,20 +90,34 @@ public class RecyclerStandalone<T> implements CommonRecyclerAdapter.OnItemClickL
         dividerItemDecoration.setDivider(dividerDrawableRes);
     }
 
+    public void setLoadingTextColor(@ColorRes int colorRes) {
+        loadingTextColor = context.getResources().getColor(colorRes);
+    }
+
+    public void setLoadingText(@StringRes int messageStringRes) {
+        loadingText = context.getString(messageStringRes);
+    }
+
     public void setEmptyListTextColor(@ColorRes int colorRes) {
-        if (emptyListTextView != null) {
-            emptyListTextView.setTextColor(context.getResources().getColor(colorRes));
-        }
+        emptyListTextColor = context.getResources().getColor(colorRes);
     }
 
     public void setEmptyListText(@StringRes int messageStringRes) {
-        if (emptyListTextView != null) {
-            emptyListTextView.setText(messageStringRes);
-        }
+        emplyListText = context.getString(messageStringRes);
     }
 
-    public void attachToEmptyList(TextView emptyListTextView) {
-        this.emptyListTextView = emptyListTextView;
+    public void attachToAuxTextView(TextView auxTextView) {
+        this.auxTextView = auxTextView;
+    }
+
+    public void setAuxTextViewEnabled(boolean enabled) {
+        auxTextViewEnabled = enabled;
+        if (!enabled) return;
+        initAuxTextView();
+    }
+
+    private void initAuxTextView() {
+        updateAuxTextView(AuxTextViewStates.LOADING);
     }
 
     public void setCallback(RecyclerStandaloneCallback callback) {
@@ -118,30 +137,63 @@ public class RecyclerStandalone<T> implements CommonRecyclerAdapter.OnItemClickL
     }
 
     public void updateItems(List<T> data) {
-        setEmptyListVisible(false);
         adapter.updateItems(data);
+        updateAuxTextView(data.size() > 0 ? AuxTextViewStates.HIDEN : AuxTextViewStates.EMPTY);
     }
 
     public void addItem(T data) {
         adapter.add(data);
+        updateAuxTextView(AuxTextViewStates.HIDEN);
     }
 
     public void removeItem (T data) {
         adapter.remove(data);
+        updateAuxTextView(adapter.getItemCount() > 0 ? AuxTextViewStates.HIDEN : AuxTextViewStates.EMPTY);
     }
 
     public void removeItem (int position) {
         adapter.remove(position);
+        updateAuxTextView(adapter.getItemCount() > 0 ? AuxTextViewStates.HIDEN : AuxTextViewStates.EMPTY);
     }
 
     public void onRefresh() {
-        setEmptyListVisible(true);
         adapter.clearItems();
+        updateAuxTextView(AuxTextViewStates.LOADING);
     }
 
-    private void setEmptyListVisible(boolean visible) {
-        if (emptyListTextView != null) {
-            emptyListTextView.setVisibility(visible ? View.VISIBLE : View.GONE);
+    private void updateAuxTextView(AuxTextViewStates loading) {
+        switch (loading) {
+            case HIDEN:
+                setAuxTextViewVisible(false);
+                break;
+            case EMPTY:
+                setAuxTextViewVisible(true);
+                setAuxTextViewText(emplyListText);
+                setAuxTextViewTextColor(emptyListTextColor);
+                break;
+            case LOADING:
+                setAuxTextViewVisible(true);
+                setAuxTextViewText(loadingText);
+                setAuxTextViewTextColor(loadingTextColor);
+                break;
+        }
+    }
+
+    private void setAuxTextViewText(String text) {
+        if (auxTextView != null) {
+            auxTextView.setText(text);
+        }
+    }
+
+    private void setAuxTextViewTextColor(int color) {
+        if (auxTextView != null) {
+            auxTextView.setTextColor(color);
+        }
+    }
+
+    private void setAuxTextViewVisible(boolean visible) {
+        if (auxTextView != null) {
+            auxTextView.setVisibility(visible ? View.VISIBLE : View.GONE);
         }
     }
 

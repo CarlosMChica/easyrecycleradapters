@@ -54,9 +54,10 @@ public class StandaloneFragment extends Fragment implements RecyclerStandalone.R
     }
 
     private void initEmptyList() {
-        standalone.attachToEmptyList(emptyList);
-        standalone.setEmptyListText(R.string.loading);
-        standalone.setEmptyListTextColor(R.color.accentColor);
+        standalone.attachToAuxTextView(emptyList);
+        standalone.setLoadingText(R.string.loading);
+        standalone.setLoadingTextColor(R.color.accentColor);
+        standalone.setAuxTextViewEnabled(true);
     }
 
     private void initData() {
