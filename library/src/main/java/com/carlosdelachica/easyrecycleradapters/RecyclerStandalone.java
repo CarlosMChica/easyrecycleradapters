@@ -29,7 +29,6 @@ public class RecyclerStandalone<T> implements CommonRecyclerAdapter.OnItemClickL
     private String loadingText;
     private String emplyListText;
     private int emptyListTextColor;
-    private boolean auxTextViewEnabled;
 
     public void attachToRecyclerView(RecyclerView recyclerView, CommonRecyclerAdapter<T> adapter) {
         this.attachToRecyclerView(recyclerView, adapter, new LinearLayoutManager(recyclerView.getContext()));
@@ -40,6 +39,8 @@ public class RecyclerStandalone<T> implements CommonRecyclerAdapter.OnItemClickL
         this.adapter = adapter;
         this.layoutManager = layoutManager;
         this.context = recyclerView.getContext();
+        emptyListTextColor = context.getResources().getColor(R.color.empty_list_text_color);
+        loadingTextColor = context.getResources().getColor(R.color.empty_list_text_color);
         initRecyclerView();
     }
 
@@ -111,7 +112,6 @@ public class RecyclerStandalone<T> implements CommonRecyclerAdapter.OnItemClickL
     }
 
     public void setAuxTextViewEnabled(boolean enabled) {
-        auxTextViewEnabled = enabled;
         if (!enabled) return;
         initAuxTextView();
     }
@@ -139,6 +139,11 @@ public class RecyclerStandalone<T> implements CommonRecyclerAdapter.OnItemClickL
     public void updateItems(List<T> data) {
         adapter.updateItems(data);
         updateAuxTextView(data.size() > 0 ? AuxTextViewStates.HIDEN : AuxTextViewStates.EMPTY);
+    }
+
+    public void addItem(T data, int position) {
+        adapter.add(data, position);
+        updateAuxTextView(AuxTextViewStates.HIDEN);
     }
 
     public void addItem(T data) {
@@ -180,36 +185,30 @@ public class RecyclerStandalone<T> implements CommonRecyclerAdapter.OnItemClickL
     }
 
     private void setAuxTextViewText(String text) {
-        if (auxTextView != null) {
-            auxTextView.setText(text);
-        }
+        if (auxTextView == null) return;
+        auxTextView.setText(text);
     }
 
     private void setAuxTextViewTextColor(int color) {
-        if (auxTextView != null) {
-            auxTextView.setTextColor(color);
-        }
+        if (auxTextView == null) return;
+        auxTextView.setTextColor(color);
     }
 
     private void setAuxTextViewVisible(boolean visible) {
-        if (auxTextView != null) {
-            auxTextView.setVisibility(visible ? View.VISIBLE : View.GONE);
-        }
+        if (auxTextView == null) return;
+        auxTextView.setVisibility(visible ? View.VISIBLE : View.GONE);
     }
 
     @Override
     public void onItemClick(int position, View view) {
-        if (callback != null) {
-            callback.onItemClick(position, view);
-        }
+        if (callback == null) return;
+        callback.onItemClick(position, view);
     }
 
     @Override
     public boolean onLongItemClicked(int position, View view) {
-        if (callback != null) {
-            return callback.onLongItemClicked(position, view);
-        }
-        return false;
+        if (callback == null) return false;
+        return callback.onLongItemClicked(position, view);
     }
 
     public interface RecyclerStandaloneCallback {

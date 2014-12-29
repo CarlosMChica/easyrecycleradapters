@@ -29,8 +29,8 @@ allprojects {
 
 ext {
     versionMajor = 0
-    versionMinor = 0
-    versionPatch = 6
+    versionMinor = 1
+    versionPatch = 0
 
     versionCode = versionMajor * 1000 + versionMinor * 100 + versionPatch
     versionName = versionMajor + "." + versionMinor + "." + versionPatch
@@ -48,6 +48,6 @@ ext.libraries = [
         appcompat      : 'com.android.support:appcompat-v7:21.0.3',
         butterknife    : 'com.jakewharton:butterknife:5.0.0',
         picasso        : 'com.squareup.picasso:picasso:2.2.0',
-        easyrecycleradapters : 'com.github.cmc00022:easyrecycleradapters:0.0.7'
+        easyrecycleradapters : 'com.github.cmc00022:easyrecycleradapters:0.0.9'
 
 ]

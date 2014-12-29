@@ -95,6 +95,10 @@ public abstract class BaseRecyclerFragment<T> extends Fragment implements Recycl
         recyclerStandalone.updateItems(data);
     }
 
+    public void addItem(T data, int position) {
+        recyclerStandalone.addItem(data, position);
+    }
+
     public void addItem(T data) {
         recyclerStandalone.addItem(data);
     }

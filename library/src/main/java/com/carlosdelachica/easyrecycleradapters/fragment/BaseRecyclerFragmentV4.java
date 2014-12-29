@@ -95,6 +95,10 @@ public abstract class BaseRecyclerFragmentV4<T> extends Fragment implements Recy
         recyclerStandalone.updateItems(data);
     }
 
+    public void addItem(T data, int position) {
+        recyclerStandalone.addItem(data, position);
+    }
+
     public void addItem(T data) {
         recyclerStandalone.addItem(data);
     }

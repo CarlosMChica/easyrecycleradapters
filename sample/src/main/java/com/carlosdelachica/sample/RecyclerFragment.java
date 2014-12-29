@@ -37,6 +37,7 @@ public class RecyclerFragment extends BaseRecyclerFragmentV4<ImageData> {
 
     private void initEmptyList() {
         setLoadingText(R.string.loading);
+        setEmptyListText(R.string.empty_list);
         setLoadingTextColor(R.color.accent_material_dark);
         setAuxTextViewEnabled(true);
     }
