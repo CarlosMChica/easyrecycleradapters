@@ -153,6 +153,7 @@ public abstract class CommonRecyclerAdapter<T> extends RecyclerView.Adapter<Comm
                 bottomReachedCallback.bottomReached();
             }
         }
+        if (position < 0 || position >= dataList.size()) return null;
         return dataList.get(position);
     }
 
