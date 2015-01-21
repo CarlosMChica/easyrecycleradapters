@@ -7,29 +7,11 @@ It also offers out of the box a DividerItemDecoration that handles the drawing o
 
 ---
 
-### What's New
-
-###### Version 0.0.6
-
-> 1. Improves divider implementation
-> 2. Adds more misc methods
-
-###### Version 0.0.5
-
-> 1. Solve bug
-
-###### Version 0.0.4
-
-> 1. Adds support for native fragments.
-> 2. Adds support for empty list text.
-
----
-
 ### Gradle Dependency
 
 ```Groovy
 dependencies {
-    compile 'com.github.cmc00022:easyrecycleradapters:0.0.6'
+    compile 'com.github.cmc00022:easyrecycleradapters:0.1.2'
 }
 ```
 
