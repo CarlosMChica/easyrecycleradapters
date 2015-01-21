@@ -1,5 +1,7 @@
 # EasyRecyclerAdapters
 
+[![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-EasyRecyclerAdapters-brightgreen.svg?style=flat)](https://android-arsenal.com/details/1/1417)
+
 The code brings up an easy way of using recyclerView, with the new recycler adapters. It also contains a BaseRecyclerFragment and a RecyclerStandalone that removes a lot of boiler plate for fragments that contains either grids or lists.
 It also offers out of the box a DividerItemDecoration that handles the drawing of the divider in the recycler view. As well selectors for the items in your lists are handled.
 
