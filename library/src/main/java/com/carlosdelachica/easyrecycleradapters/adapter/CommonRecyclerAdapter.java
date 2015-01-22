@@ -49,10 +49,14 @@ public abstract class CommonRecyclerAdapter<T> extends RecyclerView.Adapter<Comm
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int position) {
-        ViewHolder viewHolder = inflateViewHolder(viewGroup);
+        int viewType = getItemViewType(position);
+
+        ViewHolder viewHolder = inflateViewHolder(viewGroup, viewType);
         applySelector(viewHolder.getView());
+
         return viewHolder;
     }
+
 
     private void applySelector(View view) {
         Drawable selectorDrawable = generateSelectorDrawable();
@@ -178,9 +182,11 @@ public abstract class CommonRecyclerAdapter<T> extends RecyclerView.Adapter<Comm
         notifyDataSetChanged();
     }
 
-    protected abstract ViewHolder inflateViewHolder(ViewGroup viewGroup);
+    protected abstract ViewHolder inflateViewHolder(ViewGroup viewGroup, int viewType);
 
     public abstract void bindViewHolder(ViewHolder viewHolder, T item, int position);
+
+    public abstract int getItemViewType (int position);
 
     public interface AdapterCallback {
         public void bottomReached();
