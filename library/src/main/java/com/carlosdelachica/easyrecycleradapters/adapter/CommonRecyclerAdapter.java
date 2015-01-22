@@ -49,14 +49,10 @@ public abstract class CommonRecyclerAdapter<T> extends RecyclerView.Adapter<Comm
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int position) {
-        int viewType = getItemViewType(position);
-
-        ViewHolder viewHolder = inflateViewHolder(viewGroup, viewType);
+        ViewHolder viewHolder = inflateViewHolder(viewGroup, getItemViewType(position));
         applySelector(viewHolder.getView());
-
         return viewHolder;
     }
-
 
     private void applySelector(View view) {
         Drawable selectorDrawable = generateSelectorDrawable();
