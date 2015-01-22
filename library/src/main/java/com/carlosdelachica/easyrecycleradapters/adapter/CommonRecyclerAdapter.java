@@ -100,9 +100,7 @@ public abstract class CommonRecyclerAdapter<T> extends RecyclerView.Adapter<Comm
         viewHolder.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                if (onItemLongClickListener == null) {
-                    return false;
-                }
+                if (onItemLongClickListener == null) return false;
                 return onItemLongClickListener.onLongItemClicked(position, v);
             }
         });

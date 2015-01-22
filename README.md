@@ -11,7 +11,7 @@ It also offers out of the box a DividerItemDecoration that handles the drawing o
 
 ```Groovy
 dependencies {
-    compile 'com.github.cmc00022:easyrecycleradapters:0.1.2'
+    compile 'com.github.cmc00022:easyrecycleradapters:0.1.4'
 }
 ```
 
