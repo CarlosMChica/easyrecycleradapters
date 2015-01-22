@@ -118,6 +118,18 @@ public abstract class CommonRecyclerAdapter<T> extends RecyclerView.Adapter<Comm
         return dataList.size();
     }
 
+    public boolean updateItem(T data) {
+        int indexOfData = dataList.indexOf(data);
+        if (indexOfData == -1) return false;
+        return updateItem(data, indexOfData);
+    }
+
+    public boolean updateItem(T data, int position) {
+        T oldData = dataList.set(position, data);
+        notifyItemChanged(position);
+        return oldData != null;
+    }
+
     public void updateItems(List<T> dataList) {
         this.dataList.clear();
         this.dataList.addAll(dataList);
