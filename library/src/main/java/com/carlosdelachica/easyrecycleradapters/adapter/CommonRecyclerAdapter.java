@@ -180,8 +180,6 @@ public abstract class CommonRecyclerAdapter<T> extends RecyclerView.Adapter<Comm
 
     public abstract void bindViewHolder(ViewHolder viewHolder, T item, int position);
 
-    public abstract int getItemViewType (int position);
-
     public interface AdapterCallback {
         public void bottomReached();
     }
