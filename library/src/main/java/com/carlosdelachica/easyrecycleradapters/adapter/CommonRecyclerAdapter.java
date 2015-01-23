@@ -76,39 +76,21 @@ public abstract class CommonRecyclerAdapter<T> extends RecyclerView.Adapter<Comm
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, final int position) {
         this.viewHolder = viewHolder;
-        bindListeners(position);
+        bindListeners();
         bindViewHolder(viewHolder, getItem(position), position);
     }
 
-    private void bindListeners(final int position) {
-        bindOnLickListener(position);
-        bindOnLongClickListener(position);
+    private void bindListeners() {
+        bindOnLickListener();
+        bindOnLongClickListener();
     }
 
-    private void bindOnLickListener(final int position) {
-        viewHolder.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (onItemClickListener != null) {
-                    onItemClickListener.onItemClick(position, v);
-                }
-            }
-        });
+    private void bindOnLickListener() {
+        viewHolder.setOnClickListener(onItemClickListener);
     }
 
-    private void bindOnLongClickListener(final int position) {
-        viewHolder.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                if (onItemLongClickListener == null) return false;
-                return onItemLongClickListener.onLongItemClicked(position, v);
-            }
-        });
-    }
-
-    @Override
-    public long getItemId(int position) {
-        return 0;
+    private void bindOnLongClickListener() {
+        viewHolder.setOnLongClickListener(onItemLongClickListener);
     }
 
     @Override
@@ -192,27 +174,46 @@ public abstract class CommonRecyclerAdapter<T> extends RecyclerView.Adapter<Comm
         boolean onLongItemClicked(final int position, View view);
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener,
+            View.OnLongClickListener {
 
         private View view;
+        private OnItemClickListener itemClickListener;
+        private OnItemLongClickListener longClickListener;
 
         public ViewHolder(View view) {
             super(view);
             this.view = view;
         }
 
-        public void setOnClickListener(View.OnClickListener listener) {
-            view.setOnClickListener(listener);
+        public void setOnClickListener(OnItemClickListener listener) {
+            this.itemClickListener = listener;
+            view.setOnClickListener(this);
         }
 
-        public void setOnLongClickListener(View.OnLongClickListener listener) {
-            view.setOnLongClickListener(listener);
+        public void setOnLongClickListener(OnItemLongClickListener listener) {
+            this.longClickListener = listener;
+            view.setOnLongClickListener(this);
         }
 
         public View getView() {
             return view;
         }
 
+        @Override
+        public void onClick(View v) {
+            if (itemClickListener != null) {
+                itemClickListener.onItemClick(getPosition(), v);
+            }
+        }
+
+        @Override
+        public boolean onLongClick(View v) {
+            if (longClickListener != null) {
+                return longClickListener.onLongItemClicked(getPosition(), v);
+            }
+            return false;
+        }
     }
 
 }
