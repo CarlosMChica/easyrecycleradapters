@@ -18,7 +18,7 @@ public class ImageForegroundSelectorAdapter extends CommonRecyclerAdapter<ImageD
     }
 
     @Override
-    protected ViewHolder inflateViewHolder(ViewGroup viewGroup) {
+    protected ViewHolder inflateViewHolder(ViewGroup viewGroup, int viewType) {
         return new ViewHolder(new ImageForegroundSelectorItem(context));
     }
 

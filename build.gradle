@@ -28,12 +28,8 @@ allprojects {
 }
 
 ext {
-    versionMajor = 0
-    versionMinor = 1
-    versionPatch = 0
-
-    versionCode = versionMajor * 1000 + versionMinor * 100 + versionPatch
-    versionName = versionMajor + "." + versionMinor + "." + versionPatch
+    versionCode = VERSION_CODE.toInteger()
+    versionName = VERSION_NAME
 
     minSdkVersion = 13
     targetSdkVersion = 21

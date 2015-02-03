@@ -11,7 +11,7 @@ android {
         defaultConfig {
             minSdkVersion parent.ext.minSdkVersion
             targetSdkVersion parent.ext.targetSdkVersion
-            versionCode = parent.ext.versionCode;
+            versionCode = parent.ext.versionCode
             versionName = parent.ext.versionName
         }
     }
