@@ -132,33 +132,45 @@ public class RecyclerStandalone<T> implements CommonRecyclerAdapter.OnItemClickL
         recyclerView.setPadding(left, top, right, bottom);
     }
 
-    public T getItem(int position) {
-        return adapter.getItem(position);
+    public boolean update(T data) {
+        return adapter.update(data);
     }
 
-    public void updateItems(List<T> data) {
-        adapter.updateItems(data);
+    public boolean update(T data, int position) {
+        return adapter.update(data, position);
+    }
+
+    public void add(List<T> data) {
+        adapter.add(data);
         updateAuxTextView(data.size() > 0 ? AuxTextViewStates.HIDEN : AuxTextViewStates.EMPTY);
     }
 
-    public void addItem(T data, int position) {
+    public void add(T data, int position) {
         adapter.add(data, position);
         updateAuxTextView(AuxTextViewStates.HIDEN);
     }
 
-    public void addItem(T data) {
+    public void add(T data) {
         adapter.add(data);
         updateAuxTextView(AuxTextViewStates.HIDEN);
     }
 
-    public void removeItem (T data) {
+    public void remove(T data) {
         adapter.remove(data);
         updateAuxTextView(adapter.getItemCount() > 0 ? AuxTextViewStates.HIDEN : AuxTextViewStates.EMPTY);
     }
 
-    public void removeItem (int position) {
+    public void remove(int position) {
         adapter.remove(position);
         updateAuxTextView(adapter.getItemCount() > 0 ? AuxTextViewStates.HIDEN : AuxTextViewStates.EMPTY);
+    }
+
+    public T getItem(int position) {
+        return adapter.getItem(position);
+    }
+
+    public int getItemIndex(T item) {
+        return adapter.getItemIndex(item);
     }
 
     public void onRefresh() {
@@ -205,6 +217,7 @@ public class RecyclerStandalone<T> implements CommonRecyclerAdapter.OnItemClickL
         callback.onItemClick(position, view);
     }
 
+    @SuppressWarnings("SimplifiableIfStatement")
     @Override
     public boolean onLongItemClicked(int position, View view) {
         if (callback == null) return false;

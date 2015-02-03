@@ -19,6 +19,7 @@ import com.carlosdelachica.easyrecycleradapters.adapter.CommonRecyclerAdapter;
 
 import java.util.List;
 
+@SuppressWarnings("UnusedDeclaration")
 public abstract class BaseRecyclerFragment<T> extends Fragment implements RecyclerStandalone.RecyclerStandaloneCallback {
 
     private RecyclerStandalone<T> recyclerStandalone;
@@ -87,28 +88,40 @@ public abstract class BaseRecyclerFragment<T> extends Fragment implements Recycl
         recyclerStandalone.setRecyclerViewPadding(left, top, right, bottom);
     }
 
+    public boolean update(T data) {
+        return recyclerStandalone.update(data);
+    }
+
+    public boolean update(T data, int position) {
+        return recyclerStandalone.update(data, position);
+    }
+
+    public void add(List<T> data) {
+        recyclerStandalone.add(data);
+    }
+
+    public void add(T data, int position) {
+        recyclerStandalone.add(data, position);
+    }
+
+    public void add(T data) {
+        recyclerStandalone.add(data);
+    }
+
+    public void remove(T data) {
+        recyclerStandalone.remove(data);
+    }
+
+    public void remove(int position) {
+        recyclerStandalone.remove(position);
+    }
+
     public T getItem(int position) {
         return recyclerStandalone.getItem(position);
     }
 
-    public void updateItems(List<T> data) {
-        recyclerStandalone.updateItems(data);
-    }
-
-    public void addItem(T data, int position) {
-        recyclerStandalone.addItem(data, position);
-    }
-
-    public void addItem(T data) {
-        recyclerStandalone.addItem(data);
-    }
-
-    public void removeItem (T data) {
-        recyclerStandalone.removeItem(data);
-    }
-
-    public void removeItem (int position) {
-        recyclerStandalone.removeItem(position);
+    public int getItemIndex(T item) {
+        return recyclerStandalone.getItemIndex(item);
     }
 
     public void onRefresh() {

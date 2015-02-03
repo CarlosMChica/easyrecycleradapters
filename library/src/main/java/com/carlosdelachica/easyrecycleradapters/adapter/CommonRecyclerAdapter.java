@@ -16,6 +16,7 @@ import com.carlosdelachica.easyrecycleradapters.ViewUtils;
 import java.util.ArrayList;
 import java.util.List;
 
+@SuppressWarnings("UnusedDeclaration")
 public abstract class CommonRecyclerAdapter<T> extends RecyclerView.Adapter<CommonRecyclerAdapter.ViewHolder> {
 
     protected Context context;
@@ -98,19 +99,20 @@ public abstract class CommonRecyclerAdapter<T> extends RecyclerView.Adapter<Comm
         return dataList.size();
     }
 
-    public boolean updateItem(T data) {
+    @SuppressWarnings("SimplifiableIfStatement")
+    public boolean update(T data) {
         int indexOfData = dataList.indexOf(data);
         if (indexOfData == -1) return false;
-        return updateItem(data, indexOfData);
+        return update(data, indexOfData);
     }
 
-    public boolean updateItem(T data, int position) {
+    public boolean update(T data, int position) {
         T oldData = dataList.set(position, data);
         notifyItemChanged(position);
         return oldData != null;
     }
 
-    public void updateItems(List<T> dataList) {
+    public void add(List<T> dataList) {
         this.dataList.clear();
         this.dataList.addAll(dataList);
         notifyDataSetChanged();
@@ -202,18 +204,17 @@ public abstract class CommonRecyclerAdapter<T> extends RecyclerView.Adapter<Comm
 
         @Override
         public void onClick(View v) {
-            if (itemClickListener != null) {
-                itemClickListener.onItemClick(getPosition(), v);
-            }
+            if (itemClickListener == null) return;
+            itemClickListener.onItemClick(getPosition(), v);
         }
 
+        @SuppressWarnings("SimplifiableIfStatement")
         @Override
         public boolean onLongClick(View v) {
-            if (longClickListener != null) {
-                return longClickListener.onLongItemClicked(getPosition(), v);
-            }
-            return false;
+            if (longClickListener == null) return false;
+            return longClickListener.onLongItemClicked(getPosition(), v);
         }
+
     }
 
 }

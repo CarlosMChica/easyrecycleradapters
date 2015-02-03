@@ -69,7 +69,7 @@ public class StandaloneFragment extends Fragment implements RecyclerStandalone.R
                 Point size = new Point();
                 display.getSize(size);
                 int width = size.x;
-                standalone.updateItems(DataGenerator.generateRandomData(width, width / 2));
+                standalone.add(DataGenerator.generateRandomData(width, width / 2));
             }
         }, 2000);
     }

@@ -52,7 +52,7 @@ public class RecyclerFragment extends BaseRecyclerFragmentV4<ImageData> {
                 display.getSize(size);
                 int width = size.x;
                 int grid_columns = getResources().getInteger(R.integer.grid_columns);
-                updateItems(DataGenerator.generateRandomData(width / grid_columns, width / grid_columns * 2));
+                add(DataGenerator.generateRandomData(width / grid_columns, width / grid_columns * 2));
             }
         }, 2000);
     }
