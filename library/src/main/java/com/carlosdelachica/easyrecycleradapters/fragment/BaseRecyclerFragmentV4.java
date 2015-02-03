@@ -13,23 +13,24 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
+import com.carlosdelachica.easyrecycleradapters.CommonRecyclerAdapter;
+import com.carlosdelachica.easyrecycleradapters.CommonViewHolder;
 import com.carlosdelachica.easyrecycleradapters.R;
-import com.carlosdelachica.easyrecycleradapters.RecyclerStandalone;
-import com.carlosdelachica.easyrecycleradapters.adapter.CommonRecyclerAdapter;
+import com.carlosdelachica.easyrecycleradapters.RecyclerViewManager;
 
 import java.util.List;
 
 @SuppressWarnings("UnusedDeclaration")
-public abstract class BaseRecyclerFragmentV4<T> extends Fragment implements RecyclerStandalone.RecyclerStandaloneCallback {
+public abstract class BaseRecyclerFragmentV4<V, VH extends CommonViewHolder<V>> extends Fragment implements RecyclerViewManager.RecyclerViewManagerCallback {
 
-    private RecyclerStandalone<T> recyclerStandalone;
+    private RecyclerViewManager<V, VH> recyclerViewManager;
     private FrameLayout container;
     private TextView emptyListTextView;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        recyclerStandalone = new RecyclerStandalone<>();
+        recyclerViewManager = new RecyclerViewManager<>();
     }
 
     @Override
@@ -45,87 +46,87 @@ public abstract class BaseRecyclerFragmentV4<T> extends Fragment implements Recy
     }
 
     private void initStandalone(View view) {
-        recyclerStandalone.attachToRecyclerView(
+        recyclerViewManager.attachToRecyclerView(
                 ((RecyclerView) view.findViewById(R.id.recyclerView)),
                 createAdapter(),
                 createLayoutManager());
-        recyclerStandalone.setCallback(this);
+        recyclerViewManager.setCallback(this);
     }
 
     public void setLoadingText(@StringRes int messageStringRes) {
-        recyclerStandalone.setLoadingText(messageStringRes);
+        recyclerViewManager.setLoadingText(messageStringRes);
     }
 
     public void setLoadingTextColor(@ColorRes int colorRes) {
-        recyclerStandalone.setLoadingTextColor(colorRes);
+        recyclerViewManager.setLoadingTextColor(colorRes);
     }
 
     public void setEmptyListTextColor(@ColorRes int colorRes) {
-        recyclerStandalone.setEmptyListTextColor(colorRes);
+        recyclerViewManager.setEmptyListTextColor(colorRes);
     }
 
     public void setEmptyListText(@StringRes int messageStringRes) {
-        recyclerStandalone.setEmptyListText(messageStringRes);
+        recyclerViewManager.setEmptyListText(messageStringRes);
     }
 
     public void setAuxTextViewEnabled(boolean enabled) {
         if (emptyListTextView == null) {
             emptyListTextView = (TextView) container.findViewById(R.id.empty_list);
-            recyclerStandalone.attachToAuxTextView(emptyListTextView);
-            recyclerStandalone.setAuxTextViewEnabled(enabled);
+            recyclerViewManager.attachToAuxTextView(emptyListTextView);
+            recyclerViewManager.setAuxTextViewEnabled(enabled);
         }
     }
 
     public void setDivider(@DrawableRes int dividerDrawableRes) {
-        recyclerStandalone.setDivider(dividerDrawableRes);
+        recyclerViewManager.setDivider(dividerDrawableRes);
     }
 
     public RecyclerView getRecyclerView() {
-        return recyclerStandalone.getRecyclerView();
+        return recyclerViewManager.getRecyclerView();
     }
 
     public void setRecyclerViewPadding(int left, int top, int right, int bottom) {
-        recyclerStandalone.setRecyclerViewPadding(left, top, right, bottom);
+        recyclerViewManager.setRecyclerViewPadding(left, top, right, bottom);
     }
 
-    public boolean update(T data) {
-        return recyclerStandalone.update(data);
+    public boolean update(V data) {
+        return recyclerViewManager.update(data);
     }
 
-    public boolean update(T data, int position) {
-        return recyclerStandalone.update(data, position);
+    public boolean update(V data, int position) {
+        return recyclerViewManager.update(data, position);
     }
 
-    public void add(List<T> data) {
-        recyclerStandalone.add(data);
+    public void add(List<V> data) {
+        recyclerViewManager.add(data);
     }
 
-    public void add(T data, int position) {
-        recyclerStandalone.add(data, position);
+    public void add(V data, int position) {
+        recyclerViewManager.add(data, position);
     }
 
-    public void add(T data) {
-        recyclerStandalone.add(data);
+    public void add(V data) {
+        recyclerViewManager.add(data);
     }
 
-    public void remove(T data) {
-        recyclerStandalone.remove(data);
+    public void remove(V data) {
+        recyclerViewManager.remove(data);
     }
 
     public void remove(int position) {
-        recyclerStandalone.remove(position);
+        recyclerViewManager.remove(position);
     }
 
-    public T getItem(int position) {
-        return recyclerStandalone.getItem(position);
+    public V getItem(int position) {
+        return recyclerViewManager.getItem(position);
     }
 
-    public int getItemIndex(T item) {
-        return recyclerStandalone.getItemIndex(item);
+    public int getItemIndex(V item) {
+        return recyclerViewManager.getItemIndex(item);
     }
 
     public void onRefresh() {
-        recyclerStandalone.onRefresh();
+        recyclerViewManager.onRefresh();
     }
 
     @Override
@@ -139,7 +140,7 @@ public abstract class BaseRecyclerFragmentV4<T> extends Fragment implements Recy
         return false;
     }
 
-    protected abstract CommonRecyclerAdapter<T> createAdapter();
+    protected abstract CommonRecyclerAdapter<V, VH> createAdapter();
 
     protected abstract RecyclerView.LayoutManager createLayoutManager();
 

@@ -54,7 +54,7 @@ public class MainActivity extends ActionBarActivity{
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.standalone:
-                navigateToFragment(new StandaloneFragment());
+                navigateToFragment(new ViewManagerFragment());
                 return true;
             case R.id.baseRecyclerFragment:
                 navigateToFragment(new RecyclerFragment());

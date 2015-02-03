@@ -10,14 +10,15 @@ import android.view.Display;
 import android.view.View;
 import android.widget.Toast;
 
-import com.carlosdelachica.easyrecycleradapters.adapter.CommonRecyclerAdapter;
+import com.carlosdelachica.easyrecycleradapters.CommonRecyclerAdapter;
 import com.carlosdelachica.easyrecycleradapters.fragment.BaseRecyclerFragmentV4;
 import com.carlosdelachica.easyrecycleradapters.sample.R;
 import com.carlosdelachica.sample.adapter.ImageData;
 import com.carlosdelachica.sample.adapter.ImageForegroundSelectorAdapter;
+import com.carlosdelachica.sample.adapter.ImageForegroundSelectorViewHolder;
 import com.carlosdelachica.sample.data.DataGenerator;
 
-public class RecyclerFragment extends BaseRecyclerFragmentV4<ImageData> {
+public class RecyclerFragment extends BaseRecyclerFragmentV4<ImageData, ImageForegroundSelectorViewHolder> {
 
     private Handler handler;
 
@@ -58,7 +59,7 @@ public class RecyclerFragment extends BaseRecyclerFragmentV4<ImageData> {
     }
 
     @Override
-    protected CommonRecyclerAdapter<ImageData> createAdapter() {
+    protected CommonRecyclerAdapter<ImageData, ImageForegroundSelectorViewHolder> createAdapter() {
         return new ImageForegroundSelectorAdapter(getActivity());
     }
 

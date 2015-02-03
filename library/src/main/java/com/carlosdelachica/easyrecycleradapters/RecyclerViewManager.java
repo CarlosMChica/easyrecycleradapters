@@ -10,31 +10,30 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
-import com.carlosdelachica.easyrecycleradapters.adapter.CommonRecyclerAdapter;
 import com.carlosdelachica.easyrecycleradapters.decorations.DividerItemDecoration;
 
 import java.util.List;
 
-public class RecyclerStandalone<T> implements CommonRecyclerAdapter.OnItemClickListener,
-        CommonRecyclerAdapter.OnItemLongClickListener {
+public class RecyclerViewManager<V, VH extends CommonViewHolder<V>> implements CommonViewHolder.OnItemClickListener,
+        CommonViewHolder.OnItemLongClickListener {
 
     private RecyclerView recyclerView;
     private TextView auxTextView;
-    private CommonRecyclerAdapter<T> adapter;
+    private CommonRecyclerAdapter<V, VH> adapter;
     private RecyclerView.LayoutManager layoutManager;
     private Context context;
-    private RecyclerStandaloneCallback callback;
+    private RecyclerViewManagerCallback callback;
     private DividerItemDecoration dividerItemDecoration;
     private int loadingTextColor;
     private String loadingText;
-    private String emplyListText;
+    private String emptyListText;
     private int emptyListTextColor;
 
-    public void attachToRecyclerView(RecyclerView recyclerView, CommonRecyclerAdapter<T> adapter) {
+    public void attachToRecyclerView(RecyclerView recyclerView, CommonRecyclerAdapter<V, VH> adapter) {
         this.attachToRecyclerView(recyclerView, adapter, new LinearLayoutManager(recyclerView.getContext()));
     }
 
-    public void attachToRecyclerView(RecyclerView recyclerView, CommonRecyclerAdapter<T> adapter, RecyclerView.LayoutManager layoutManager) {
+    public void attachToRecyclerView(RecyclerView recyclerView, CommonRecyclerAdapter<V, VH> adapter, RecyclerView.LayoutManager layoutManager) {
         this.recyclerView = recyclerView;
         this.adapter = adapter;
         this.layoutManager = layoutManager;
@@ -104,7 +103,7 @@ public class RecyclerStandalone<T> implements CommonRecyclerAdapter.OnItemClickL
     }
 
     public void setEmptyListText(@StringRes int messageStringRes) {
-        emplyListText = context.getString(messageStringRes);
+        emptyListText = context.getString(messageStringRes);
     }
 
     public void attachToAuxTextView(TextView auxTextView) {
@@ -117,10 +116,10 @@ public class RecyclerStandalone<T> implements CommonRecyclerAdapter.OnItemClickL
     }
 
     private void initAuxTextView() {
-        updateAuxTextView(AuxTextViewStates.LOADING);
+        updateAuxTextView(AuxTextViewState.LOADING);
     }
 
-    public void setCallback(RecyclerStandaloneCallback callback) {
+    public void setCallback(RecyclerViewManagerCallback callback) {
         this.callback = callback;
     }
 
@@ -132,60 +131,60 @@ public class RecyclerStandalone<T> implements CommonRecyclerAdapter.OnItemClickL
         recyclerView.setPadding(left, top, right, bottom);
     }
 
-    public boolean update(T data) {
+    public boolean update(V data) {
         return adapter.update(data);
     }
 
-    public boolean update(T data, int position) {
+    public boolean update(V data, int position) {
         return adapter.update(data, position);
     }
 
-    public void add(List<T> data) {
+    public void add(List<V> data) {
         adapter.add(data);
-        updateAuxTextView(data.size() > 0 ? AuxTextViewStates.HIDEN : AuxTextViewStates.EMPTY);
+        updateAuxTextView(data.size() > 0 ? AuxTextViewState.HIDDEN : AuxTextViewState.EMPTY);
     }
 
-    public void add(T data, int position) {
+    public void add(V data, int position) {
         adapter.add(data, position);
-        updateAuxTextView(AuxTextViewStates.HIDEN);
+        updateAuxTextView(AuxTextViewState.HIDDEN);
     }
 
-    public void add(T data) {
+    public void add(V data) {
         adapter.add(data);
-        updateAuxTextView(AuxTextViewStates.HIDEN);
+        updateAuxTextView(AuxTextViewState.HIDDEN);
     }
 
-    public void remove(T data) {
+    public void remove(V data) {
         adapter.remove(data);
-        updateAuxTextView(adapter.getItemCount() > 0 ? AuxTextViewStates.HIDEN : AuxTextViewStates.EMPTY);
+        updateAuxTextView(adapter.getItemCount() > 0 ? AuxTextViewState.HIDDEN : AuxTextViewState.EMPTY);
     }
 
     public void remove(int position) {
         adapter.remove(position);
-        updateAuxTextView(adapter.getItemCount() > 0 ? AuxTextViewStates.HIDEN : AuxTextViewStates.EMPTY);
+        updateAuxTextView(adapter.getItemCount() > 0 ? AuxTextViewState.HIDDEN : AuxTextViewState.EMPTY);
     }
 
-    public T getItem(int position) {
+    public V getItem(int position) {
         return adapter.getItem(position);
     }
 
-    public int getItemIndex(T item) {
+    public int getItemIndex(V item) {
         return adapter.getItemIndex(item);
     }
 
     public void onRefresh() {
         adapter.clearItems();
-        updateAuxTextView(AuxTextViewStates.LOADING);
+        updateAuxTextView(AuxTextViewState.LOADING);
     }
 
-    private void updateAuxTextView(AuxTextViewStates loading) {
-        switch (loading) {
-            case HIDEN:
+    private void updateAuxTextView(AuxTextViewState state) {
+        switch (state) {
+            case HIDDEN:
                 setAuxTextViewVisible(false);
                 break;
             case EMPTY:
                 setAuxTextViewVisible(true);
-                setAuxTextViewText(emplyListText);
+                setAuxTextViewText(emptyListText);
                 setAuxTextViewTextColor(emptyListTextColor);
                 break;
             case LOADING:
@@ -224,7 +223,7 @@ public class RecyclerStandalone<T> implements CommonRecyclerAdapter.OnItemClickL
         return callback.onLongItemClicked(position, view);
     }
 
-    public interface RecyclerStandaloneCallback {
+    public interface RecyclerViewManagerCallback {
         void onItemClick(int position, View view);
         boolean onLongItemClicked(int position, View view);
     }

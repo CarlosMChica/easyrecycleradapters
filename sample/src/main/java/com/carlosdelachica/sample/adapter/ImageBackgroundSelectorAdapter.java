@@ -1,30 +1,23 @@
 package com.carlosdelachica.sample.adapter;
 
 import android.content.Context;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
-import com.carlosdelachica.easyrecycleradapters.adapter.CommonRecyclerAdapter;
+import com.carlosdelachica.easyrecycleradapters.CommonRecyclerAdapter;
+import com.carlosdelachica.easyrecycleradapters.sample.R;
 
-import java.util.List;
-
-public class ImageBackgroundSelectorAdapter extends CommonRecyclerAdapter<ImageData> {
+public class ImageBackgroundSelectorAdapter extends CommonRecyclerAdapter<ImageData, ImageBackgroundSelectorViewHolder> {
 
     public ImageBackgroundSelectorAdapter(Context context) {
         super(context);
     }
 
-    public ImageBackgroundSelectorAdapter(List<ImageData> dataList, Context context) {
-        super(dataList, context);
-    }
-
     @Override
-    protected ViewHolder inflateViewHolder(ViewGroup viewGroup, int viewType) {
-        return new ViewHolder(new ImageBackgroundSelectorItem(context));
-    }
-
-    @Override
-    public void bindViewHolder(ViewHolder viewHolder, ImageData item, int position) {
-        ((ImageBackgroundSelectorItem) viewHolder.getView()).bindTo(item);
+    public ImageBackgroundSelectorViewHolder inflateViewHolder(ViewGroup parent, int viewType) {
+        View item = LayoutInflater.from(context).inflate(R.layout.image_background_item, parent, false);
+        return new ImageBackgroundSelectorViewHolder(item);
     }
 
 }

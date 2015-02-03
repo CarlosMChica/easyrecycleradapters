@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merge
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center"
+    android:orientation="vertical"
     >
 
     <ImageView
@@ -24,4 +25,4 @@
         android:background="@android:color/transparent"
         />
 
-</merge>
+</LinearLayout>

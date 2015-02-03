@@ -13,23 +13,24 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.carlosdelachica.easyrecycleradapters.RecyclerStandalone;
+import com.carlosdelachica.easyrecycleradapters.RecyclerViewManager;
 import com.carlosdelachica.easyrecycleradapters.sample.R;
 import com.carlosdelachica.sample.adapter.ImageBackgroundSelectorAdapter;
+import com.carlosdelachica.sample.adapter.ImageBackgroundSelectorViewHolder;
 import com.carlosdelachica.sample.adapter.ImageData;
 import com.carlosdelachica.sample.data.DataGenerator;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 
-public class StandaloneFragment extends Fragment implements RecyclerStandalone.RecyclerStandaloneCallback {
+public class ViewManagerFragment extends Fragment implements RecyclerViewManager.RecyclerViewManagerCallback {
 
     @InjectView(R.id.recyclerView)
     RecyclerView recyclerView;
     @InjectView(R.id.empty_list)
     TextView emptyList;
 
-    private RecyclerStandalone<ImageData> standalone = new RecyclerStandalone<>();
+    private RecyclerViewManager<ImageData, ImageBackgroundSelectorViewHolder> recyclerViewManager = new RecyclerViewManager<>();
     private Handler handler;
 
     @Override
@@ -48,16 +49,16 @@ public class StandaloneFragment extends Fragment implements RecyclerStandalone.R
     }
 
     private void initStandalone() {
-        standalone.attachToRecyclerView(recyclerView,
+        recyclerViewManager.attachToRecyclerView(recyclerView,
                 new ImageBackgroundSelectorAdapter(getActivity()));
-        standalone.setCallback(this);
+        recyclerViewManager.setCallback(this);
     }
 
     private void initEmptyList() {
-        standalone.attachToAuxTextView(emptyList);
-        standalone.setLoadingText(R.string.loading);
-        standalone.setLoadingTextColor(R.color.accentColor);
-        standalone.setAuxTextViewEnabled(true);
+        recyclerViewManager.attachToAuxTextView(emptyList);
+        recyclerViewManager.setLoadingText(R.string.loading);
+        recyclerViewManager.setLoadingTextColor(R.color.accentColor);
+        recyclerViewManager.setAuxTextViewEnabled(true);
     }
 
     private void initData() {
@@ -69,7 +70,7 @@ public class StandaloneFragment extends Fragment implements RecyclerStandalone.R
                 Point size = new Point();
                 display.getSize(size);
                 int width = size.x;
-                standalone.add(DataGenerator.generateRandomData(width, width / 2));
+                recyclerViewManager.add(DataGenerator.generateRandomData(width, width / 2));
             }
         }, 2000);
     }
