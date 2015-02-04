@@ -24,7 +24,6 @@ android {
     buildTypes {
         release {
             minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
 }
@@ -35,6 +34,4 @@ dependencies {
     compile parent.ext.libraries.appcompat
     compile parent.ext.libraries.butterknife
     compile parent.ext.libraries.picasso
-//    compile parent.ext.libraries.easyrecycleradapters
-
 }
