@@ -18,7 +18,9 @@ import com.carlosdelachica.easyrecycleradapters.EasyRecyclerAdapter;
 import com.carlosdelachica.easyrecycleradapters.EasyViewHolder;
 import com.carlosdelachica.easyrecycleradapters.EasyViewHolderFactory;
 import com.carlosdelachica.easyrecycleradapters.sample.R;
+import com.carlosdelachica.sample.adapter.ImageData;
 import com.carlosdelachica.sample.adapter.ImageEasyViewHolder;
+import com.carlosdelachica.sample.adapter.TextData;
 import com.carlosdelachica.sample.adapter.TextDataEasyViewHolder;
 import com.carlosdelachica.sample.data.DataGenerator;
 
@@ -61,12 +63,7 @@ public class EasyAdapterFragment extends Fragment {
                         return new TextDataEasyViewHolder(context, parent);
                 }
             }
-
-            @Override
-            public int getItemViewType(int position) {
-                return position % 2;
-            }
-        });
+        }, new Class[]{ ImageData.class, TextData.class });
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setAdapter(adapter);
     }
