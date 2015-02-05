@@ -11,19 +11,24 @@ public class EasyRecyclerAdapter extends RecyclerView.Adapter<EasyViewHolder> {
 
     private List<Object> dataList = new ArrayList<>();
     private Context context;
-    private VariousTypesEasyViewHolderFactory factory;
+    private EasyViewHolderFactory factory;
 
-    public EasyRecyclerAdapter(Context context, VariousTypesEasyViewHolderFactory factory) {
+    public EasyRecyclerAdapter(Context context, EasyViewHolderFactory factory) {
         this.context = context;
         this.factory = factory;
     }
     
     @Override public EasyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return factory.getViewHolder(viewType, context, parent);
+        return factory.onCreateViewHolder(viewType, context, parent);
     }
 
     @Override public void onBindViewHolder(EasyViewHolder holder, int position) {
-        holder.bind(dataList.get(position));
+        holder.bindTo(dataList.get(position));
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        return factory.getItemViewType(position);
     }
 
     @Override public int getItemCount() {
@@ -32,6 +37,11 @@ public class EasyRecyclerAdapter extends RecyclerView.Adapter<EasyViewHolder> {
     
     public void add(Object object) {
         dataList.add(object);
+    }
+
+    public void addAll(List<? extends Object> objects) {
+        dataList.addAll(objects);
+        notifyDataSetChanged();
     }
 
     public Object getItem(int position) {

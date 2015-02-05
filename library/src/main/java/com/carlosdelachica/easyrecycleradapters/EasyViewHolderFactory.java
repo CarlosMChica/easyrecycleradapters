@@ -5,6 +5,8 @@ import android.view.ViewGroup;
 
 public interface EasyViewHolderFactory<T> {
 
-    public EasyViewHolder<T> createViewHolder(int viewType, Context context, ViewGroup parent);
-    
+    EasyViewHolder<T> onCreateViewHolder(int viewType, Context context, ViewGroup parent);
+
+    int getItemViewType(int position);
+
 }

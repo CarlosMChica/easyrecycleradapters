@@ -11,6 +11,6 @@ public abstract class EasyViewHolder<V> extends RecyclerView.ViewHolder {
         super(LayoutInflater.from(context).inflate(layoutId, parent, false));
     }
 
-    public abstract void bind(V value);
+    public abstract void bindTo(V value);
     
 }

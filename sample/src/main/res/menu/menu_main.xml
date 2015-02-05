@@ -13,4 +13,9 @@
         android:title="@string/base_recycler_fragment"
         app:showAsAction="never" />
 
+    <item
+        android:id="@+id/multiViewTypeFragment"
+        android:title="@string/multi_view_fragment"
+        app:showAsAction="never" />
+
 </menu>

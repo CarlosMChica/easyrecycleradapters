@@ -19,8 +19,8 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
         android:padding="@dimen/text_padding"
         android:layout_gravity="bottom"
-        android:textColor="@android:color/white"
+        android:textColor="@android:color/black"
         android:gravity="center"
-        android:background="@color/primaryDark"/>
+        />
 
 </FrameLayout>

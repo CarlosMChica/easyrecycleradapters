@@ -70,7 +70,7 @@ public class ViewManagerFragment extends Fragment implements RecyclerViewManager
                 Point size = new Point();
                 display.getSize(size);
                 int width = size.x;
-                recyclerViewManager.add(DataGenerator.generateRandomData(width, width / 2));
+//                recyclerViewManager.add(DataGenerator.generateRandomImageData(width, width / 2));
             }
         }, 2000);
     }

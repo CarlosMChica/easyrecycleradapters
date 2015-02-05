@@ -7,5 +7,6 @@
     <string name="base_recycler_fragment">BaseRecyclerFragment</string>
     <string name="loading">Loading...</string>
     <string name="empty_list">Empty list</string>
+    <string name="multi_view_fragment">Multi view adapter</string>
 
 </resources>
