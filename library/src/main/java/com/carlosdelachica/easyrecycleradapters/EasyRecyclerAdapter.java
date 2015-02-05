@@ -36,7 +36,7 @@ public class EasyRecyclerAdapter extends RecyclerView.Adapter<EasyViewHolder> {
 
     @Override
     public int getItemViewType(int position) {
-        if (classViewTypes == null) { return 0; }
+        if (classViewTypes == null) { super.getItemViewType(position); }
         Object objectClass = dataList.get(position);
         return classViewTypes.indexOf(objectClass.getClass());
     }
