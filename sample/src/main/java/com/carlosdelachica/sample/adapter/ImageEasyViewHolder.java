@@ -4,11 +4,13 @@ import android.content.Context;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import butterknife.ButterKnife;
-import butterknife.InjectView;
+
 import com.carlosdelachica.easyrecycleradapters.EasyViewHolder;
 import com.carlosdelachica.easyrecycleradapters.sample.R;
 import com.squareup.picasso.Picasso;
+
+import butterknife.ButterKnife;
+import butterknife.InjectView;
 
 public class ImageEasyViewHolder extends EasyViewHolder<ImageData> {
 
@@ -23,7 +25,8 @@ public class ImageEasyViewHolder extends EasyViewHolder<ImageData> {
         ButterKnife.inject(this, itemView);
     }
 
-    @Override public void bindTo(ImageData item) {
+    @Override
+    public void bindTo(ImageData item) {
         title.setText(item.getTitle());
         Picasso.with(context).load(item.getImageUrl()).placeholder(R.drawable.ic_launcher).into(image);
     }

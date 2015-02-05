@@ -15,7 +15,12 @@ public class EasyRecyclerAdapter extends RecyclerView.Adapter<EasyViewHolder> {
     private EasyViewHolderFactory factory;
     private List<Class> classViewTypes;
 
-    public EasyRecyclerAdapter(Context context, EasyViewHolderFactory factory, Class[] classViewTypes) {
+    public EasyRecyclerAdapter(Context context, EasyViewHolderFactory factory) {
+        this.context = context;
+        this.factory = factory;
+    }
+
+    public EasyRecyclerAdapter(Context context, EasyViewHolderFactory factory, Class... classViewTypes) {
         this.context = context;
         this.factory = factory;
         this.classViewTypes = Arrays.asList(classViewTypes);
@@ -31,6 +36,7 @@ public class EasyRecyclerAdapter extends RecyclerView.Adapter<EasyViewHolder> {
 
     @Override
     public int getItemViewType(int position) {
+        if (classViewTypes == null) { return 0; }
         Object objectClass = dataList.get(position);
         return classViewTypes.indexOf(objectClass.getClass());
     }

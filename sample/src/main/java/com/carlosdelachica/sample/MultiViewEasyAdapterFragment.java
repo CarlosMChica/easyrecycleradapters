@@ -27,7 +27,7 @@ import com.carlosdelachica.sample.data.DataGenerator;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 
-public class EasyAdapterFragment extends Fragment {
+public class MultiViewEasyAdapterFragment extends Fragment {
 
     @InjectView(R.id.recyclerView)
     RecyclerView recyclerView;
@@ -63,7 +63,8 @@ public class EasyAdapterFragment extends Fragment {
                         return new TextDataEasyViewHolder(context, parent);
                 }
             }
-        }, new Class[]{ ImageData.class, TextData.class });
+        }, ImageData.class, TextData.class);
+
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setAdapter(adapter);
     }

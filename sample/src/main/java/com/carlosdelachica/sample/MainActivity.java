@@ -25,7 +25,7 @@ public class MainActivity extends ActionBarActivity{
         ButterKnife.inject(this);
         initToolbar();
         if (savedInstanceState == null) {
-            navigateToFragment(new EasyAdapterFragment());
+            navigateToFragment(new MultiViewEasyAdapterFragment());
         }
     }
 
@@ -60,7 +60,7 @@ public class MainActivity extends ActionBarActivity{
                 navigateToFragment(new RecyclerFragment());
                 return true;
             case R.id.multiViewTypeFragment:
-                navigateToFragment(new EasyAdapterFragment());
+                navigateToFragment(new MultiViewEasyAdapterFragment());
             default:
                 return super.onOptionsItemSelected(item);
         }

@@ -5,7 +5,6 @@ import com.carlosdelachica.sample.adapter.TextData;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.Random;
 
 public class DataGenerator {
@@ -22,13 +21,12 @@ public class DataGenerator {
     public static List<Object> generateRandomData(int width, int height) {
         ArrayList<Object> data = new ArrayList<>();
         for (int i = 0; i < 40; i++) {
-            switch (i % 2){
-                case 0:
-                    data.add(generateRandomImageData(width, height, i));
-                    break;
-                case 1:
-                    data.add(generateRandomTextData(i));
-                    break;
+            if (i < 5) {
+                data.add(generateRandomImageData(width, height, i));
+            } else if (i >= 5 && i <10) {
+                data.add(generateRandomTextData(i));
+            } else {
+                data.add(generateRandomImageData(width, height, i));
             }
         }
         return data;
