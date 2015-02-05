@@ -1,6 +1,5 @@
 package com.carlosdelachica.sample;
 
-import android.content.Context;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.os.Handler;
@@ -13,10 +12,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
+import butterknife.ButterKnife;
+import butterknife.InjectView;
 import com.carlosdelachica.easyrecycleradapters.EasyRecyclerAdapter;
 import com.carlosdelachica.easyrecycleradapters.EasyViewHolder;
-import com.carlosdelachica.easyrecycleradapters.EasyViewHolderFactory;
 import com.carlosdelachica.easyrecycleradapters.sample.R;
 import com.carlosdelachica.sample.adapter.ImageData;
 import com.carlosdelachica.sample.adapter.ImageEasyViewHolder;
@@ -24,8 +23,8 @@ import com.carlosdelachica.sample.adapter.TextData;
 import com.carlosdelachica.sample.adapter.TextDataEasyViewHolder;
 import com.carlosdelachica.sample.data.DataGenerator;
 
-import butterknife.ButterKnife;
-import butterknife.InjectView;
+import java.util.HashMap;
+import java.util.Map;
 
 public class MultiViewEasyAdapterFragment extends Fragment {
 
@@ -52,19 +51,23 @@ public class MultiViewEasyAdapterFragment extends Fragment {
     }
 
     private void initUI() {
-        adapter = new EasyRecyclerAdapter(getActivity(), new EasyViewHolderFactory() {
-            @Override
-            public EasyViewHolder onCreateViewHolder(int viewType, Context context, ViewGroup parent) {
-                switch (viewType) {
-                    default:
-                    case 0:
-                        return new ImageEasyViewHolder(context, parent);
-                    case 1:
-                        return new TextDataEasyViewHolder(context, parent);
-                }
-            }
-        }, ImageData.class, TextData.class);
+//        adapter = new EasyRecyclerAdapter(getActivity(), new EasyViewHolderFactory() {
+//            @Override
+//            public EasyViewHolder onCreateViewHolder(int viewType, Context context, ViewGroup parent) {
+//                switch (viewType) {
+//                    default:
+//                    case 0:
+//                        return new ImageEasyViewHolder(context, parent);
+//                    case 1:
+//                        return new TextDataEasyViewHolder(context, parent);
+//                }
+//            }
+//        }, ImageData.class, TextData.class);
 
+        Map<Class, Class<?extends EasyViewHolder>> map = new HashMap<>();
+        map.put(ImageData.class, ImageEasyViewHolder.class);
+        map.put(TextData.class, TextDataEasyViewHolder.class);
+        adapter = new EasyRecyclerAdapter(getActivity(), map);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setAdapter(adapter);
     }

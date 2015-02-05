@@ -4,9 +4,11 @@ import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.ViewGroup;
 
+import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 public class EasyRecyclerAdapter extends RecyclerView.Adapter<EasyViewHolder> {
 
@@ -21,9 +23,26 @@ public class EasyRecyclerAdapter extends RecyclerView.Adapter<EasyViewHolder> {
     }
 
     public EasyRecyclerAdapter(Context context, EasyViewHolderFactory factory, Class... classViewTypes) {
-        this.context = context;
-        this.factory = factory;
+        this(context, factory);
         this.classViewTypes = Arrays.asList(classViewTypes);
+    }
+    
+    public EasyRecyclerAdapter(Context context, final Map<Class, Class<?extends EasyViewHolder>> bindedHolders) {
+        this.context = context;
+        classViewTypes = new ArrayList<>(bindedHolders.keySet());
+        factory = new EasyViewHolderFactory() {
+            @Override public EasyViewHolder onCreateViewHolder(int viewType, Context context, ViewGroup parent) {
+                try {
+                    Class valueClass = new ArrayList<>(bindedHolders.keySet()).get(viewType);
+                    Class<? extends EasyViewHolder> easyViewHolderClass = bindedHolders.get(valueClass);
+                    Constructor<? extends EasyViewHolder> constructor = easyViewHolderClass.getDeclaredConstructor(Context.class, ViewGroup.class);
+                    return constructor.newInstance(context, parent);
+                } catch (Throwable e) {
+                    e.printStackTrace();
+                }
+                return null;
+            }
+        };
     }
     
     @Override public EasyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -34,9 +53,10 @@ public class EasyRecyclerAdapter extends RecyclerView.Adapter<EasyViewHolder> {
         holder.bindTo(dataList.get(position));
     }
 
-    @Override
-    public int getItemViewType(int position) {
-        if (classViewTypes == null) { super.getItemViewType(position); }
+    @Override public int getItemViewType(int position) {
+        if (classViewTypes == null) { 
+            return super.getItemViewType(position);
+        }
         Object objectClass = dataList.get(position);
         return classViewTypes.indexOf(objectClass.getClass());
     }
