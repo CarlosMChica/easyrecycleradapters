@@ -30,7 +30,7 @@ public class EasyAdapterFragment extends Fragment {
 
     private void initUI() {
         adapter = new EasyRecyclerAdapter(getActivity(), new VariousTypesEasyViewHolderFactory() {
-            @Override public EasyViewHolder createViewHolder(Object object, Context context, ViewGroup parent) {
+            @Override public EasyViewHolder createViewHolder(int viewType, Context context, ViewGroup parent) {
                 return new EasyViewHolderImp(context, parent);
             }
         });
