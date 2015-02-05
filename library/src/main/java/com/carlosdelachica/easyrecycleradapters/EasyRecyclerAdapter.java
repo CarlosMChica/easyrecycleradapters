@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -16,6 +17,7 @@ public class EasyRecyclerAdapter extends RecyclerView.Adapter<EasyViewHolder> {
     private Context context;
     private EasyViewHolderFactory factory;
     private List<Class> classViewTypes;
+    private Map<Class, Class<?extends EasyViewHolder>> bindedHolders = new HashMap<>();
 
     public EasyRecyclerAdapter(Context context, EasyViewHolderFactory factory) {
         this.context = context;
@@ -27,13 +29,13 @@ public class EasyRecyclerAdapter extends RecyclerView.Adapter<EasyViewHolder> {
         this.classViewTypes = Arrays.asList(classViewTypes);
     }
     
-    public EasyRecyclerAdapter(Context context, final Map<Class, Class<?extends EasyViewHolder>> bindedHolders) {
+    public EasyRecyclerAdapter(Context context) {
         this.context = context;
-        classViewTypes = new ArrayList<>(bindedHolders.keySet());
+        classViewTypes = new ArrayList<>();
         factory = new EasyViewHolderFactory() {
             @Override public EasyViewHolder onCreateViewHolder(int viewType, Context context, ViewGroup parent) {
                 try {
-                    Class valueClass = new ArrayList<>(bindedHolders.keySet()).get(viewType);
+                    Class valueClass = classViewTypes.get(viewType);
                     Class<? extends EasyViewHolder> easyViewHolderClass = bindedHolders.get(valueClass);
                     Constructor<? extends EasyViewHolder> constructor = easyViewHolderClass.getDeclaredConstructor(Context.class, ViewGroup.class);
                     return constructor.newInstance(context, parent);
@@ -43,6 +45,11 @@ public class EasyRecyclerAdapter extends RecyclerView.Adapter<EasyViewHolder> {
                 return null;
             }
         };
+    }
+    
+    public void bind(Class valueClass, Class<?extends EasyViewHolder> viewHolder) {
+        classViewTypes.add(valueClass);
+        bindedHolders.put(valueClass, viewHolder);
     }
     
     @Override public EasyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
