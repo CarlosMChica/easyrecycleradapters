@@ -2,7 +2,6 @@ package com.carlosdelachica.sample.adapter;
 
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.carlosdelachica.easyrecycleradapters.CommonViewHolder;
 import com.carlosdelachica.easyrecycleradapters.sample.R;
@@ -15,8 +14,6 @@ public class ImageForegroundSelectorViewHolder extends CommonViewHolder<ImageDat
 
     @InjectView(R.id.image)
     ImageView image;
-    @InjectView(R.id.text)
-    TextView title;
 
     public ImageForegroundSelectorViewHolder(View view) {
         super(view);
@@ -25,7 +22,6 @@ public class ImageForegroundSelectorViewHolder extends CommonViewHolder<ImageDat
 
     @Override
     public void bindTo(ImageData item) {
-        title.setText(item.getTitle());
         Picasso.with(getContext()).load(item.getImageUrl()).placeholder(R.drawable.ic_launcher).into(image);
     }
 

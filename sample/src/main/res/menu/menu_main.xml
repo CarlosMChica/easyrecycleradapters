@@ -4,13 +4,8 @@
     tools:context=".MainActivity">
 
     <item
-        android:id="@+id/standalone"
-        android:title="@string/standalone"
-        app:showAsAction="never" />
-
-    <item
-        android:id="@+id/baseRecyclerFragment"
-        android:title="@string/base_recycler_fragment"
+        android:id="@+id/simpleViewTypeFragment"
+        android:title="@string/simpleViewTypeAdapter"
         app:showAsAction="never" />
 
     <item

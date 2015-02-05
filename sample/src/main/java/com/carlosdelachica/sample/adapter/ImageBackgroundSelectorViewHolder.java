@@ -25,7 +25,6 @@ public class ImageBackgroundSelectorViewHolder extends CommonViewHolder<ImageDat
 
     @Override
     public void bindTo(ImageData item) {
-        title.setText(item.getTitle());
         Picasso.with(getContext()).load(item.getImageUrl()).placeholder(R.drawable.ic_launcher).into(image);
     }
 

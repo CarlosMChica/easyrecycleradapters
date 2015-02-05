@@ -19,8 +19,6 @@ import com.carlosdelachica.easyrecycleradapters.decorations.DividerItemDecoratio
 import com.carlosdelachica.easyrecycleradapters.sample.R;
 import com.carlosdelachica.sample.adapter.ImageData;
 import com.carlosdelachica.sample.adapter.ImageEasyViewHolder;
-import com.carlosdelachica.sample.adapter.TextData;
-import com.carlosdelachica.sample.adapter.TextDataEasyViewHolder;
 import com.carlosdelachica.sample.data.DataGenerator;
 
 import butterknife.ButterKnife;
@@ -29,8 +27,8 @@ import butterknife.InjectView;
 import static com.carlosdelachica.easyrecycleradapters.EasyViewHolder.OnItemClickListener;
 import static com.carlosdelachica.easyrecycleradapters.EasyViewHolder.OnItemLongClickListener;
 
-public class MultiViewEasyAdapterFragment extends Fragment implements OnItemClickListener,
-        OnItemLongClickListener {
+public class SimpleViewEasyAdapterFragment extends Fragment implements OnItemLongClickListener,
+        OnItemClickListener {
 
     @InjectView(R.id.recyclerView)
     RecyclerView recyclerView;
@@ -60,9 +58,7 @@ public class MultiViewEasyAdapterFragment extends Fragment implements OnItemClic
     }
 
     private void initAdapter() {
-        adapter = new EasyRecyclerAdapter(getActivity());
-        adapter.bind(ImageData.class, ImageEasyViewHolder.class);
-        adapter.bind(TextData.class, TextDataEasyViewHolder.class);
+        adapter = new EasyRecyclerAdapter(getActivity(), ImageData.class, ImageEasyViewHolder.class);
         adapter.setOnClickListener(this);
         adapter.setOnLongClickListener(this);
     }
@@ -83,7 +79,7 @@ public class MultiViewEasyAdapterFragment extends Fragment implements OnItemClic
                 display.getSize(size);
                 int width = size.x;
                 int grid_columns = getResources().getInteger(R.integer.grid_columns);
-                adapter.addAll(DataGenerator.generateRandomDataList(width / grid_columns, width / grid_columns));
+                adapter.addAll(DataGenerator.generateRandomImageDataList(width / grid_columns, width / grid_columns));
             }
         }, 2000);
     }

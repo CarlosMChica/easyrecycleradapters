@@ -3,6 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:foreground="@drawable/custom_selector"
     >
 
     <ImageView
@@ -10,17 +11,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:scaleType="centerCrop"
-        />
-
-    <TextView
-        android:id="@+id/text"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
-        android:padding="@dimen/text_padding"
-        android:layout_gravity="bottom"
-        android:textColor="@android:color/black"
-        android:gravity="center"
         />
 
 </FrameLayout>

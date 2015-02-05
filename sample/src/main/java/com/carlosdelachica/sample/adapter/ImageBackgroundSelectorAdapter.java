@@ -16,7 +16,7 @@ public class ImageBackgroundSelectorAdapter extends CommonRecyclerAdapter<ImageD
 
     @Override
     public ImageBackgroundSelectorViewHolder inflateViewHolder(ViewGroup parent, int viewType) {
-        View item = LayoutInflater.from(context).inflate(R.layout.image_background_item, parent, false);
+        View item = LayoutInflater.from(context).inflate(R.layout.text_item, parent, false);
         return new ImageBackgroundSelectorViewHolder(item);
     }
 
