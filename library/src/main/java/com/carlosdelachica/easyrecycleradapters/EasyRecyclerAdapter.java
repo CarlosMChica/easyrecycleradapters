@@ -41,9 +41,10 @@ public class EasyRecyclerAdapter extends RecyclerView.Adapter<EasyViewHolder> im
     }
 
     private void bindListeners(EasyViewHolder easyViewHolder) {
-        if (easyViewHolder == null) { return; }
-        easyViewHolder.setItemClickListener(this);
-        easyViewHolder.setLongClickListener(this);
+        if (easyViewHolder != null) {
+            easyViewHolder.setItemClickListener(this);
+            easyViewHolder.setLongClickListener(this);
+        }
     }
 
     @Override public void onBindViewHolder(EasyViewHolder holder, int position) {
@@ -82,16 +83,15 @@ public class EasyRecyclerAdapter extends RecyclerView.Adapter<EasyViewHolder> im
     }
 
     @SuppressWarnings("SimplifiableIfStatement")
-    @Override
-    public boolean onLongItemClicked(int position, View view) {
+    @Override public boolean onLongItemClicked(int position, View view) {
         if (longClickListener == null) { return false; }
         return longClickListener.onLongItemClicked(position, view);
     }
 
-    @Override
-    public void onItemClick(int position, View view) {
-        if (itemClickListener == null) { return; }
-        itemClickListener.onItemClick(position, view);
+    @Override public void onItemClick(int position, View view) {
+        if (itemClickListener != null) {
+            itemClickListener.onItemClick(position, view);
+        }
     }
 
 }
