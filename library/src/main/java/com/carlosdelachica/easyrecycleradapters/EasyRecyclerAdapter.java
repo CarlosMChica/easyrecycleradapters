@@ -61,7 +61,7 @@ public class EasyRecyclerAdapter extends RecyclerView.Adapter<EasyViewHolder> im
     
     public void add(Object object) {
         dataList.add(object);
-        notifyItemInserted(dataList.indexOf(object));
+        notifyItemInserted(getIndex(object));
     }
 
     public void addAll(List<?> objects) {
@@ -70,8 +70,40 @@ public class EasyRecyclerAdapter extends RecyclerView.Adapter<EasyViewHolder> im
         notifyDataSetChanged();
     }
 
+    @SuppressWarnings("SimplifiableIfStatement")
+    public boolean update(Object data) {
+        int indexOfData = getIndex(data);
+        if (indexOfData == -1) return false;
+        return update(data, indexOfData);
+    }
+
+    public boolean update(Object data, int position) {
+        Object oldData = dataList.set(position, data);
+        if (oldData != null) {
+            notifyItemChanged(position);
+        }
+        return oldData != null;
+    }
+
+    public void remove(Object data) {
+        if (dataList.contains(data)) {
+            remove(getIndex(data));
+        }
+    }
+
+    public void remove(int position) {
+        if (position >= 0 && position < getItemCount()) {
+            dataList.remove(position);
+            notifyItemRemoved(position);
+        }
+    }
+
     public Object get(int position) {
         return dataList.get(position);
+    }
+
+    public int getIndex(Object item) {
+        return dataList.indexOf(item);
     }
 
     public void setOnClickListener(OnItemClickListener listener) {
