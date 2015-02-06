@@ -1,7 +1,7 @@
 <resources>
     <color name="windowBackgroundColor">@color/primaryDark</color>
     <color name="accentColor">#42A5F5</color>
-    <color name="transparentAccentColor">#FF42A5F5</color>
+    <color name="transparentAccentColor">#5542A5F5</color>
     <color name="primaryDark">#FF6D00</color>
     <color name="primaryColor">#FF9100</color>
     <color name="empty_list_text_color">#42000000</color>

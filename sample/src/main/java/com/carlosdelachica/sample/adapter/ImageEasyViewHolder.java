@@ -25,7 +25,10 @@ public class ImageEasyViewHolder extends EasyViewHolder<ImageData> {
 
     @Override
     public void bindTo(ImageData item) {
-        Picasso.with(context).load(item.getImageUrl()).placeholder(R.drawable.ic_launcher).into(image);
+        Picasso.with(context)
+                .load(item.getImageUrl())
+                .placeholder(R.drawable.placeholder)
+                .into(image);
     }
 
 }

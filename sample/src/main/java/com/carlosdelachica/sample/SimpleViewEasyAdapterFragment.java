@@ -79,7 +79,7 @@ public class SimpleViewEasyAdapterFragment extends Fragment implements OnItemLon
                 display.getSize(size);
                 int width = size.x;
                 int grid_columns = getResources().getInteger(R.integer.grid_columns);
-                adapter.addAll(DataGenerator.generateRandomImageDataList(width / grid_columns, width / grid_columns));
+                adapter.addAll(DataGenerator.generateRandomImageDataList(width / grid_columns));
             }
         }, 2000);
     }
