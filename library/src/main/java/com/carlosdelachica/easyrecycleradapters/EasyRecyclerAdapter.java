@@ -16,8 +16,8 @@ public class EasyRecyclerAdapter extends RecyclerView.Adapter<EasyViewHolder> im
         OnItemClickListener {
 
     private List<Object> dataList = new ArrayList<>();
+    private EasyViewHolderFactory factory = new EasyViewHolderFactory();
     private Context context;
-    private EasyViewHolderFactory factory;
     private OnItemClickListener itemClickListener;
     private OnItemLongClickListener longClickListener;
 
@@ -28,7 +28,6 @@ public class EasyRecyclerAdapter extends RecyclerView.Adapter<EasyViewHolder> im
 
     public EasyRecyclerAdapter(Context context) {
         this.context = context;
-        factory = new EasyViewHolderFactory();
     }
 
     public void bind(Class valueClass, Class<? extends EasyViewHolder> viewHolder) {
