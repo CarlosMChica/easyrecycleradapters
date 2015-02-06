@@ -10,8 +10,13 @@ import java.util.Map;
 class EasyViewHolderFactory {
 
     private Map<Class, Class<? extends EasyViewHolder>> boundViewHolders = new HashMap<>();
+    private Context context;
 
-    public EasyViewHolder create(Class valueClass, Context context, ViewGroup parent) {
+    public EasyViewHolderFactory(Context context) {
+        this.context = context;
+    }
+    
+    public EasyViewHolder create(Class valueClass, ViewGroup parent) {
         try {
             Class<? extends EasyViewHolder> easyViewHolderClass = boundViewHolders.get(valueClass);
             Constructor<? extends EasyViewHolder> constructor = easyViewHolderClass.getDeclaredConstructor(Context.class, ViewGroup.class);

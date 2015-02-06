@@ -16,9 +16,8 @@ public class EasyRecyclerAdapter extends RecyclerView.Adapter<EasyViewHolder> im
         OnItemClickListener {
 
     private List<Object> dataList = new ArrayList<>();
-    private EasyViewHolderFactory viewHolderFactory = new EasyViewHolderFactory();
+    private EasyViewHolderFactory viewHolderFactory;
     private List<Class> valueClassTypes = new ArrayList<>();
-    private Context context;
     private OnItemClickListener itemClickListener;
     private OnItemLongClickListener longClickListener;
 
@@ -28,7 +27,7 @@ public class EasyRecyclerAdapter extends RecyclerView.Adapter<EasyViewHolder> im
     }
 
     public EasyRecyclerAdapter(Context context) {
-        this.context = context;
+        viewHolderFactory = new EasyViewHolderFactory(context);
     }
 
     public void bind(Class valueClass, Class<? extends EasyViewHolder> viewHolder) {
@@ -37,7 +36,7 @@ public class EasyRecyclerAdapter extends RecyclerView.Adapter<EasyViewHolder> im
     }
 
     @Override public EasyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        EasyViewHolder easyViewHolder = viewHolderFactory.create(valueClassTypes.get(viewType), context, parent);
+        EasyViewHolder easyViewHolder = viewHolderFactory.create(valueClassTypes.get(viewType), parent);
         bindListeners(easyViewHolder);
         return easyViewHolder;
     }
