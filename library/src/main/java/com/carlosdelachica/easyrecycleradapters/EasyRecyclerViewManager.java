@@ -1,6 +1,7 @@
 package com.carlosdelachica.easyrecycleradapters;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.StringRes;
 import android.support.v7.widget.GridLayoutManager;
@@ -17,46 +18,58 @@ import static android.support.v7.widget.RecyclerView.LayoutManager;
 import static com.carlosdelachica.easyrecycleradapters.EasyViewHolder.OnItemClickListener;
 import static com.carlosdelachica.easyrecycleradapters.EasyViewHolder.OnItemLongClickListener;
 
+@SuppressWarnings("UnusedDeclaration")
 public class EasyRecyclerViewManager implements OnItemClickListener,
         OnItemLongClickListener {
 
     private RecyclerView recyclerView;
-    private TextView auxTextView;
+    private TextView emptyLoadingListTextView;
     private EasyRecyclerAdapter adapter;
     private LayoutManager layoutManager;
     private Context context;
-    private OnItemClickListener itemClickListener;
-    private OnItemLongClickListener longClickListener;
+    private ItemClickListener itemClickListener;
+    private ItemLongClickListener longClickListener;
     private DividerItemDecoration dividerItemDecoration;
-    private int loadingTextColor;
-    private String loadingText;
+    private String loadingListText;
     private String emptyListText;
+    private int loadingTextColor;
     private int emptyListTextColor;
 
-    public EasyRecyclerViewManager(LayoutManager layoutManager) {
-        this.layoutManager = layoutManager;
-    }
-
-    public void attachToRecyclerView(RecyclerView recyclerView, EasyRecyclerAdapter adapter) {
-        this.attachToRecyclerView(recyclerView, adapter, new LinearLayoutManager(recyclerView.getContext()));
-    }
-
-    public void attachToRecyclerView(RecyclerView recyclerView, EasyRecyclerAdapter adapter, LayoutManager layoutManager) {
+    EasyRecyclerViewManager(Context context,
+                            RecyclerView recyclerView,
+                            LayoutManager layoutManager,
+                            EasyRecyclerAdapter adapter,
+                            TextView emptyLoadingListTextView,
+                            String emptyListText,
+                            int emptyTextColor,
+                            String loadingListText,
+                            int loadingTextColor,
+                            ItemLongClickListener longClickListener,
+                            ItemClickListener clickListener,
+                            DividerItemDecoration dividerDrawableRes) {
+        this.context = context;
         this.recyclerView = recyclerView;
-        this.adapter = adapter;
         this.layoutManager = layoutManager;
-        context = recyclerView.getContext();
-        emptyListTextColor = context.getResources().getColor(R.color.empty_list_text_color);
-        loadingTextColor = context.getResources().getColor(R.color.empty_list_text_color);
+        this.adapter = adapter;
+        this.emptyLoadingListTextView = emptyLoadingListTextView;
+        this.emptyListText = emptyListText;
+        this.emptyListTextColor = emptyTextColor;
+        this.loadingListText = loadingListText;
+        this.loadingTextColor = loadingTextColor;
+        this.longClickListener = longClickListener;
+        this.itemClickListener = clickListener;
+        this.dividerItemDecoration = dividerDrawableRes;
         initRecyclerView();
     }
 
     private void initRecyclerView() {
+        recyclerView.setClipToPadding(false);
         recyclerView.setHasFixedSize(true);
         initRecyclerViewPadding();
         initAdapter();
         initLayoutManager();
         initItemDecorations();
+        initEmptyListTextView();
     }
 
     private void initRecyclerViewPadding() {
@@ -84,50 +97,11 @@ public class EasyRecyclerViewManager implements OnItemClickListener,
     }
 
     private void initDivider() {
-        int dividerRes;
-        if (layoutManager instanceof GridLayoutManager) {
-            dividerRes = R.drawable.grid_divider;
-        } else {
-            dividerRes = R.drawable.list_divider;
-        }
-        this.dividerItemDecoration = new DividerItemDecoration(context, context.getResources().getDrawable(dividerRes));
         recyclerView.addItemDecoration(dividerItemDecoration);
     }
 
-    public void setDivider(@DrawableRes int dividerDrawableRes) {
-        dividerItemDecoration.setDivider(dividerDrawableRes);
-    }
-
-    public void setLoadingTextColor(int colorRes) {
-        loadingTextColor = context.getResources().getColor(colorRes);
-    }
-
-    public void setLoadingText(@StringRes int messageStringRes) {
-        loadingText = context.getString(messageStringRes);
-    }
-
-    public void setEmptyListTextColor(int colorRes) {
-        emptyListTextColor = context.getResources().getColor(colorRes);
-    }
-
-    public void setEmptyListText(@StringRes int messageStringRes) {
-        emptyListText = context.getString(messageStringRes);
-    }
-
-    public void attachToAuxTextView(TextView auxTextView) {
-        this.auxTextView = auxTextView;
-    }
-
     private void initEmptyListTextView() {
-        updateEmptyListTextView(EmptyListTextViewState.LOADING);
-    }
-
-    public void setOnClickListener(OnItemClickListener listener) {
-        this.itemClickListener = listener;
-    }
-
-    public void setOnLongClickListener(OnItemLongClickListener listener) {
-        this.longClickListener = listener;
+        updateEmptyListTextView(EmptyLoadingListTextViewState.LOADING);
     }
 
     public RecyclerView getRecyclerView() {
@@ -150,22 +124,22 @@ public class EasyRecyclerViewManager implements OnItemClickListener,
 
     public void addAll(List<Object> data) {
         adapter.addAll(data);
-        updateEmptyListTextView(data.size() > 0 ? EmptyListTextViewState.HIDDEN : EmptyListTextViewState.EMPTY);
+        updateEmptyListTextView(data.size() > 0 ? EmptyLoadingListTextViewState.HIDDEN : EmptyLoadingListTextViewState.EMPTY);
     }
 
     public void add(Object data, int position) {
         adapter.add(data);
-        updateEmptyListTextView(EmptyListTextViewState.HIDDEN);
+        updateEmptyListTextView(EmptyLoadingListTextViewState.HIDDEN);
     }
 
     public void remove(Object data) {
 //      TODO: Adapter remove data item
-        updateEmptyListTextView(adapter.getItemCount() > 0 ? EmptyListTextViewState.HIDDEN : EmptyListTextViewState.EMPTY);
+        updateEmptyListTextView(adapter.getItemCount() > 0 ? EmptyLoadingListTextViewState.HIDDEN : EmptyLoadingListTextViewState.EMPTY);
     }
 
     public void remove(int position) {
 //      TODO: Adapter remove item at position
-        updateEmptyListTextView(adapter.getItemCount() > 0 ? EmptyListTextViewState.HIDDEN : EmptyListTextViewState.EMPTY);
+        updateEmptyListTextView(adapter.getItemCount() > 0 ? EmptyLoadingListTextViewState.HIDDEN : EmptyLoadingListTextViewState.EMPTY);
     }
 
     public Object getItem(int position) {
@@ -174,10 +148,10 @@ public class EasyRecyclerViewManager implements OnItemClickListener,
 
     public void onRefresh() {
 //      TODO: Adapter clear items
-        updateEmptyListTextView(EmptyListTextViewState.LOADING);
+        updateEmptyListTextView(EmptyLoadingListTextViewState.LOADING);
     }
 
-    private void updateEmptyListTextView(EmptyListTextViewState state) {
+    private void updateEmptyListTextView(EmptyLoadingListTextViewState state) {
         switch (state) {
             case HIDDEN:
                 setAuxTextViewVisible(false);
@@ -189,31 +163,31 @@ public class EasyRecyclerViewManager implements OnItemClickListener,
                 break;
             case LOADING:
                 setAuxTextViewVisible(true);
-                setAuxTextViewText(loadingText);
+                setAuxTextViewText(loadingListText);
                 setAuxTextViewTextColor(loadingTextColor);
                 break;
         }
     }
 
     private void setAuxTextViewText(String text) {
-        if (auxTextView == null) return;
-        auxTextView.setText(text);
+        if (emptyLoadingListTextView == null) { return; }
+        emptyLoadingListTextView.setText(text);
     }
 
     private void setAuxTextViewTextColor(int color) {
-        if (auxTextView == null) return;
-        auxTextView.setTextColor(color);
+        if (emptyLoadingListTextView == null) { return; }
+        emptyLoadingListTextView.setTextColor(color);
     }
 
     private void setAuxTextViewVisible(boolean visible) {
-        if (auxTextView == null) return;
-        auxTextView.setVisibility(visible ? View.VISIBLE : View.GONE);
+        if (emptyLoadingListTextView == null) { return; }
+        emptyLoadingListTextView.setVisibility(visible ? View.VISIBLE : View.GONE);
     }
 
     @Override
     public void onItemClick(int position, View view) {
         if (itemClickListener != null) {
-            itemClickListener.onItemClick(position, view);
+            itemClickListener.onItemClick(position);
         }
     }
 
@@ -221,22 +195,42 @@ public class EasyRecyclerViewManager implements OnItemClickListener,
     @Override
     public boolean onLongItemClicked(int position, View view) {
         if (longClickListener == null) { return false; }
-        return longClickListener.onLongItemClicked(position, view);
+        return longClickListener.onLongItemClick(position);
     }
 
     public static class Builder {
 
-        private final Context context;
+        private Context context;
         private ItemClickListener clickListener;
         private ItemLongClickListener longClickListener;
         private LayoutManager layoutManager;
         private RecyclerView recyclerView;
+        private EasyRecyclerAdapter adapter;
+        private DividerItemDecoration dividerItemDecoration;
+        private Drawable dividerDrawable;
+        private String loadingText;
+        private String emptyText;
+        private TextView emptyLoadingListTextView;
+        private int emptyTextColor;
+        private int loadingTextColor;
 
-        public Builder(Context context) {
-            if (context == null) {
+        public Builder(RecyclerView recyclerView, EasyRecyclerAdapter adapter) {
+            if (recyclerView == null) {
+                throw new IllegalArgumentException("RecyclerView must not be null.");
+            }
+            if (recyclerView.getContext() == null) {
                 throw new IllegalArgumentException("Context must not be null.");
             }
-            this.context = context.getApplicationContext();
+            if (adapter == null) {
+                throw new IllegalArgumentException("Adapter must not be null.");
+            }
+            this.context = recyclerView.getContext().getApplicationContext();
+            this.recyclerView = recyclerView;
+            this.adapter = adapter;
+            this.emptyTextColor = context.getResources().getColor(R.color.empty_list_text_color);
+            this.loadingTextColor = context.getResources().getColor(R.color.empty_list_text_color);
+            this.loadingText = context.getResources().getString(R.string.loading);
+            this.emptyText = context.getResources().getString(R.string.empty);
         }
 
         public Builder layoutManager(LayoutManager layoutManager) {
@@ -247,17 +241,6 @@ public class EasyRecyclerViewManager implements OnItemClickListener,
                 throw new IllegalStateException("LayoutManager already set.");
             }
             this.layoutManager = layoutManager;
-            return this;
-        }
-
-        public Builder recyclerView(RecyclerView recyclerView) {
-            if (recyclerView == null) {
-                throw new IllegalArgumentException("RecyclerView must not be null.");
-            }
-            if (this.recyclerView != null) {
-                throw new IllegalStateException("RecyclerView already set.");
-            }
-            this.recyclerView = recyclerView;
             return this;
         }
 
@@ -283,16 +266,64 @@ public class EasyRecyclerViewManager implements OnItemClickListener,
             return this;
         }
 
-        //TODO: Look at Picasso builder for ideas.
-        //Adds method to set up EasyRecyclerViewManager such as: Divider,
-        //emptyListTextView texts, colors, etc...
+        public Builder divider(@DrawableRes int dividerDrawableRes) {
+            this.dividerDrawable = context.getResources().getDrawable(dividerDrawableRes);
+            return this;
+        }
+
+        public Builder emptyListTextColor(int emptyTextColor) {
+            this.emptyTextColor = context.getResources().getColor(emptyTextColor);
+            return this;
+        }
+
+        public Builder emptyListText(@StringRes int emptyListTextRes) {
+            this.emptyText = context.getResources().getString(emptyListTextRes);
+            return this;
+        }
+
+        public Builder loadingListTextColor(int loadingTextColor) {
+            this.loadingTextColor = context.getResources().getColor(loadingTextColor);
+            return this;
+        }
+
+        public Builder loadingListText(@StringRes int loadingTextRes) {
+            this.loadingText = context.getResources().getString(loadingTextRes);
+            return this;
+        }
+
+        public Builder emptyLoadingListTextView(TextView emptyLoadingListTextView) {
+            this.emptyLoadingListTextView = emptyLoadingListTextView;
+            return this;
+        }
 
         public EasyRecyclerViewManager build() {
-            Context context = this.context;
             if (layoutManager == null) {
                 layoutManager = new LinearLayoutManager(context);
             }
-            return new EasyRecyclerViewManager(layoutManager);
+
+            Drawable divider = dividerDrawable;
+            if (dividerDrawable == null) {
+                if (layoutManager instanceof GridLayoutManager) {
+                    divider = context.getResources().getDrawable(R.drawable.grid_divider);
+                } else {
+                    divider = context.getResources().getDrawable(R.drawable.list_divider);
+                }
+            }
+            this.dividerItemDecoration = new DividerItemDecoration(context, divider);
+
+            return new EasyRecyclerViewManager(context,
+                    recyclerView,
+                    layoutManager,
+                    adapter,
+                    emptyLoadingListTextView,
+                    emptyText,
+                    emptyTextColor,
+                    loadingText,
+                    loadingTextColor,
+                    longClickListener,
+                    clickListener,
+                    dividerItemDecoration
+            );
         }
     }
 
@@ -301,7 +332,7 @@ public class EasyRecyclerViewManager implements OnItemClickListener,
     }
 
     public interface ItemLongClickListener {
-        void onLongItemClick(int position);
+        boolean onLongItemClick(int position);
     }
 
 }

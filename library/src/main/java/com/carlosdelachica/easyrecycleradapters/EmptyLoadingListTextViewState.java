@@ -1,6 +1,6 @@
 package com.carlosdelachica.easyrecycleradapters;
 
-public enum EmptyListTextViewState {
+enum EmptyLoadingListTextViewState {
     LOADING,
     EMPTY,
     HIDDEN

@@ -18,7 +18,6 @@ import com.carlosdelachica.easyrecycleradapters.sample.R;
 import com.carlosdelachica.sample.adapter.ImageBackgroundSelectorAdapter;
 import com.carlosdelachica.sample.adapter.ImageBackgroundSelectorViewHolder;
 import com.carlosdelachica.sample.adapter.ImageData;
-import com.carlosdelachica.sample.data.DataGenerator;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -35,7 +34,7 @@ public class ViewManagerFragment extends Fragment implements RecyclerViewManager
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.standalone_fragment, container, false);
+        View rootView = inflater.inflate(R.layout.simple_recycler_view_layout, container, false);
         ButterKnife.inject(this, rootView);
         return rootView;
     }
