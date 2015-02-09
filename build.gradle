@@ -36,5 +36,6 @@ ext.libraries = [
     appcompat      : 'com.android.support:appcompat-v7:21.0.3',
     butterknife    : 'com.jakewharton:butterknife:5.0.0',
     picasso        : 'com.squareup.picasso:picasso:2.2.0',
-    easyrecycleradapters : 'com.github.cmc00022:easyrecycleradapters:0.0.9'
+    easyrecycleradapters : 'com.github.cmc00022:easyrecycleradapters:0.0.9',
+    recycleranimators : 'jp.wasabeef:recyclerview-animators:1.1.0@aar'
 ]
