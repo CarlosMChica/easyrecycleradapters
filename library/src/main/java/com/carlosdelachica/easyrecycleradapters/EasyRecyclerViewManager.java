@@ -4,7 +4,6 @@ import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.StringRes;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -302,12 +301,8 @@ public class EasyRecyclerViewManager implements OnItemClickListener,
             }
 
             Drawable divider = dividerDrawable;
-            if (dividerDrawable == null) {
-                if (layoutManager instanceof GridLayoutManager) {
-                    divider = context.getResources().getDrawable(R.drawable.grid_divider);
-                } else {
-                    divider = context.getResources().getDrawable(R.drawable.list_divider);
-                }
+            if (divider == null) {
+                divider = context.getResources().getDrawable(R.drawable.default_divider);
             }
             this.dividerItemDecoration = new DividerItemDecoration(context, divider);
 

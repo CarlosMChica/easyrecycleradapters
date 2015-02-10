@@ -78,7 +78,7 @@ public class RecyclerViewManager<V, VH extends CommonViewHolder<V>> implements C
     private void initDivider() {
         int dividerRes;
         if (layoutManager instanceof GridLayoutManager) {
-            dividerRes = R.drawable.grid_divider;
+            dividerRes = R.drawable.default_divider;
         } else {
             dividerRes = R.drawable.list_divider;
         }
