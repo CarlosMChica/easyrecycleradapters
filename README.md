@@ -19,7 +19,7 @@ dependencies {
 
 Info: The lib is still under development and might suffer changes.
 
-### Basic use
+### How to use
 
 You can find a sample project that shows up how to use.
 
@@ -59,7 +59,7 @@ Single view EasyRecyclerAdapter
     adapter.setOnLongClickListener(this);
 ```
 
-Multi view EasyRecyclerAdapter (bind each EasyViewHolder class to it's data type class
+Multi view EasyRecyclerAdapter (bind each EasyViewHolder class to it's data type class)
 
 ```java
     private EasyRecyclerAdapter adapter;
@@ -105,34 +105,34 @@ Call the methods provided by EasyRecyclerAdapter to interact with the data set
 For fully recyclerView customization you have EasyRecyclerManager. It's easy to use and have a lot of features out of the box for controlling your recycler view.
 
 ```java
-        //Create your EasyRecyclerAdapter
-        EasyRecyclerAdapter adapter = new EasyRecyclerAdapter(getActivity());
-        adapter.bind(ImageData.class, ImageEasyViewHolder.class);
-        adapter.bind(TextData.class, TextDataEasyViewHolder.class);
-        //Create your EasyRecyclerViewManager.Builder and pass your recyclerView and your EasyRecyclerAdapter
-        easyRecyclerViewManager = new EasyRecyclerViewManager.Builder(recyclerView, adapter)
-                //layoutManager (If none, LinearLayoutManager is used)
-                .layoutManager(new GridLayoutManager(getActivity(), getResources().getInteger(R.integer.grid_columns)))
-                //clickListeners
-                .clickListener(this)
-                .longClickListener(this)
-                //divider (If none, default is used)
-                .divider(R.drawable.custom_divider)
-                //TextView defined on your layout, to show up when loading your data or the recyclerView has not data
-                //If none, None of the related builder params are used
-                .emptyLoadingListTextView(emptyList)
-                //TextView loading text(If none, "Loading..." is used
-                .loadingListText(R.string.loading)
-                //TextView loading tex color(If none, default is used
-                .loadingListTextColor(R.color.accentColor)
-                //TextView empty list tex color(If none, "No data" is used
-                .emptyListText(R.string.empty_list)
-                //TextView empty list tex color(If none, default is used
-                .emptyListTextColor(R.color.accentColor)
-                //Misc
-                .recyclerViewClipToPadding(false)
-                .recyclerViewHasFixedSize(true)
-                .build();
+    //Create your EasyRecyclerAdapter
+    EasyRecyclerAdapter adapter = new EasyRecyclerAdapter(getActivity());
+    adapter.bind(ImageData.class, ImageEasyViewHolder.class);
+    adapter.bind(TextData.class, TextDataEasyViewHolder.class);
+    //Create your EasyRecyclerViewManager.Builder and pass your recyclerView and your EasyRecyclerAdapter
+    easyRecyclerViewManager = new EasyRecyclerViewManager.Builder(recyclerView, adapter)
+            //layoutManager (If none, LinearLayoutManager is used)
+            .layoutManager(new GridLayoutManager(getActivity(), getResources().getInteger(R.integer.grid_columns)))
+            //clickListeners
+            .clickListener(this)
+            .longClickListener(this)
+            //divider (If none, default is used)
+            .divider(R.drawable.custom_divider)
+            //TextView defined on your layout, to show up when loading your data or the recyclerView has not data
+            //If none, None of the related builder params are used
+            .emptyLoadingListTextView(emptyList)
+            //TextView loading text(If none, "Loading..." is used
+            .loadingListText(R.string.loading)
+            //TextView loading tex color(If none, default is used
+            .loadingListTextColor(R.color.accentColor)
+            //TextView empty list tex color(If none, "No data" is used
+            .emptyListText(R.string.empty_list)
+            //TextView empty list tex color(If none, default is used
+            .emptyListTextColor(R.color.accentColor)
+            //Misc
+            .recyclerViewClipToPadding(false)
+            .recyclerViewHasFixedSize(true)
+            .build();
 ```
 ---
 
