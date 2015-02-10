@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Display;
@@ -33,13 +34,15 @@ public class FullCustomizationFragment extends Fragment implements EasyRecyclerV
     RecyclerView recyclerView;
     @InjectView(R.id.empty_list)
     TextView emptyList;
+    @InjectView(R.id.refreshLayout)
+    SwipeRefreshLayout refreshLayout;
 
     private Handler handler;
     private EasyRecyclerViewManager easyRecyclerViewManager;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.simple_recycler_view_layout, container, false);
+        View rootView = inflater.inflate(R.layout.swipe_to_refresh_recycler_view_layout, container, false);
         ButterKnife.inject(this, rootView);
         return rootView;
     }
@@ -53,6 +56,7 @@ public class FullCustomizationFragment extends Fragment implements EasyRecyclerV
 
     private void initUI() {
         initEasyRecyclerViewManager();
+        initRefreshLayout();
     }
 
     private void initEasyRecyclerViewManager() {
@@ -72,6 +76,26 @@ public class FullCustomizationFragment extends Fragment implements EasyRecyclerV
                 .build();
     }
 
+    private void initRefreshLayout() {
+        recyclerView.setOnScrollListener(new RecyclerView.OnScrollListener() {
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) { }
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                int topRowVerticalPosition =
+                        (recyclerView == null || recyclerView.getChildCount() == 0)
+                                ? 0
+                                : recyclerView.getChildAt(0).getTop();
+                refreshLayout.setEnabled(topRowVerticalPosition >= 0);
+            }
+        });
+        refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                easyRecyclerViewManager.onRefresh();
+                initData();
+            }
+        });
+    }
+
     private void initData() {
         handler = new Handler();
         handler.postDelayed(new Runnable() {
@@ -83,6 +107,7 @@ public class FullCustomizationFragment extends Fragment implements EasyRecyclerV
                 int width = size.x;
                 int grid_columns = getResources().getInteger(R.integer.grid_columns);
                 easyRecyclerViewManager.addAll(DataGenerator.generateRandomDataList(width / grid_columns));
+                refreshLayout.setRefreshing(false);
             }
         }, 2000);
     }

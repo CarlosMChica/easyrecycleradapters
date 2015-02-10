@@ -111,19 +111,8 @@ public class EasyRecyclerViewManager implements OnItemClickListener,
         recyclerView.setPadding(left, top, right, bottom);
     }
 
-    public boolean update(Object data) {
-//      TODO: Adapter update item
-        return false;
-    }
-
-    public boolean update(Object data, int position) {
-//      TODO: Adapter update item at position
-        return false;
-    }
-
-    public void addAll(List<Object> data) {
-        adapter.addAll(data);
-        updateEmptyListTextView(data.size() > 0 ? EmptyLoadingListTextViewState.HIDDEN : EmptyLoadingListTextViewState.EMPTY);
+    public int getCount() {
+        return adapter.getItemCount();
     }
 
     public void add(Object data, int position) {
@@ -131,13 +120,26 @@ public class EasyRecyclerViewManager implements OnItemClickListener,
         updateEmptyListTextView(EmptyLoadingListTextViewState.HIDDEN);
     }
 
+    public void addAll(List<Object> data) {
+        adapter.addAll(data);
+        updateEmptyListTextView(data.size() > 0 ? EmptyLoadingListTextViewState.HIDDEN : EmptyLoadingListTextViewState.EMPTY);
+    }
+
+    public boolean update(Object data) {
+        return adapter.update(data);
+    }
+
+    public boolean update(Object data, int position) {
+        return adapter.update(data, position);
+    }
+
     public void remove(Object data) {
-//      TODO: Adapter remove data item
+        adapter.remove(data);
         updateEmptyListTextView(adapter.getItemCount() > 0 ? EmptyLoadingListTextViewState.HIDDEN : EmptyLoadingListTextViewState.EMPTY);
     }
 
     public void remove(int position) {
-//      TODO: Adapter remove item at position
+        adapter.remove(position);
         updateEmptyListTextView(adapter.getItemCount() > 0 ? EmptyLoadingListTextViewState.HIDDEN : EmptyLoadingListTextViewState.EMPTY);
     }
 
@@ -146,7 +148,7 @@ public class EasyRecyclerViewManager implements OnItemClickListener,
     }
 
     public void onRefresh() {
-//      TODO: Adapter clear items
+        adapter.clear();
         updateEmptyListTextView(EmptyLoadingListTextViewState.LOADING);
     }
 

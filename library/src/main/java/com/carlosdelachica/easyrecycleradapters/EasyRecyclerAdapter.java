@@ -107,6 +107,11 @@ public class EasyRecyclerAdapter extends RecyclerView.Adapter<EasyViewHolder> im
         return dataList.indexOf(item);
     }
 
+    public void clear() {
+        dataList.clear();
+        notifyDataSetChanged();
+    }
+
     public void setOnClickListener(OnItemClickListener listener) {
         this.itemClickListener = listener;
     }
