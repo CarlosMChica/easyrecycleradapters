@@ -122,7 +122,7 @@ public class EasyRecyclerViewManager {
         updateLoadedListTextView();
     }
 
-    public void addAll(List<Object> data) {
+    public void addAll(List<?> data) {
         adapter.addAll(data);
         updateLoadedListTextView();
     }

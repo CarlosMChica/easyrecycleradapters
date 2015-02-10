@@ -25,6 +25,8 @@ import com.carlosdelachica.sample.data.DataGenerator;
 import com.carlosdelachica.sample.data.ImageData;
 import com.carlosdelachica.sample.data.TextData;
 
+import java.util.ArrayList;
+
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 
@@ -111,6 +113,7 @@ public class FullCustomizationEasyRecyclerViewFragment extends Fragment implemen
                 display.getSize(size);
                 int width = size.x;
                 int grid_columns = getResources().getInteger(R.integer.grid_columns);
+                easyRecyclerViewManager.addAll(new ArrayList<ImageData>());
                 easyRecyclerViewManager.addAll(DataGenerator.generateRandomDataList(width / grid_columns));
                 refreshLayout.setRefreshing(false);
             }
