@@ -47,14 +47,6 @@ Bind your EasyViewHolder with its data.
                 .into(image);
     }
 ```
----
-
-### Define your selectors
-
-Check out the sample layouts to set selectors on each EasyViewHolder view
-You need to define two items in your styles
-
----
 
 ### 1.- Create your adapter
 
@@ -110,7 +102,7 @@ Call the methods provided by EasyRecyclerAdapter to interact with the data set
 
 ### 2.- EasyRecyclerManager version
 
-For fully recyclerView customization you have EasyRecyclerManager. It's easy to use and have a lot of features out of the box to controlling your recycler view.
+For fully recyclerView customization you have EasyRecyclerManager. It's easy to use and have a lot of features out of the box for controlling your recycler view.
 
 ```java
         //Create your EasyRecyclerAdapter
@@ -142,6 +134,14 @@ For fully recyclerView customization you have EasyRecyclerManager. It's easy to 
                 .recyclerViewHasFixedSize(true)
                 .build();
 ```
+---
+
+### Define your selectors
+
+Check out the sample layouts to set selectors on each EasyViewHolder view
+You need to define two items in your styles
+
+---
 
 Developed by
 =======
