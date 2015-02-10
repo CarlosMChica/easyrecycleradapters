@@ -1,4 +1,4 @@
-package com.carlosdelachica.easyrecycleradapters;
+package com.carlosdelachica.easyrecycleradapters.recycler_view_manager;
 
 enum EmptyLoadingListTextViewState {
     LOADING,

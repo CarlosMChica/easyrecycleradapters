@@ -1,4 +1,4 @@
-package com.carlosdelachica.sample;
+package com.carlosdelachica.sample.fragments;
 
 import android.graphics.Point;
 import android.os.Bundle;
@@ -15,20 +15,21 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.carlosdelachica.easyrecycleradapters.EasyRecyclerAdapter;
-import com.carlosdelachica.easyrecycleradapters.EasyRecyclerViewManager;
+import com.carlosdelachica.easyrecycleradapters.adapter.EasyRecyclerAdapter;
+import com.carlosdelachica.easyrecycleradapters.adapter.EasyViewHolder;
+import com.carlosdelachica.easyrecycleradapters.recycler_view_manager.EasyRecyclerViewManager;
 import com.carlosdelachica.easyrecycleradapters.sample.R;
-import com.carlosdelachica.sample.adapter.ImageData;
-import com.carlosdelachica.sample.adapter.ImageEasyViewHolder;
-import com.carlosdelachica.sample.adapter.TextData;
-import com.carlosdelachica.sample.adapter.TextDataEasyViewHolder;
+import com.carlosdelachica.sample.adapter.view_holders.ImageEasyViewHolder;
+import com.carlosdelachica.sample.adapter.view_holders.TextDataEasyViewHolder;
 import com.carlosdelachica.sample.data.DataGenerator;
+import com.carlosdelachica.sample.data.ImageData;
+import com.carlosdelachica.sample.data.TextData;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 
-public class FullCustomizationFragment extends Fragment implements EasyRecyclerViewManager.ItemClickListener,
-        EasyRecyclerViewManager.ItemLongClickListener {
+public class FullCustomizationEasyRecyclerViewFragment extends Fragment implements EasyViewHolder.OnItemClickListener,
+        EasyViewHolder.OnItemLongClickListener {
 
     @InjectView(R.id.recyclerView)
     RecyclerView recyclerView;
@@ -68,17 +69,21 @@ public class FullCustomizationFragment extends Fragment implements EasyRecyclerV
                 .divider(R.drawable.custom_divider)
                 .emptyLoadingListTextView(emptyList)
                 .loadingListText(R.string.loading)
-                .loadingListTextColor(R.color.accent_material_dark)
+                .loadingListTextColor(R.color.accentColor)
                 .emptyListText(R.string.empty_list)
-                .emptyListTextColor(R.color.accent_material_dark)
+                .emptyListTextColor(R.color.accentColor)
                 .clickListener(this)
                 .longClickListener(this)
+                .recyclerViewClipToPadding(false)
+                .recyclerViewHasFixedSize(true)
                 .build();
     }
 
     private void initRefreshLayout() {
         recyclerView.setOnScrollListener(new RecyclerView.OnScrollListener() {
-            public void onScrollStateChanged(RecyclerView recyclerView, int newState) { }
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+            }
+
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 int topRowVerticalPosition =
                         (recyclerView == null || recyclerView.getChildCount() == 0)
@@ -128,12 +133,12 @@ public class FullCustomizationFragment extends Fragment implements EasyRecyclerV
     }
 
     @Override
-    public void onItemClick(int position) {
+    public void onItemClick(int position, View view) {
         Toast.makeText(getActivity(), "painting selected " + position, Toast.LENGTH_LONG).show();
     }
 
     @Override
-    public boolean onLongItemClick(int position) {
+    public boolean onLongItemClicked(int position, View view) {
         Toast.makeText(getActivity(), "painting long selected " + position, Toast.LENGTH_LONG).show();
         return true;
     }

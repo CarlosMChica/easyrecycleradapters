@@ -1,4 +1,4 @@
-package com.carlosdelachica.sample.adapter;
+package com.carlosdelachica.sample.data;
 
 public class TextData {
 

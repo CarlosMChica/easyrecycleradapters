@@ -1,4 +1,4 @@
-package com.carlosdelachica.sample;
+package com.carlosdelachica.sample.fragments;
 
 import android.graphics.Point;
 import android.os.Bundle;
@@ -12,21 +12,23 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.carlosdelachica.easyrecycleradapters.EasyRecyclerAdapter;
+import com.carlosdelachica.easyrecycleradapters.adapter.EasyRecyclerAdapter;
 import com.carlosdelachica.easyrecycleradapters.decorations.DividerItemDecoration;
 import com.carlosdelachica.easyrecycleradapters.sample.R;
-import com.carlosdelachica.sample.adapter.ImageData;
-import com.carlosdelachica.sample.adapter.ImageEasyViewHolder;
+import com.carlosdelachica.sample.adapter.view_holders.ImageEasyViewHolder;
+import com.carlosdelachica.sample.adapter.view_holders.TextDataEasyViewHolder;
 import com.carlosdelachica.sample.data.DataGenerator;
+import com.carlosdelachica.sample.data.ImageData;
+import com.carlosdelachica.sample.data.TextData;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 
-import static com.carlosdelachica.easyrecycleradapters.EasyViewHolder.OnItemClickListener;
-import static com.carlosdelachica.easyrecycleradapters.EasyViewHolder.OnItemLongClickListener;
+import static com.carlosdelachica.easyrecycleradapters.adapter.EasyViewHolder.OnItemClickListener;
+import static com.carlosdelachica.easyrecycleradapters.adapter.EasyViewHolder.OnItemLongClickListener;
 
-public class SimpleViewEasyAdapterFragment extends Fragment implements OnItemLongClickListener,
-        OnItemClickListener {
+public class MultiViewEasyAdapterFragment extends Fragment implements OnItemClickListener,
+        OnItemLongClickListener {
 
     @InjectView(R.id.recyclerView)
     RecyclerView recyclerView;
@@ -53,7 +55,9 @@ public class SimpleViewEasyAdapterFragment extends Fragment implements OnItemLon
     }
 
     private void initAdapter() {
-        adapter = new EasyRecyclerAdapter(getActivity(), ImageData.class, ImageEasyViewHolder.class);
+        adapter = new EasyRecyclerAdapter(getActivity());
+        adapter.bind(ImageData.class, ImageEasyViewHolder.class);
+        adapter.bind(TextData.class, TextDataEasyViewHolder.class);
         adapter.setOnClickListener(this);
         adapter.setOnLongClickListener(this);
     }
@@ -70,7 +74,7 @@ public class SimpleViewEasyAdapterFragment extends Fragment implements OnItemLon
         display.getSize(size);
         int width = size.x;
         int grid_columns = getResources().getInteger(R.integer.grid_columns);
-        adapter.addAll(DataGenerator.generateRandomImageDataList(width / grid_columns));
+        adapter.addAll(DataGenerator.generateRandomDataList(width / grid_columns));
     }
 
     @Override

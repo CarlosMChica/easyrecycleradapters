@@ -1,11 +1,12 @@
-package com.carlosdelachica.sample.adapter;
+package com.carlosdelachica.sample.adapter.view_holders;
 
 import android.content.Context;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import com.carlosdelachica.easyrecycleradapters.EasyViewHolder;
+import com.carlosdelachica.easyrecycleradapters.adapter.EasyViewHolder;
 import com.carlosdelachica.easyrecycleradapters.sample.R;
+import com.carlosdelachica.sample.data.ImageData;
 import com.squareup.picasso.Picasso;
 
 import butterknife.ButterKnife;

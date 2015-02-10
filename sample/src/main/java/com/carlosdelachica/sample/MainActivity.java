@@ -9,6 +9,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.carlosdelachica.easyrecycleradapters.sample.R;
+import com.carlosdelachica.sample.fragments.FullCustomizationEasyRecyclerViewFragment;
+import com.carlosdelachica.sample.fragments.MultiViewEasyAdapterFragment;
+import com.carlosdelachica.sample.fragments.SimpleViewEasyAdapterFragment;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -61,7 +64,7 @@ public class MainActivity extends ActionBarActivity{
                 navigateToFragment(new MultiViewEasyAdapterFragment());
                 return true;
             case R.id.fullCustomizationFragment:
-                navigateToFragment(new FullCustomizationFragment());
+                navigateToFragment(new FullCustomizationEasyRecyclerViewFragment());
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

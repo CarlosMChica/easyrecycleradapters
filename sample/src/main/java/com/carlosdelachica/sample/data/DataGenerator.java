@@ -1,8 +1,5 @@
 package com.carlosdelachica.sample.data;
 
-import com.carlosdelachica.sample.adapter.ImageData;
-import com.carlosdelachica.sample.adapter.TextData;
-
 import java.util.ArrayList;
 import java.util.List;
 

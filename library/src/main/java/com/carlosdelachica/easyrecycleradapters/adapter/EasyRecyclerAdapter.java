@@ -1,19 +1,15 @@
-package com.carlosdelachica.easyrecycleradapters;
+package com.carlosdelachica.easyrecycleradapters.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.view.View;
 import android.view.ViewGroup;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.carlosdelachica.easyrecycleradapters.EasyViewHolder.OnItemClickListener;
-import static com.carlosdelachica.easyrecycleradapters.EasyViewHolder.OnItemLongClickListener;
+import static com.carlosdelachica.easyrecycleradapters.adapter.EasyViewHolder.*;
 
-@SuppressWarnings("UnusedDeclaration")
-public class EasyRecyclerAdapter extends RecyclerView.Adapter<EasyViewHolder> implements OnItemLongClickListener,
-        OnItemClickListener {
+public class EasyRecyclerAdapter extends RecyclerView.Adapter<EasyViewHolder> {
 
     private List<Object> dataList = new ArrayList<>();
     private EasyViewHolderFactory viewHolderFactory;
@@ -43,8 +39,8 @@ public class EasyRecyclerAdapter extends RecyclerView.Adapter<EasyViewHolder> im
 
     private void bindListeners(EasyViewHolder easyViewHolder) {
         if (easyViewHolder != null) {
-            easyViewHolder.setItemClickListener(this);
-            easyViewHolder.setLongClickListener(this);
+            easyViewHolder.setItemClickListener(itemClickListener);
+            easyViewHolder.setLongClickListener(longClickListener);
         }
     }
 
@@ -118,18 +114,6 @@ public class EasyRecyclerAdapter extends RecyclerView.Adapter<EasyViewHolder> im
 
     public void setOnLongClickListener(OnItemLongClickListener listener) {
         this.longClickListener = listener;
-    }
-
-    @SuppressWarnings("SimplifiableIfStatement")
-    @Override public boolean onLongItemClicked(int position, View view) {
-        if (longClickListener == null) { return false; }
-        return longClickListener.onLongItemClicked(position, view);
-    }
-
-    @Override public void onItemClick(int position, View view) {
-        if (itemClickListener != null) {
-            itemClickListener.onItemClick(position, view);
-        }
     }
 
 }
