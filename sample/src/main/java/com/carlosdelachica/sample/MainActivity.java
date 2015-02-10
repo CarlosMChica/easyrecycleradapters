@@ -52,12 +52,17 @@ public class MainActivity extends ActionBarActivity{
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        setTitle(item.getTitle());
         switch (item.getItemId()) {
             case R.id.simpleViewTypeFragment:
                 navigateToFragment(new SimpleViewEasyAdapterFragment());
                 return true;
             case R.id.multiViewTypeFragment:
                 navigateToFragment(new MultiViewEasyAdapterFragment());
+                return true;
+            case R.id.fullCustomizationFragment:
+                navigateToFragment(new FullCustomizationFragment());
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }

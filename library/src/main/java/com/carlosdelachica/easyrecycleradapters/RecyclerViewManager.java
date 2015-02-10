@@ -116,7 +116,7 @@ public class RecyclerViewManager<V, VH extends CommonViewHolder<V>> implements C
     }
 
     private void initAuxTextView() {
-        updateAuxTextView(AuxTextViewState.LOADING);
+        updateAuxTextView(EmptyLoadingListTextViewState.LOADING);
     }
 
     public void setCallback(RecyclerViewManagerCallback callback) {
@@ -141,27 +141,27 @@ public class RecyclerViewManager<V, VH extends CommonViewHolder<V>> implements C
 
     public void add(List<V> data) {
         adapter.add(data);
-        updateAuxTextView(data.size() > 0 ? AuxTextViewState.HIDDEN : AuxTextViewState.EMPTY);
+        updateAuxTextView(data.size() > 0 ? EmptyLoadingListTextViewState.HIDDEN : EmptyLoadingListTextViewState.EMPTY);
     }
 
     public void add(V data, int position) {
         adapter.add(data, position);
-        updateAuxTextView(AuxTextViewState.HIDDEN);
+        updateAuxTextView(EmptyLoadingListTextViewState.HIDDEN);
     }
 
     public void add(V data) {
         adapter.add(data);
-        updateAuxTextView(AuxTextViewState.HIDDEN);
+        updateAuxTextView(EmptyLoadingListTextViewState.HIDDEN);
     }
 
     public void remove(V data) {
         adapter.remove(data);
-        updateAuxTextView(adapter.getItemCount() > 0 ? AuxTextViewState.HIDDEN : AuxTextViewState.EMPTY);
+        updateAuxTextView(adapter.getItemCount() > 0 ? EmptyLoadingListTextViewState.HIDDEN : EmptyLoadingListTextViewState.EMPTY);
     }
 
     public void remove(int position) {
         adapter.remove(position);
-        updateAuxTextView(adapter.getItemCount() > 0 ? AuxTextViewState.HIDDEN : AuxTextViewState.EMPTY);
+        updateAuxTextView(adapter.getItemCount() > 0 ? EmptyLoadingListTextViewState.HIDDEN : EmptyLoadingListTextViewState.EMPTY);
     }
 
     public V getItem(int position) {
@@ -174,10 +174,10 @@ public class RecyclerViewManager<V, VH extends CommonViewHolder<V>> implements C
 
     public void onRefresh() {
         adapter.clearItems();
-        updateAuxTextView(AuxTextViewState.LOADING);
+        updateAuxTextView(EmptyLoadingListTextViewState.LOADING);
     }
 
-    private void updateAuxTextView(AuxTextViewState state) {
+    private void updateAuxTextView(EmptyLoadingListTextViewState state) {
         switch (state) {
             case HIDDEN:
                 setAuxTextViewVisible(false);

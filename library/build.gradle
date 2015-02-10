@@ -37,6 +37,7 @@ android {
 dependencies {
     compile parent.ext.libraries.recyclerview
     compile parent.ext.libraries.appcompat
+    compile parent.ext.libraries.recycleranimators
 }
 
 // Used to push in maven

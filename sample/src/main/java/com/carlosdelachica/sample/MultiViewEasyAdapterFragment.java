@@ -2,7 +2,6 @@ package com.carlosdelachica.sample;
 
 import android.graphics.Point;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
@@ -11,7 +10,6 @@ import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.carlosdelachica.easyrecycleradapters.EasyRecyclerAdapter;
@@ -34,15 +32,12 @@ public class MultiViewEasyAdapterFragment extends Fragment implements OnItemClic
 
     @InjectView(R.id.recyclerView)
     RecyclerView recyclerView;
-    @InjectView(R.id.empty_list)
-    TextView emptyList;
 
-    private Handler handler = new Handler();
     private EasyRecyclerAdapter adapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.standalone_fragment, container, false);
+        View rootView = inflater.inflate(R.layout.simple_recycler_view_layout, container, false);
         ButterKnife.inject(this, rootView);
         return rootView;
     }
@@ -74,27 +69,12 @@ public class MultiViewEasyAdapterFragment extends Fragment implements OnItemClic
     }
 
     private void initData() {
-        handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                Display display = getActivity().getWindowManager().getDefaultDisplay();
-                Point size = new Point();
-                display.getSize(size);
-                int width = size.x;
-                int grid_columns = getResources().getInteger(R.integer.grid_columns);
-                adapter.addAll(DataGenerator.generateRandomDataList(width / grid_columns));
-            }
-        }, 2000);
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        if (handler != null) {
-            handler.removeCallbacksAndMessages(null);
-            handler = null;
-        }
+        Display display = getActivity().getWindowManager().getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+        int width = size.x;
+        int grid_columns = getResources().getInteger(R.integer.grid_columns);
+        adapter.addAll(DataGenerator.generateRandomDataList(width / grid_columns));
     }
 
     @Override

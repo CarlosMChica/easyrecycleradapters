@@ -13,4 +13,9 @@
         android:title="@string/multi_view_fragment"
         app:showAsAction="never" />
 
+    <item
+        android:id="@+id/fullCustomizationFragment"
+        android:title="@string/full_customization_fragment"
+        app:showAsAction="never" />
+
 </menu>
