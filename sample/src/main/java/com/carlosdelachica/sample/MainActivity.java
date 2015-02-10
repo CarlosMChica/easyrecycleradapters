@@ -9,6 +9,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.carlosdelachica.easyrecycleradapters.sample.R;
+import com.carlosdelachica.sample.fragments.FullCustomizationEasyRecyclerViewFragment;
+import com.carlosdelachica.sample.fragments.MultiViewEasyAdapterFragment;
+import com.carlosdelachica.sample.fragments.SimpleViewEasyAdapterFragment;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -25,7 +28,7 @@ public class MainActivity extends ActionBarActivity{
         ButterKnife.inject(this);
         initToolbar();
         if (savedInstanceState == null) {
-            navigateToFragment(new RecyclerFragment());
+            navigateToFragment(new SimpleViewEasyAdapterFragment());
         }
     }
 
@@ -52,12 +55,16 @@ public class MainActivity extends ActionBarActivity{
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        setTitle(item.getTitle());
         switch (item.getItemId()) {
-            case R.id.standalone:
-                navigateToFragment(new ViewManagerFragment());
+            case R.id.simpleViewTypeFragment:
+                navigateToFragment(new SimpleViewEasyAdapterFragment());
                 return true;
-            case R.id.baseRecyclerFragment:
-                navigateToFragment(new RecyclerFragment());
+            case R.id.multiViewTypeFragment:
+                navigateToFragment(new MultiViewEasyAdapterFragment());
+                return true;
+            case R.id.fullCustomizationFragment:
+                navigateToFragment(new FullCustomizationEasyRecyclerViewFragment());
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

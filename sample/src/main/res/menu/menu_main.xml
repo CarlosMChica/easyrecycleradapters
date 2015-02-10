@@ -4,13 +4,18 @@
     tools:context=".MainActivity">
 
     <item
-        android:id="@+id/standalone"
-        android:title="@string/standalone"
+        android:id="@+id/simpleViewTypeFragment"
+        android:title="@string/simpleViewTypeAdapter"
         app:showAsAction="never" />
 
     <item
-        android:id="@+id/baseRecyclerFragment"
-        android:title="@string/base_recycler_fragment"
+        android:id="@+id/multiViewTypeFragment"
+        android:title="@string/multi_view_fragment"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/fullCustomizationFragment"
+        android:title="@string/full_customization_fragment"
         app:showAsAction="never" />
 
 </menu>
