@@ -11,189 +11,144 @@ The code brings up an easy way of using recyclerView, with the new recycler adap
 
 ```Groovy
 dependencies {
-    compile 'com.github.cmc00022:easyrecycleradapters:0.1.6'
+    compile 'com.github.cmc00022:easyrecycleradapters:1.0.0'
 }
 ```
 
 ---
+
+Info: The lib is still under development and might suffer changes.
 
 ### Basic use
 
 You can find a sample project that shows up how to use.
 
-The sample has two fragments, each one illustrates how to use the two variations of the lib (Extending BaseRecyclerFragment or composing with RecyclerStandalone.
-Customizations can also be found on the sample code (custom divider, foreground and background selectors)
+The sample has three fragments, each one illustrates how to use the features included on the lib
+Customizations can also be found on the sample code (custom divider, foreground and background selectors(Have a look to item views layouts in the sample code))
 
 Here's an example of basic use:
 
-Extend from CommonRecyclerAdapter and provide a type for the data used on this particular adapter.
-Inflate the custom view for each item that is contained on the adapter.
-Bind each custom view with its data.
+Extend from EasyViewHolder and provide a type for the data used on this particular EasyViewHolder.
+Call super with the layout for your EasyViewHolder
+Bind your EasyViewHolder with its data.
 
 ```java
 
-public class ImageAdapter extends CommonRecyclerAdapter<ImageData> {
-
-    public ImageAdapter(Context context) {
-        super(context);
-    }
-
-    public ImageAdapter(List<ImageData> dataList, Context context) {
-        super(dataList, context);
+    public ImageEasyViewHolder(Context context, ViewGroup parent) {
+        super(context, parent, R.layout.image_item);
+        this.context = context;
     }
 
     @Override
-    protected ViewHolder inflateViewHolder(ViewGroup viewGroup) {
-        return new ViewHolder(new ImageItem(context));
+    public void bindTo(ImageData item) {
+        Picasso.with(context)
+                .load(item.getImageUrl())
+                .placeholder(R.drawable.placeholder)
+                .into(image);
     }
-
-    @Override
-    public void bindViewHolder(ViewHolder viewHolder, ImageData item) {
-        ((ImageItem) viewHolder.getView()).bindTo(item);
-    }
-}
-
 ```
 ---
 
 ### Define your selectors
 
+Check out the sample layouts to set selectors on each EasyViewHolder view
 You need to define two items in your styles
 
-```java
-    <item name="rippleColor">@color/primaryDark</item>
-    <item name="selectorDrawable">@drawable/custom_selector</item>
-```
-
-rippleColor: Color reference (Defines the color of the ripple that is used as selector). API 21+
-selectorDrawable: Drawable reference that defines the states and values for your selector. API 21-
-
-Find an example on the sample project
-
 ---
 
-### 1.- Extend From BaseRecyclerFragment
+### 1.- Create your adapter
 
-Create your fragment that will contain a recyclerview and extend it from BaseRecylcerFragment.
-
-Implement the methods to create your custom adapter and define the layout manager you want to use.
-
+Single view EasyRecyclerAdapter
 
 ```java
-
-    @Override
-    protected CommonRecyclerAdapter<ImageData> createAdapter() {
-        return new ImageAdapter(getActivity());
-    }
-
-    @Override
-    protected RecyclerView.LayoutManager createLayoutManager() {
-        return new GridLayoutManager(getActivity(), getResources().getInteger(R.integer.grid_columns));
-    }
+    private EasyRecyclerAdapter adapter;
+    adapter = new EasyRecyclerAdapter(getActivity(), ImageData.class, ImageEasyViewHolder.class);
+    adapter.setOnClickListener(this);
+    adapter.setOnLongClickListener(this);
 ```
 
-Override clicks methods for callbacks on items clicks and long clicks
+Multi view EasyRecyclerAdapter (bind each EasyViewHolder class to it's data type class
+
 ```java
-
-    @Override
-    public boolean onLongItemClicked(int position, View view) {
-        Toast.makeText(getActivity(), "painting long selected " + position, Toast.LENGTH_LONG).show();
-        return true;
-    }
-
-    @Override
-    public void onItemClick(int position, View view) {
-        Toast.makeText(getActivity(), "painting selected " + position, Toast.LENGTH_LONG).show();
-    }
-```
-
-Call the methods provided by BaseRecyclerFragment to interact with the items contained in the adapter
-```java
-
-    public void updateItems(List<T> data);
-
-    public void addItem(T data);
-
-    public void removeItem (T data);
-
-    public void removeItem (int position);
-
-    public void onRefresh();
+    private EasyRecyclerAdapter adapter;
+    adapter = new EasyRecyclerAdapter(getActivity());
+    adapter.bind(ImageData.class, ImageEasyViewHolder.class);
+    adapter.bind(TextData.class, TextDataEasyViewHolder.class);
 
 ```
 
-### 2.- Standalone version
-
-
-If you can't extend from BaseRecyclerFragment, there is a standalone class that offers the same features.
-
-Just attach the standalone object to the recyclerView. Define an adapter and layout manager, set callback if needed:
+Set click listener methods for callbacks on items clicks and long clicks
 
 ```java
-        standalone.attachToRecyclerView(recyclerView,
-                new ImageAdapter(getActivity()),
-                new GridLayoutManager(getActivity(), getResources().getInteger(R.integer.grid_columns)));
-        standalone.setCallback(this);
+        adapter.setOnClickListener(this);
+        adapter.setOnLongClickListener(this);
+```
+
+Call the methods provided by EasyRecyclerAdapter to interact with the data set
+
+```java
+
+    public void add(Object object);
+
+    public void addAll(List<?> objects);
+
+    public boolean update(Object data);
+
+    public boolean update(Object data, int position);
+
+    public void remove(Object data);
+
+    public void remove(int position);
+
+    public Object get(int position);
+
+    public int getIndex(Object item);
+
+    public void clear();
 
 ```
 
-Use the same methods defined for BaseRecyclerFragment to interact with the data set
+### 2.- EasyRecyclerManager version
 
----
-
-### Misc
-
-Call for custom divider drawable
+For fully recyclerView customization you have EasyRecyclerManager. It's easy to use and have a lot of features out of the box to controlling your recycler view.
 
 ```java
-    public void setDivider(@DrawableRes int dividerDrawableRes);
+        //Create your EasyRecyclerAdapter
+        EasyRecyclerAdapter adapter = new EasyRecyclerAdapter(getActivity());
+        adapter.bind(ImageData.class, ImageEasyViewHolder.class);
+        adapter.bind(TextData.class, TextDataEasyViewHolder.class);
+        //Create your EasyRecyclerViewManager.Builder and pass your recyclerView and your EasyRecyclerAdapter
+        easyRecyclerViewManager = new EasyRecyclerViewManager.Builder(recyclerView, adapter)
+                //layoutManager (If none, LinearLayoutManager is used)
+                .layoutManager(new GridLayoutManager(getActivity(), getResources().getInteger(R.integer.grid_columns)))
+                //clickListeners
+                .clickListener(this)
+                .longClickListener(this)
+                //divider (If none, default is used)
+                .divider(R.drawable.custom_divider)
+                //TextView defined on your layout, to show up when loading your data or the recyclerView has not data
+                //If none, None of the related builder params are used
+                .emptyLoadingListTextView(emptyList)
+                //TextView loading text(If none, "Loading..." is used
+                .loadingListText(R.string.loading)
+                //TextView loading tex color(If none, default is used
+                .loadingListTextColor(R.color.accentColor)
+                //TextView empty list tex color(If none, "No data" is used
+                .emptyListText(R.string.empty_list)
+                //TextView empty list tex color(If none, default is used
+                .emptyListTextColor(R.color.accentColor)
+                //Misc
+                .recyclerViewClipToPadding(false)
+                .recyclerViewHasFixedSize(true)
+                .build();
 ```
 
----
+Developed by
+=======
 
-Extend your custom view from FrameLayout for foreground selector (The selector will be drawn above your view)
+Christian Panadero Martinez - <a href="http://panavtec.me">http://panavtec.me</a> - <a href="https://github.com/PaNaVTEC">@PaNaVTEC</a>
 
-```java
-public class ImageForegroundSelectorItem extends FrameLayout {
-.
-.
-}
-```
----
-
-Extend from any other view type for background selector (The selector will be drawn under your view)
-
-```java
-public class ImageBackgroundSelectorItem extends LinearLayout {
-.
-.
-}
-```
----
-Call for empty text customisations
-
-```java
-    public void setEmptyListText(@StringRes int messageStringRes);
-    public void setEmptyListTextColor(@ColorRes int colorRes);
-```
-First attach empty TextView to standalone object
-
-```java
-    public void attachToEmptyList(emptyListTextView);
-```
----
-Call for custom recyclerView padding
-
-```java
- public void setRecyclerViewPadding(int left, int top, int right, int bottom)
-```
----
-Call for getting recyclerView object
-
-```java
-public RecyclerView getRecyclerView()
-```
----
+Carlos Morera de la Chica - <a href="https://github.com/cmc00022">@cmc00022</a>
 
 License
 =======
