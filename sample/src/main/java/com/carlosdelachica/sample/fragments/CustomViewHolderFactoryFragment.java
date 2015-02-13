@@ -54,7 +54,10 @@ public class CustomViewHolderFactoryFragment extends Fragment implements OnItemL
     }
 
     private void initAdapter() {
-        adapter = new EasyRecyclerAdapter(new CustomViewHolderFactory(getActivity()), ImageData.class, ImageEasyViewHolder.class);
+        adapter = new EasyRecyclerAdapter(
+                new CustomViewHolderFactory(getActivity()),
+                ImageData.class,
+                ImageEasyViewHolder.class);
         adapter.setOnClickListener(this);
         adapter.setOnLongClickListener(this);
     }
