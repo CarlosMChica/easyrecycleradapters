@@ -16,18 +16,21 @@ public class ImageEasyViewHolder extends EasyViewHolder<ImageData> {
 
     @InjectView(R.id.image) ImageView image;
 
-    private Context context;
-    
+    private final Picasso picasso;
+
     public ImageEasyViewHolder(Context context, ViewGroup parent) {
+        this(context, parent, Picasso.with(context));
+    }
+
+    public ImageEasyViewHolder(Context context, ViewGroup parent, Picasso picasso) {
         super(context, parent, R.layout.image_item);
-        this.context = context;
+        this.picasso = picasso;
         ButterKnife.inject(this, itemView);
     }
 
     @Override
     public void bindTo(ImageData item) {
-        Picasso.with(context)
-                .load(item.getImageUrl())
+        picasso.load(item.getImageUrl())
                 .placeholder(R.drawable.placeholder)
                 .into(image);
     }

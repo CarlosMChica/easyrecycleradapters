@@ -8,5 +8,6 @@
     <string name="empty_list">Empty list</string>
     <string name="multi_view_fragment">Multi view adapter</string>
     <string name="full_customization_fragment">Customized using EasyRecyclerViewManager</string>
+    <string name="custom_factory_fragment">Custom ViewHolderFactory</string>
 
 </resources>

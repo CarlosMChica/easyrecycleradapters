@@ -9,6 +9,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.carlosdelachica.easyrecycleradapters.sample.R;
+import com.carlosdelachica.sample.fragments.CustomViewHolderFactoryFragment;
 import com.carlosdelachica.sample.fragments.FullCustomizationEasyRecyclerViewFragment;
 import com.carlosdelachica.sample.fragments.MultiViewEasyAdapterFragment;
 import com.carlosdelachica.sample.fragments.SimpleViewEasyAdapterFragment;
@@ -66,6 +67,8 @@ public class MainActivity extends ActionBarActivity{
             case R.id.fullCustomizationFragment:
                 navigateToFragment(new FullCustomizationEasyRecyclerViewFragment());
                 return true;
+            case R.id.customFactoryFragment:
+                navigateToFragment(new CustomViewHolderFactoryFragment());
             default:
                 return super.onOptionsItemSelected(item);
         }
