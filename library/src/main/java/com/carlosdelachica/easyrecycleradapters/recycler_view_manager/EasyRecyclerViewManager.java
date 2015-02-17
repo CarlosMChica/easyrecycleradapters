@@ -117,6 +117,11 @@ public class EasyRecyclerViewManager {
         return adapter.getItemCount();
     }
 
+    public void add(Object object, int position) {
+        adapter.add(object, position);
+        updateLoadedListTextView();
+    }
+
     public void add(Object data) {
         adapter.add(data);
         updateLoadedListTextView();

@@ -64,7 +64,12 @@ public class EasyRecyclerAdapter extends RecyclerView.Adapter<EasyViewHolder> {
     @Override public int getItemCount() {
         return dataList.size();
     }
-    
+
+    public void add(Object object, int position) {
+        dataList.add(position, object);
+        notifyItemInserted(position);
+    }
+
     public void add(Object object) {
         dataList.add(object);
         notifyItemInserted(getIndex(object));
