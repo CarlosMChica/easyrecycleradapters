@@ -183,7 +183,6 @@ You need to define two items in your styles
 ### Define your selectors
 
 Check out the sample layouts to set selectors on each EasyViewHolder view
-You need to define two items in your styles
 
 ---
 
