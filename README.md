@@ -188,11 +188,13 @@ Check out the sample layouts to set selectors on each EasyViewHolder view
 
 ### Proguard
 
+```
 -keep public class * extends com.carlosdelachica.easyrecycleradapters.adapter.EasyViewHolder
 -keepclassmembers class * extends com.carlosdelachica.easyrecycleradapters.adapter.EasyViewHolder {
  public <init>(android.content.Context);
  public <init>(android.content.Context, android.view.ViewGroup);
 }
+```
 
 ---
 
