@@ -31,6 +31,8 @@ public class EasyRecyclerViewManager {
     private int emptyListTextColor;
     private boolean clipToPadding;
     private boolean hasFixedSize;
+    private View loadingView;
+    private View noItemsView;
 
     EasyRecyclerViewManager(Context context,
                             RecyclerView recyclerView,
@@ -45,7 +47,9 @@ public class EasyRecyclerViewManager {
                             OnItemClickListener clickListener,
                             DividerItemDecoration dividerDrawableRes,
                             boolean clipToPadding,
-                            boolean hasFixedSize) {
+                            boolean hasFixedSize,
+                            View loadingView,
+                            View noItemsView) {
         this.context = context;
         this.recyclerView = recyclerView;
         this.layoutManager = layoutManager;
@@ -60,6 +64,8 @@ public class EasyRecyclerViewManager {
         this.dividerItemDecoration = dividerDrawableRes;
         this.clipToPadding = clipToPadding;
         this.hasFixedSize = hasFixedSize;
+        this.loadingView = loadingView;
+        this.noItemsView = noItemsView;
         initRecyclerView();
     }
 
@@ -170,19 +176,35 @@ public class EasyRecyclerViewManager {
     private void updateEmptyListTextView(EmptyLoadingListTextViewState state) {
         switch (state) {
             case HIDDEN:
+                setAuxLoadingViewVisible(false);
+                setAuxEmptyViewVisible(false);
                 setAuxTextViewVisible(false);
                 break;
             case EMPTY:
+                setAuxLoadingViewVisible(false);
+                setAuxEmptyViewVisible(true);
                 setAuxTextViewVisible(true);
                 setAuxTextViewText(emptyListText);
                 setAuxTextViewTextColor(emptyListTextColor);
                 break;
             case LOADING:
+                setAuxLoadingViewVisible(true);
+                setAuxEmptyViewVisible(false);
                 setAuxTextViewVisible(true);
                 setAuxTextViewText(loadingListText);
                 setAuxTextViewTextColor(loadingTextColor);
                 break;
         }
+    }
+
+    private void setAuxLoadingViewVisible(boolean visible) {
+        if (loadingView == null) { return; }
+        loadingView.setVisibility(visible ? View.VISIBLE : View.GONE);
+    }
+
+    private void setAuxEmptyViewVisible(boolean visible) {
+        if (noItemsView == null) { return; }
+        noItemsView.setVisibility(visible ? View.VISIBLE : View.GONE);
     }
 
     private void setAuxTextViewText(String text) {
