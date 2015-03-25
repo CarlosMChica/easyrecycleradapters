@@ -6,6 +6,7 @@ import android.support.annotation.DrawableRes;
 import android.support.annotation.StringRes;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.widget.TextView;
 
 import com.carlosdelachica.easyrecycleradapters.R;
@@ -29,6 +30,8 @@ public class EasyRecyclerViewManagerBuilder {
     private int loadingTextColor;
     private boolean clipToPadding = false;
     private boolean hasFixedSize = true;
+    private View loadingView;
+    private View noItemsView;
 
     public EasyRecyclerViewManagerBuilder(RecyclerView recyclerView, EasyRecyclerAdapter adapter) {
         if (recyclerView == null) {
@@ -43,10 +46,6 @@ public class EasyRecyclerViewManagerBuilder {
         this.context = recyclerView.getContext().getApplicationContext();
         this.recyclerView = recyclerView;
         this.adapter = adapter;
-        this.emptyTextColor = context.getResources().getColor(R.color.empty_list_text_color);
-        this.loadingTextColor = context.getResources().getColor(R.color.empty_list_text_color);
-        this.loadingText = context.getResources().getString(R.string.loading);
-        this.emptyText = context.getResources().getString(R.string.empty);
     }
 
     public EasyRecyclerViewManagerBuilder layoutManager(RecyclerView.LayoutManager layoutManager) {
@@ -146,8 +145,19 @@ public class EasyRecyclerViewManagerBuilder {
                 clickListener,
                 dividerItemDecoration,
                 clipToPadding,
-                hasFixedSize
+                hasFixedSize,
+                loadingView,
+                noItemsView
         );
     }
 
+    public EasyRecyclerViewManagerBuilder loadingView(View loadingView) {
+        this.loadingView = loadingView;
+        return this;
+    }
+
+    public EasyRecyclerViewManagerBuilder emptyView(View noItemsView) {
+        this.noItemsView = noItemsView;
+        return this;
+    }
 }
