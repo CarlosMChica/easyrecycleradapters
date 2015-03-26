@@ -23,8 +23,7 @@ public class BaseEasyViewHolderFactory {
             Constructor<? extends EasyViewHolder> constructor = easyViewHolderClass.getDeclaredConstructor(Context.class, ViewGroup.class);
             return constructor.newInstance(context, parent);
         } catch (Throwable e) {
-            e.printStackTrace();
-            return null;
+            throw new RuntimeException("Unable to create ViewHolder for" + valueClass, e);
         }
     }
 

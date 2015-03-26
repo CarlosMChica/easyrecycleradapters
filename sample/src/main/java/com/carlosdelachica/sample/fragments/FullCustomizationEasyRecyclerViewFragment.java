@@ -12,6 +12,7 @@ import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -37,6 +38,8 @@ public class FullCustomizationEasyRecyclerViewFragment extends Fragment implemen
     TextView emptyList;
     @InjectView(R.id.refreshLayout)
     SwipeRefreshLayout refreshLayout;
+    @InjectView(R.id.loadingView)
+    ProgressBar loadingView;
 
     private Handler handler;
     private EasyRecyclerViewManager easyRecyclerViewManager;
@@ -68,10 +71,9 @@ public class FullCustomizationEasyRecyclerViewFragment extends Fragment implemen
                 .layoutManager(new GridLayoutManager(getActivity(), getResources().getInteger(R.integer.grid_columns)))
                 .divider(R.drawable.custom_divider)
                 .emptyLoadingListTextView(emptyList)
-                .loadingListText(R.string.loading)
-                .loadingListTextColor(R.color.accentColor)
                 .emptyListText(R.string.empty_list)
                 .emptyListTextColor(R.color.accentColor)
+                .loadingView(loadingView)
                 .clickListener(this)
                 .longClickListener(this)
                 .recyclerViewClipToPadding(false)
