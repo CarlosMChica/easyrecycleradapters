@@ -183,17 +183,18 @@ You need to define two items in your styles
 ### Define your selectors
 
 Check out the sample layouts to set selectors on each EasyViewHolder view
-You need to define two items in your styles
 
 ---
 
 ### Proguard
 
+```
 -keep public class * extends com.carlosdelachica.easyrecycleradapters.adapter.EasyViewHolder
 -keepclassmembers class * extends com.carlosdelachica.easyrecycleradapters.adapter.EasyViewHolder {
  public <init>(android.content.Context);
  public <init>(android.content.Context, android.view.ViewGroup);
 }
+```
 
 ---
 
