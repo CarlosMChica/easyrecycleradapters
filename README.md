@@ -11,7 +11,7 @@ The code brings up an easy way of using recyclerView, with the new recycler adap
 
 ```Groovy
 dependencies {
-    compile 'com.github.cmc00022:easyrecycleradapters:1.0.3'
+    compile 'com.github.cmc00022:easyrecycleradapters:1.0.4'
 }
 ```
 
@@ -129,6 +129,10 @@ For fully recyclerView customization you have EasyRecyclerManager. It's easy to 
             .emptyListText(R.string.empty_list)
             //TextView empty list tex color(If none, default is used
             .emptyListTextColor(R.color.accentColor)
+            //LoadingView
+            .loadingView(View loadingView)
+            //emptyView
+            .emptyView(View emptyView)
             //Misc
             .recyclerViewClipToPadding(false)
             .recyclerViewHasFixedSize(true)
