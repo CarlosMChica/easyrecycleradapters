@@ -198,28 +198,43 @@ public class EasyRecyclerViewManager {
     }
 
     private void setAuxLoadingViewVisible(boolean visible) {
-        if (loadingView == null) { return; }
+        if (loadingView == null) {
+            return;
+        }
         loadingView.setVisibility(visible ? View.VISIBLE : View.GONE);
     }
 
     private void setAuxEmptyViewVisible(boolean visible) {
-        if (noItemsView == null) { return; }
+        if (noItemsView == null) {
+            return;
+        }
         noItemsView.setVisibility(visible ? View.VISIBLE : View.GONE);
     }
 
     private void setAuxTextViewText(String text) {
-        if (emptyLoadingListTextView == null) { return; }
+        if (emptyLoadingListTextView == null) {
+            return;
+        }
         emptyLoadingListTextView.setText(text);
     }
 
     private void setAuxTextViewTextColor(int color) {
-        if (emptyLoadingListTextView == null) { return; }
+        if (emptyLoadingListTextView == null) {
+            return;
+        }
         emptyLoadingListTextView.setTextColor(color);
     }
 
     private void setAuxTextViewVisible(boolean visible) {
-        if (emptyLoadingListTextView == null) { return; }
+        if (emptyLoadingListTextView == null) {
+            return;
+        }
         emptyLoadingListTextView.setVisibility(visible ? View.VISIBLE : View.GONE);
+    }
+
+    public void setLayoutManager(LayoutManager layoutManager) {
+        recyclerView.setLayoutManager(layoutManager);
+//        adapter.notifyDataSetChanged();
     }
 
     public static class Builder extends EasyRecyclerViewManagerBuilder {
