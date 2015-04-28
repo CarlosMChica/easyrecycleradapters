@@ -223,7 +223,8 @@ public class EasyRecyclerViewManager {
     }
 
     public void setLayoutManager(LayoutManager layoutManager) {
-        recyclerView.setLayoutManager(layoutManager);}
+        recyclerView.setLayoutManager(layoutManager);
+    }
 
     public static class Builder extends EasyRecyclerViewManagerBuilder {
         public Builder(RecyclerView recyclerView, EasyRecyclerAdapter adapter) {
