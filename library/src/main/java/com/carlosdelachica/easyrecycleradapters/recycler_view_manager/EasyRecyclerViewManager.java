@@ -222,6 +222,10 @@ public class EasyRecyclerViewManager {
         emptyLoadingListTextView.setVisibility(visible ? View.VISIBLE : View.GONE);
     }
 
+    public void setLayoutManager(LayoutManager layoutManager) {
+        recyclerView.setLayoutManager(layoutManager);
+    }
+
     public static class Builder extends EasyRecyclerViewManagerBuilder {
         public Builder(RecyclerView recyclerView, EasyRecyclerAdapter adapter) {
             super(recyclerView, adapter);
