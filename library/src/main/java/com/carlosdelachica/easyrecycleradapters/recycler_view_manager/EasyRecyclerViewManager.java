@@ -31,8 +31,8 @@ public class EasyRecyclerViewManager {
     private int emptyListTextColor;
     private boolean clipToPadding;
     private boolean hasFixedSize;
-    private final View loadingView;
-    private final View emptyView;
+    private View loadingView;
+    private View emptyView;
 
     EasyRecyclerViewManager(Context context,
                             RecyclerView recyclerView,
@@ -224,6 +224,34 @@ public class EasyRecyclerViewManager {
 
     public void setLayoutManager(LayoutManager layoutManager) {
         recyclerView.setLayoutManager(layoutManager);
+    }
+
+    public void setEmptyLoadingListTextView(TextView emptyLoadingListTextView) {
+        this.emptyLoadingListTextView = emptyLoadingListTextView;
+    }
+
+    public void setEmptyViewText(String emptyListText) {
+        this.emptyListText = emptyListText;
+    }
+
+    public void setEmptyListTextColor(int emptyListTextColor) {
+        this.emptyListTextColor = emptyListTextColor;
+    }
+
+    public void setLoadingListText(String loadingListText) {
+        this.loadingListText = loadingListText;
+    }
+
+    public void setLoadingTextColor(int loadingTextColor) {
+        this.loadingTextColor = loadingTextColor;
+    }
+
+    public void setLoadingView(View loadingView) {
+        this.loadingView = loadingView;
+    }
+
+    public void setEmptyView(View emptyView) {
+        this.emptyView = emptyView;
     }
 
     public static class Builder extends EasyRecyclerViewManagerBuilder {
