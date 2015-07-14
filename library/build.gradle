@@ -9,7 +9,7 @@ android {
         buildToolsVersion parent.ext.buildToolsVersion
 
         defaultConfig {
-            minSdkVersion parent.ext.minSdkVersion
+            minSdkVersion parent.ext.minSdkLibraryVersion
             targetSdkVersion parent.ext.targetSdkVersion
             versionCode = parent.ext.versionCode
             versionName = parent.ext.versionName
