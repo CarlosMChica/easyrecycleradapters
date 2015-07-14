@@ -30,6 +30,7 @@ public class EasyRecyclerViewManagerBuilder {
     private int loadingTextColor;
     private boolean clipToPadding = false;
     private boolean hasFixedSize = true;
+    private boolean isSingleChoiceMode = false;
     private View loadingView;
     private View emptyView;
 
@@ -123,6 +124,11 @@ public class EasyRecyclerViewManagerBuilder {
         return this;
     }
 
+    public EasyRecyclerViewManagerBuilder singleChoiceMode(){
+        this.isSingleChoiceMode = true;
+        return this;
+    }
+
     public EasyRecyclerViewManagerBuilder loadingView(View loadingView) {
         this.loadingView = loadingView;
         return this;
@@ -158,6 +164,7 @@ public class EasyRecyclerViewManagerBuilder {
                 dividerItemDecoration,
                 clipToPadding,
                 hasFixedSize,
+                isSingleChoiceMode,
                 loadingView,
                 emptyView
         );

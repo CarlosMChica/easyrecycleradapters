@@ -78,6 +78,7 @@ public class FullCustomizationEasyRecyclerViewFragment extends Fragment implemen
                 .longClickListener(this)
                 .recyclerViewClipToPadding(false)
                 .recyclerViewHasFixedSize(true)
+                .singleChoiceMode()
                 .build();
     }
 
