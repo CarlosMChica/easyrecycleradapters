@@ -31,6 +31,9 @@ public class EasyRecyclerViewManager {
     private int emptyListTextColor;
     private boolean clipToPadding;
     private boolean hasFixedSize;
+    private boolean isSingleChoiceMode;
+    private View loadingView;
+    private View emptyView;
 
     EasyRecyclerViewManager(Context context,
                             RecyclerView recyclerView,
@@ -45,7 +48,10 @@ public class EasyRecyclerViewManager {
                             OnItemClickListener clickListener,
                             DividerItemDecoration dividerDrawableRes,
                             boolean clipToPadding,
-                            boolean hasFixedSize) {
+                            boolean hasFixedSize,
+                            boolean isSingleChoiceMode,
+                            View loadingView,
+                            View emptyView) {
         this.context = context;
         this.recyclerView = recyclerView;
         this.layoutManager = layoutManager;
@@ -60,6 +66,9 @@ public class EasyRecyclerViewManager {
         this.dividerItemDecoration = dividerDrawableRes;
         this.clipToPadding = clipToPadding;
         this.hasFixedSize = hasFixedSize;
+        this.isSingleChoiceMode = isSingleChoiceMode;
+        this.loadingView = loadingView;
+        this.emptyView = emptyView;
         initRecyclerView();
     }
 
@@ -71,6 +80,7 @@ public class EasyRecyclerViewManager {
         initLayoutManager();
         initItemDecorations();
         initEmptyListTextView();
+        initItemTouchListener();
     }
 
     private void initRecyclerViewPadding() {
@@ -85,8 +95,10 @@ public class EasyRecyclerViewManager {
     }
 
     private void initListeners() {
-        adapter.setOnClickListener(itemClickListener);
-        adapter.setOnLongClickListener(longClickListener);
+        if(!isSingleChoiceMode){
+            adapter.setOnClickListener(itemClickListener);
+            adapter.setOnLongClickListener(longClickListener);
+        }
     }
 
     private void initLayoutManager() {
@@ -105,6 +117,12 @@ public class EasyRecyclerViewManager {
         updateEmptyListTextView(EmptyLoadingListTextViewState.LOADING);
     }
 
+    private void initItemTouchListener() {
+        if (isSingleChoiceMode){
+            recyclerView.addOnItemTouchListener(new TouchListener(recyclerView));
+        }
+    }
+
     public RecyclerView getRecyclerView() {
         return recyclerView;
     }
@@ -117,12 +135,17 @@ public class EasyRecyclerViewManager {
         return adapter.getItemCount();
     }
 
+    public void add(Object object, int position) {
+        adapter.add(object, position);
+        updateLoadedListTextView();
+    }
+
     public void add(Object data) {
         adapter.add(data);
         updateLoadedListTextView();
     }
 
-    public void addAll(List<Object> data) {
+    public void addAll(List<?> data) {
         adapter.addAll(data);
         updateLoadedListTextView();
     }
@@ -165,19 +188,35 @@ public class EasyRecyclerViewManager {
     private void updateEmptyListTextView(EmptyLoadingListTextViewState state) {
         switch (state) {
             case HIDDEN:
+                setAuxLoadingViewVisible(false);
+                setAuxEmptyViewVisible(false);
                 setAuxTextViewVisible(false);
                 break;
             case EMPTY:
+                setAuxLoadingViewVisible(false);
+                setAuxEmptyViewVisible(true);
                 setAuxTextViewVisible(true);
                 setAuxTextViewText(emptyListText);
                 setAuxTextViewTextColor(emptyListTextColor);
                 break;
             case LOADING:
+                setAuxLoadingViewVisible(true);
+                setAuxEmptyViewVisible(false);
                 setAuxTextViewVisible(true);
                 setAuxTextViewText(loadingListText);
                 setAuxTextViewTextColor(loadingTextColor);
                 break;
         }
+    }
+
+    private void setAuxLoadingViewVisible(boolean visible) {
+        if (loadingView == null) { return; }
+        loadingView.setVisibility(visible ? View.VISIBLE : View.GONE);
+    }
+
+    private void setAuxEmptyViewVisible(boolean visible) {
+        if (emptyView == null) { return; }
+        emptyView.setVisibility(visible ? View.VISIBLE : View.GONE);
     }
 
     private void setAuxTextViewText(String text) {
@@ -195,9 +234,66 @@ public class EasyRecyclerViewManager {
         emptyLoadingListTextView.setVisibility(visible ? View.VISIBLE : View.GONE);
     }
 
+    public void setLayoutManager(LayoutManager layoutManager) {
+        recyclerView.setLayoutManager(layoutManager);
+    }
+
+    public void setEmptyLoadingListTextView(TextView emptyLoadingListTextView) {
+        this.emptyLoadingListTextView = emptyLoadingListTextView;
+    }
+
+    public void setEmptyViewText(String emptyListText) {
+        this.emptyListText = emptyListText;
+    }
+
+    public void setEmptyListTextColor(int emptyListTextColor) {
+        this.emptyListTextColor = emptyListTextColor;
+    }
+
+    public void setLoadingListText(String loadingListText) {
+        this.loadingListText = loadingListText;
+    }
+
+    public void setLoadingTextColor(int loadingTextColor) {
+        this.loadingTextColor = loadingTextColor;
+    }
+
+    public void setLoadingView(View loadingView) {
+        this.loadingView = loadingView;
+    }
+
+    public void setEmptyView(View emptyView) {
+        this.emptyView = emptyView;
+    }
+
     public static class Builder extends EasyRecyclerViewManagerBuilder {
         public Builder(RecyclerView recyclerView, EasyRecyclerAdapter adapter) {
             super(recyclerView, adapter);
+        }
+    }
+
+    private class TouchListener extends ClickItemTouchListener {
+        TouchListener(RecyclerView recyclerView) {
+            super(recyclerView);
+        }
+
+        @Override
+        boolean performItemClick(RecyclerView parent, View view, int position, long id) {
+            if (itemClickListener != null) {
+                itemClickListener.onItemClick(position, view);
+                return true;
+            }
+
+            return false;
+        }
+
+        @Override
+        boolean performItemLongClick(RecyclerView parent, View view, int position, long id) {
+            if (longClickListener != null) {
+                return longClickListener.onLongItemClicked(position, view);
+            }
+
+            return false;
         }
     }
 

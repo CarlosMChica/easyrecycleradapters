@@ -18,4 +18,9 @@
         android:title="@string/full_customization_fragment"
         app:showAsAction="never" />
 
+    <item
+        android:id="@+id/customFactoryFragment"
+        android:title="@string/custom_factory_fragment"
+        app:showAsAction="never" />
+
 </menu>

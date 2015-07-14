@@ -17,10 +17,8 @@ import com.carlosdelachica.easyrecycleradapters.decorations.DividerItemDecoratio
 import com.carlosdelachica.easyrecycleradapters.sample.R;
 import com.carlosdelachica.sample.adapter.view_holder_factories.CustomViewHolderFactory;
 import com.carlosdelachica.sample.adapter.view_holders.ImageEasyViewHolder;
-import com.carlosdelachica.sample.adapter.view_holders.TextDataEasyViewHolder;
 import com.carlosdelachica.sample.data.DataGenerator;
 import com.carlosdelachica.sample.data.ImageData;
-import com.carlosdelachica.sample.data.TextData;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -28,8 +26,8 @@ import butterknife.InjectView;
 import static com.carlosdelachica.easyrecycleradapters.adapter.EasyViewHolder.OnItemClickListener;
 import static com.carlosdelachica.easyrecycleradapters.adapter.EasyViewHolder.OnItemLongClickListener;
 
-public class MultiViewEasyAdapterFragment extends Fragment implements OnItemClickListener,
-        OnItemLongClickListener {
+public class CustomViewHolderFactoryFragment extends Fragment implements OnItemLongClickListener,
+        OnItemClickListener {
 
     @InjectView(R.id.recyclerView)
     RecyclerView recyclerView;
@@ -56,9 +54,10 @@ public class MultiViewEasyAdapterFragment extends Fragment implements OnItemClic
     }
 
     private void initAdapter() {
-        adapter = new EasyRecyclerAdapter(new CustomViewHolderFactory(getActivity()));
-        adapter.bind(ImageData.class, ImageEasyViewHolder.class);
-        adapter.bind(TextData.class, TextDataEasyViewHolder.class);
+        adapter = new EasyRecyclerAdapter(
+                new CustomViewHolderFactory(getActivity()),
+                ImageData.class,
+                ImageEasyViewHolder.class);
         adapter.setOnClickListener(this);
         adapter.setOnLongClickListener(this);
     }
@@ -75,7 +74,7 @@ public class MultiViewEasyAdapterFragment extends Fragment implements OnItemClic
         display.getSize(size);
         int width = size.x;
         int grid_columns = getResources().getInteger(R.integer.grid_columns);
-        adapter.addAll(DataGenerator.generateRandomDataList(width / grid_columns));
+        adapter.addAll(DataGenerator.generateRandomImageDataList(width / grid_columns));
     }
 
     @Override

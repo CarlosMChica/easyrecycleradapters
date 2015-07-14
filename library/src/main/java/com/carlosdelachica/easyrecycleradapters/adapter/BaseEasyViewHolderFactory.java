@@ -2,32 +2,31 @@ package com.carlosdelachica.easyrecycleradapters.adapter;
 
 import android.content.Context;
 import android.view.ViewGroup;
-
 import java.lang.reflect.Constructor;
 import java.util.HashMap;
 import java.util.Map;
 
-class EasyViewHolderFactory {
+public class BaseEasyViewHolderFactory {
+
+    protected Context context;
 
     private Map<Class, Class<? extends EasyViewHolder>> boundViewHolders = new HashMap<>();
-    private Context context;
 
-    public EasyViewHolderFactory(Context context) {
+    public BaseEasyViewHolderFactory(Context context) {
         this.context = context;
     }
-    
+
     public EasyViewHolder create(Class valueClass, ViewGroup parent) {
         try {
             Class<? extends EasyViewHolder> easyViewHolderClass = boundViewHolders.get(valueClass);
             Constructor<? extends EasyViewHolder> constructor = easyViewHolderClass.getDeclaredConstructor(Context.class, ViewGroup.class);
             return constructor.newInstance(context, parent);
         } catch (Throwable e) {
-            e.printStackTrace();
-            return null;
+            throw new RuntimeException("Unable to create ViewHolder for" + valueClass + ". " + e.getCause().getMessage(), e);
         }
     }
 
-    public void bind(Class valueClass, Class<? extends EasyViewHolder> viewHolder) {
+    void bind(Class valueClass, Class<? extends EasyViewHolder> viewHolder) {
         boundViewHolders.put(valueClass, viewHolder);
     }
 

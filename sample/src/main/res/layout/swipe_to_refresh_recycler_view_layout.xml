@@ -15,6 +15,13 @@
             android:layout_height="match_parent"
             />
 
+        <ProgressBar
+            android:id="@+id/loadingView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            />
+
         <TextView
             android:id="@+id/empty_list"
             android:layout_width="match_parent"

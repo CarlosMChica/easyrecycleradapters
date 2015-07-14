@@ -7,12 +7,13 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.carlosdelachica.easyrecycleradapters.adapter.EasyViewHolder.*;
+import static com.carlosdelachica.easyrecycleradapters.adapter.EasyViewHolder.OnItemClickListener;
+import static com.carlosdelachica.easyrecycleradapters.adapter.EasyViewHolder.OnItemLongClickListener;
 
 public class EasyRecyclerAdapter extends RecyclerView.Adapter<EasyViewHolder> {
 
     private List<Object> dataList = new ArrayList<>();
-    private EasyViewHolderFactory viewHolderFactory;
+    private BaseEasyViewHolderFactory viewHolderFactory;
     private List<Class> valueClassTypes = new ArrayList<>();
     private OnItemClickListener itemClickListener;
     private OnItemLongClickListener longClickListener;
@@ -21,9 +22,17 @@ public class EasyRecyclerAdapter extends RecyclerView.Adapter<EasyViewHolder> {
         this(context);
         bind(valueClass, easyViewHolderClass);
     }
-
     public EasyRecyclerAdapter(Context context) {
-        viewHolderFactory = new EasyViewHolderFactory(context);
+        this(new BaseEasyViewHolderFactory(context));
+    }
+
+    public EasyRecyclerAdapter(BaseEasyViewHolderFactory easyViewHolderFactory, Class valueClass, Class<? extends EasyViewHolder> easyViewHolderClass) {
+        this(easyViewHolderFactory);
+        bind(valueClass, easyViewHolderClass);
+    }
+
+    public EasyRecyclerAdapter(BaseEasyViewHolderFactory easyViewHolderFactory) {
+        this.viewHolderFactory = easyViewHolderFactory;
     }
 
     public void bind(Class valueClass, Class<? extends EasyViewHolder> viewHolder) {
@@ -55,7 +64,12 @@ public class EasyRecyclerAdapter extends RecyclerView.Adapter<EasyViewHolder> {
     @Override public int getItemCount() {
         return dataList.size();
     }
-    
+
+    public void add(Object object, int position) {
+        dataList.add(position, object);
+        notifyItemInserted(position);
+    }
+
     public void add(Object object) {
         dataList.add(object);
         notifyItemInserted(getIndex(object));
