@@ -82,14 +82,15 @@ public class EasyRecyclerAdapter extends RecyclerView.Adapter<EasyViewHolder> {
 
   public void addAll(List<?> objects) {
     dataList.clear();
-    dataList.addAll(objects);
-    notifyDataSetChanged();
+    appendAll(objects);
   }
 
-  @SuppressWarnings("SimplifiableIfStatement") public boolean update(Object data) {
-    int indexOfData = getIndex(data);
-    if (indexOfData == -1) return false;
-    return update(data, indexOfData);
+  public void appendAll(List<?> objects) {
+    if (objects == null) {
+      throw new IllegalArgumentException("objects can not be null");
+    }
+    dataList.addAll(objects);
+    notifyDataSetChanged();
   }
 
   public boolean update(Object data, int position) {
@@ -100,17 +101,25 @@ public class EasyRecyclerAdapter extends RecyclerView.Adapter<EasyViewHolder> {
     return oldData != null;
   }
 
-  public void remove(Object data) {
+  public boolean remove(Object data) {
     if (dataList.contains(data)) {
-      remove(getIndex(data));
+      return remove(getIndex(data));
     }
+    return false;
   }
 
-  public void remove(int position) {
-    if (position >= 0 && position < getItemCount()) {
+  public boolean remove(int position) {
+    boolean validIndex = isValidIndex(position);
+    if (validIndex) {
       dataList.remove(position);
       notifyItemRemoved(position);
     }
+    return validIndex;
+  }
+
+  public void clear() {
+    dataList.clear();
+    notifyDataSetChanged();
   }
 
   public Object get(int position) {
@@ -121,9 +130,8 @@ public class EasyRecyclerAdapter extends RecyclerView.Adapter<EasyViewHolder> {
     return dataList.indexOf(item);
   }
 
-  public void clear() {
-    dataList.clear();
-    notifyDataSetChanged();
+  public boolean isEmpty() {
+    return getItemCount() == 0;
   }
 
   public void setOnClickListener(final OnItemClickListener listener) {
@@ -141,5 +149,9 @@ public class EasyRecyclerAdapter extends RecyclerView.Adapter<EasyViewHolder> {
         return listener.onLongItemClicked(position, v);
       }
     };
+  }
+
+  private boolean isValidIndex(int position) {
+    return position >= 0 && position < getItemCount();
   }
 }
