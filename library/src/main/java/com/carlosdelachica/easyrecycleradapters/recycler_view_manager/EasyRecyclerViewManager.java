@@ -4,11 +4,9 @@ import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
-
 import com.carlosdelachica.easyrecycleradapters.R;
 import com.carlosdelachica.easyrecycleradapters.adapter.EasyRecyclerAdapter;
 import com.carlosdelachica.easyrecycleradapters.decorations.DividerItemDecoration;
-
 import java.util.List;
 
 import static android.support.v7.widget.RecyclerView.LayoutManager;
@@ -136,10 +134,6 @@ public class EasyRecyclerViewManager {
     public void addAll(List<?> data) {
         adapter.addAll(data);
         updateLoadedListTextView();
-    }
-
-    public boolean update(Object data) {
-        return adapter.update(data);
     }
 
     public boolean update(Object data, int position) {
