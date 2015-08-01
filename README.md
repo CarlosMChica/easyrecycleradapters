@@ -11,7 +11,7 @@ The code brings up an easy way of using recyclerView, with the new recycler adap
 
 ```Groovy
 dependencies {
-    compile 'com.github.cmc00022:easyrecycleradapters:1.0.5'
+    compile 'com.github.cmc00022:easyrecycleradapters:1.0.6'
 }
 ```
 

@@ -24,6 +24,7 @@ ext {
   versionCode = VERSION_CODE.toInteger()
   versionName = VERSION_NAME
 
+  minSdkLibraryVersion = 11
   minSdkVersion = 13
   targetSdkVersion = 21
   compileSdkVersion = 21
