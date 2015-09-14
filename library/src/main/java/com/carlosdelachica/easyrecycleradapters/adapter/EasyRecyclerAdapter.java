@@ -137,7 +137,7 @@ public class EasyRecyclerAdapter extends RecyclerView.Adapter<EasyViewHolder> {
   public void setOnClickListener(final OnItemClickListener listener) {
     this.itemClickListener = new DebouncedOnClickListener() {
       @Override public boolean onDebouncedClick(View v, int position) {
-        listener.onItemClick(position, v);
+        if(listener != null) listener.onItemClick(position, v);
         return true;
       }
     };
@@ -146,7 +146,8 @@ public class EasyRecyclerAdapter extends RecyclerView.Adapter<EasyViewHolder> {
   public void setOnLongClickListener(final OnItemLongClickListener listener) {
     this.longClickListener = new DebouncedOnLongClickListener() {
       @Override public boolean onDebouncedClick(View v, int position) {
-        return listener.onLongItemClicked(position, v);
+        if(listener != null) return listener.onLongItemClicked(position, v);
+        return false;
       }
     };
   }
