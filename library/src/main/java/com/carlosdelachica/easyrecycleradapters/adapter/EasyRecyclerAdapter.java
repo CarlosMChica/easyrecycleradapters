@@ -4,8 +4,10 @@ import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
+
 import com.carlosdelachica.easyrecycleradapters.adapter.debouncedlisteners.DebouncedOnClickListener;
 import com.carlosdelachica.easyrecycleradapters.adapter.debouncedlisteners.DebouncedOnLongClickListener;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -137,7 +139,7 @@ public class EasyRecyclerAdapter extends RecyclerView.Adapter<EasyViewHolder> {
   public void setOnClickListener(final OnItemClickListener listener) {
     this.itemClickListener = new DebouncedOnClickListener() {
       @Override public boolean onDebouncedClick(View v, int position) {
-        if(listener != null){
+        if (listener != null) {
           listener.onItemClick(position, v);
         }
         return true;
@@ -148,7 +150,7 @@ public class EasyRecyclerAdapter extends RecyclerView.Adapter<EasyViewHolder> {
   public void setOnLongClickListener(final OnItemLongClickListener listener) {
     this.longClickListener = new DebouncedOnLongClickListener() {
       @Override public boolean onDebouncedClick(View v, int position) {
-        if(listener != null){
+        if (listener != null) {
           return listener.onLongItemClicked(position, v);
         }
         return false;
