@@ -11,7 +11,7 @@ The code brings up an easy way of using recyclerView, with the new recycler adap
 
 ```Groovy
 dependencies {
-    compile 'com.github.cmc00022:easyrecycleradapters:1.0.0'
+    compile 'com.github.cmc00022:easyrecycleradapters:1.0.9'
 }
 ```
 
@@ -47,14 +47,6 @@ Bind your EasyViewHolder with its data.
                 .into(image);
     }
 ```
----
-
-### Define your selectors
-
-Check out the sample layouts to set selectors on each EasyViewHolder view
-You need to define two items in your styles
-
----
 
 ### 1.- Create your adapter
 
@@ -110,7 +102,7 @@ Call the methods provided by EasyRecyclerAdapter to interact with the data set
 
 ### 2.- EasyRecyclerManager version
 
-For fully recyclerView customization you have EasyRecyclerManager. It's easy to use and have a lot of features out of the box to controlling your recycler view.
+For fully recyclerView customization you have EasyRecyclerManager. It's easy to use and have a lot of features out of the box for controlling your recycler view.
 
 ```java
     //Create your EasyRecyclerAdapter
@@ -137,11 +129,78 @@ For fully recyclerView customization you have EasyRecyclerManager. It's easy to 
             .emptyListText(R.string.empty_list)
             //TextView empty list tex color(If none, default is used
             .emptyListTextColor(R.color.accentColor)
+            //LoadingView
+            .loadingView(View loadingView)
+            //emptyView
+            .emptyView(View emptyView)
             //Misc
             .recyclerViewClipToPadding(false)
             .recyclerViewHasFixedSize(true)
             .build();
 ```
+---
+
+### Custom ViewHolderFactory
+
+If you need to pass extra parameters in order to display the data associated to a ViewHolder,
+create a custom ViewHolderFactory and create your ViewHolders as follows.
+
+```java
+
+public class CustomViewHolderFactory extends BaseEasyViewHolderFactory {
+
+    public CustomViewHolderFactory(Context context) {
+        super(context);
+        //Extra parameters for your ViewHolders
+        this.picasso = Picasso.with(context);
+    }
+
+    @Override
+    public EasyViewHolder create(Class valueClass, ViewGroup parent) {
+    //Create ViewHolder for each dataClass
+        if (valueClass == ImageData.class) {
+            //Using extra parameters as needed
+            return new ImageEasyViewHolder(context, parent, picasso);
+        } else if (valueClass == TextData.class) {
+            return new TextDataEasyViewHolder(context, parent);
+        }
+        return null;
+    }
+
+}
+
+    //Create the adapter and pass the custom ViewHolderFactory
+    //Bind the data as normally.
+    adapter = new EasyRecyclerAdapter(
+            new CustomViewHolderFactory(getActivity()),
+            ImageData.class,
+            ImageEasyViewHolder.class);
+
+```
+
+
+Check out the sample layouts to set selectors on each EasyViewHolder view
+You need to define two items in your styles
+
+---
+
+### Define your selectors
+
+Check out the sample layouts to set selectors on each EasyViewHolder view
+
+---
+
+### Proguard
+
+```
+-keep public class * extends com.carlosdelachica.easyrecycleradapters.adapter.EasyViewHolder
+-keepclassmembers class * extends com.carlosdelachica.easyrecycleradapters.adapter.EasyViewHolder {
+ public <init>(android.content.Context);
+ public <init>(android.content.Context, android.view.ViewGroup);
+}
+```
+
+---
 
 Developed by
 =======
