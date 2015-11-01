@@ -66,17 +66,10 @@ public class EasyRecyclerViewManager {
     private void initRecyclerView() {
         recyclerView.setClipToPadding(clipToPadding);
         recyclerView.setHasFixedSize(hasFixedSize);
-        initRecyclerViewPadding();
         initAdapter();
         initLayoutManager();
         initItemDecorations();
         initEmptyListTextView();
-    }
-
-    private void initRecyclerViewPadding() {
-        //Apply padding as described in Material Design specs
-        int topBottomPadding = context.getResources().getDimensionPixelSize(R.dimen.material_design_list_top_bottom_padding);
-        setRecyclerViewPadding(0, topBottomPadding, 0, topBottomPadding);
     }
 
     private void initAdapter() {
