@@ -2,7 +2,7 @@
 
 ![Maven Central](https://img.shields.io/maven-central/v/com.github.cmc00022/easyrecycleradapters.svg)
 [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-EasyRecyclerAdapters-brightgreen.svg?style=flat)](https://android-arsenal.com/details/1/1417)
-[![Build Status](https://img.shields.io/travis/cmc00022/easyrecycleradapters.svg)](https://travis-ci.org/cmc00022/easyrecycleradapters) [![codecov.io](https://codecov.io/github/cmc00022/easyrecycleradapters/coverage.svg?branch=master)](https://codecov.io/github/cmc00022/easyrecycleradapters?branch=master)
+[![Build Status](https://img.shields.io/travis/cmc00022/easyrecycleradapters.svg)](https://travis-ci.org/cmc00022/easyrecycleradapters) 
 
 The code brings up an easy way of using recyclerView, with the new recycler adapters. It also offers out of the box multi view types inside the same adapter and a DividerItemDecoration that handles the drawing of the divider in the recycler view.
 
