@@ -52,3 +52,15 @@ script:
   - adb shell input keyevent 82 &
   - ./gradlew connectedAndroidTest -PdisablePreDex --continue --stacktrace
   - rm /home/travis/.gradle/caches/2.8/plugin-resolution/cache.properties.lock
+
+after_success:
+  - ./gradlew jacocoFullReport
+  - codecov
+
+after_failure:
+  - pandoc builder/build/reports/tests/index.html -t plain | sed -n '/^Failed tests/,/default-package/p'
+
+after_script:
+  # print lint results details
+  - for f in app/build/outputs/lint-results.html; do pandoc $f -t plain; done
+  - for f in data/build/outputs/lint-results.html; do pandoc $f -t plain; done
