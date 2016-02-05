@@ -36,7 +36,7 @@ ext.libraries = [recyclerview        : 'com.android.support:recyclerview-v7:21.0
                  appcompat           : 'com.android.support:appcompat-v7:21.0.3',
                  butterknife         : 'com.jakewharton:butterknife:5.0.0',
                  picasso             : 'com.squareup.picasso:picasso:2.2.0',
-                 easyrecycleradapters: 'com.github.cmc00022:easyrecycleradapters:1.0.4'
+                 easyrecycleradapters: 'com.github.cmc00022:easyrecycleradapters:1.0.4']
 
 ext.testLibraries = [mockito: "org.mockito:mockito-core:1.9.5",
                      junit  : "junit:junit:4.11",
