@@ -38,7 +38,6 @@ android {
 dependencies {
   compile parent.ext.libraries.recyclerview
   compile parent.ext.libraries.appcompat
-  compile parent.ext.libraries.recycleranimators
 
   androidTestCompile parent.ext.testLibraries.runner
   androidTestCompile parent.ext.testLibraries.mockito
