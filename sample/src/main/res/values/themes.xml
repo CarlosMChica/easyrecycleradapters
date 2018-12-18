@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="AppTheme" parent="AppBaseTheme">
 
-        <item name="android:windowNoTitle">true</item>
-        <item name="windowActionBar">false</item>
-        <!--<item name="android:selectableItemBackground">@drawable/custom_selector</item>-->
+    <style name="AppTheme" parent="Theme.AppCompat.NoActionBar">
+        <item name="colorPrimary">@color/primaryColor</item>
+        <item name="colorPrimaryDark">@color/primaryDark</item>
+        <item name="colorAccent">@color/accentColor</item>
     </style>
-
 </resources>

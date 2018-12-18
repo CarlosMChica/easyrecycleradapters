@@ -3,11 +3,6 @@ package com.carlosdelachica.sample.fragments;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,33 +21,39 @@ import com.carlosdelachica.sample.data.DataGenerator;
 import com.carlosdelachica.sample.data.ImageData;
 import com.carlosdelachica.sample.data.TextData;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.InjectView;
 
 public class FullCustomizationEasyRecyclerViewFragment extends Fragment implements EasyViewHolder.OnItemClickListener,
         EasyViewHolder.OnItemLongClickListener {
 
-    @InjectView(R.id.recyclerView)
+    @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
-    @InjectView(R.id.empty_list)
+    @BindView(R.id.empty_list)
     TextView emptyList;
-    @InjectView(R.id.refreshLayout)
+    @BindView(R.id.refreshLayout)
     SwipeRefreshLayout refreshLayout;
-    @InjectView(R.id.loadingView)
+    @BindView(R.id.loadingView)
     ProgressBar loadingView;
 
     private Handler handler;
     private EasyRecyclerViewManager easyRecyclerViewManager;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.swipe_to_refresh_recycler_view_layout, container, false);
-        ButterKnife.inject(this, rootView);
+        ButterKnife.bind(this, rootView);
         return rootView;
     }
 
     @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initUI();
         initData();
@@ -82,13 +83,13 @@ public class FullCustomizationEasyRecyclerViewFragment extends Fragment implemen
     }
 
     private void initRefreshLayout() {
-        recyclerView.setOnScrollListener(new RecyclerView.OnScrollListener() {
-            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
             }
 
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
                 int topRowVerticalPosition =
-                        (recyclerView == null || recyclerView.getChildCount() == 0)
+                        recyclerView.getChildCount() == 0
                                 ? 0
                                 : recyclerView.getChildAt(0).getTop();
                 refreshLayout.setEnabled(topRowVerticalPosition >= 0);
@@ -108,7 +109,7 @@ public class FullCustomizationEasyRecyclerViewFragment extends Fragment implemen
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                Display display = getActivity().getWindowManager().getDefaultDisplay();
+                Display display = requireActivity().getWindowManager().getDefaultDisplay();
                 Point size = new Point();
                 display.getSize(size);
                 int width = size.x;
@@ -126,12 +127,6 @@ public class FullCustomizationEasyRecyclerViewFragment extends Fragment implemen
             handler.removeCallbacksAndMessages(null);
             handler = null;
         }
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        ButterKnife.reset(this);
     }
 
     @Override

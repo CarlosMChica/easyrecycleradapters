@@ -9,6 +9,7 @@ public class ImageData {
     }
 
     public String getImageUrl() {
+        System.out.println(imageUrl);
         return imageUrl;
     }
 

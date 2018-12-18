@@ -1,15 +1,17 @@
 package com.carlosdelachica.easyrecycleradapters.recycler_view_manager;
 
 import android.content.Context;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
-import com.carlosdelachica.easyrecycleradapters.R;
+
 import com.carlosdelachica.easyrecycleradapters.adapter.EasyRecyclerAdapter;
-import com.carlosdelachica.easyrecycleradapters.decorations.DividerItemDecoration;
+
 import java.util.List;
 
-import static android.support.v7.widget.RecyclerView.LayoutManager;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView.LayoutManager;
+
 import static com.carlosdelachica.easyrecycleradapters.adapter.EasyViewHolder.OnItemClickListener;
 import static com.carlosdelachica.easyrecycleradapters.adapter.EasyViewHolder.OnItemLongClickListener;
 
@@ -185,27 +187,37 @@ public class EasyRecyclerViewManager {
     }
 
     private void setAuxLoadingViewVisible(boolean visible) {
-        if (loadingView == null) { return; }
+        if (loadingView == null) {
+            return;
+        }
         loadingView.setVisibility(visible ? View.VISIBLE : View.GONE);
     }
 
     private void setAuxEmptyViewVisible(boolean visible) {
-        if (emptyView == null) { return; }
+        if (emptyView == null) {
+            return;
+        }
         emptyView.setVisibility(visible ? View.VISIBLE : View.GONE);
     }
 
     private void setAuxTextViewText(String text) {
-        if (emptyLoadingListTextView == null) { return; }
+        if (emptyLoadingListTextView == null) {
+            return;
+        }
         emptyLoadingListTextView.setText(text);
     }
 
     private void setAuxTextViewTextColor(int color) {
-        if (emptyLoadingListTextView == null) { return; }
+        if (emptyLoadingListTextView == null) {
+            return;
+        }
         emptyLoadingListTextView.setTextColor(color);
     }
 
     private void setAuxTextViewVisible(boolean visible) {
-        if (emptyLoadingListTextView == null) { return; }
+        if (emptyLoadingListTextView == null) {
+            return;
+        }
         emptyLoadingListTextView.setVisibility(visible ? View.VISIBLE : View.GONE);
     }
 

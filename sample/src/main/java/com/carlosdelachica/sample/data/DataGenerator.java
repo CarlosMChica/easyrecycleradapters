@@ -18,7 +18,7 @@ public class DataGenerator {
         for (int i = 0; i < 20; i++) {
             if (i < 5) {
                 data.add(generateRandomImageData(width, i));
-            } else if (i >= 5 && i <10) {
+            } else if (i >= 5 && i < 10) {
                 data.add(generateRandomTextData(i));
             } else {
                 data.add(generateRandomImageData(width, i));

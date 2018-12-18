@@ -1,21 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:foreground="@drawable/custom_selector"
-    >
-
-    <TextView
-        android:id="@+id/text"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="@dimen/text_padding"
-        android:textColor="@android:color/white"
-        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
-        android:layout_gravity="center"
-        android:gravity="center"
-        android:background="@android:color/transparent"
-        />
-
-</FrameLayout>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+          android:id="@+id/text"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_gravity="center"
+          android:gravity="center"
+          android:padding="@dimen/text_padding"/>

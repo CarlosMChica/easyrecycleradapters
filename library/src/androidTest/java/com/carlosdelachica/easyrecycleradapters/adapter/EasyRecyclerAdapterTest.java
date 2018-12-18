@@ -1,134 +1,146 @@
 package com.carlosdelachica.easyrecycleradapters.adapter;
 
 import android.content.Context;
-import android.support.test.InstrumentationRegistry;
-import android.support.test.runner.AndroidJUnit4;
-import java.util.List;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import java.util.List;
+
+import androidx.test.ext.junit.runners.AndroidJUnit4;
+
+import static androidx.test.platform.app.InstrumentationRegistry.getInstrumentation;
 import static java.util.Arrays.asList;
 import static java.util.Collections.singletonList;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-@RunWith(AndroidJUnit4.class) public class EasyRecyclerAdapterTest {
+@RunWith(AndroidJUnit4.class)
+public class EasyRecyclerAdapterTest {
 
-  public static final List<Object> LIST = singletonList(new Object());
-  public static final List<Object> LIST_WITH_3_ITEMS =
-      asList(new Object(), new Object(), new Object());
+    public static final List<Object> LIST = singletonList(new Object());
+    public static final List<Object> LIST_WITH_3_ITEMS =
+            asList(new Object(), new Object(), new Object());
+    public static final Object ITEM = new Object();
+    public static final Object ITEM_AT_INDEX_3 = new Object();
+    public static final List<Object> LIST_WITH_4_ITEMS =
+            asList(new Object(), new Object(), new Object(), ITEM_AT_INDEX_3);
+    Context context;
+    EasyRecyclerAdapter adapter;
 
-  Context context;
-  EasyRecyclerAdapter adapter;
-  public static final Object ITEM = new Object();
-  public static final Object ITEM_AT_INDEX_3 = new Object();
-  public static final List<Object> LIST_WITH_4_ITEMS =
-      asList(new Object(), new Object(), new Object(), ITEM_AT_INDEX_3);
+    @Before
+    public void setup() {
+        context = getInstrumentation().getContext();
+        adapter = new EasyRecyclerAdapter(context);
+    }
 
-  @Before public void setup() {
-    context = InstrumentationRegistry.getInstrumentation().getContext();
-    adapter = new EasyRecyclerAdapter(context);
-  }
+    @Test(expected = IllegalArgumentException.class)
+    public void testAddAllNullList_throwsIllegalArgumentException() {
+        adapter.addAll(null);
+    }
 
-  @Test(expected = IllegalArgumentException.class)
-  public void testAddAllNullList_throwsIllegalArgumentException() throws Exception {
-    adapter.addAll(null);
-  }
+    @Test(expected = IllegalArgumentException.class)
+    public void testAppendAllNullList_throwsIllegalArgumentException() {
+        adapter.appendAll(null);
+    }
 
-  @Test(expected = IllegalArgumentException.class)
-  public void testAppendAllNullList_throwsIllegalArgumentException() throws Exception {
-    adapter.appendAll(null);
-  }
+    @Test
+    public void testAddAll_returnsItemCountEqualsListSize() {
+        adapter.addAll(LIST_WITH_3_ITEMS);
 
-  @Test public void testAddAll_returnsItemCountEqualsListSize() throws Exception {
-    adapter.addAll(LIST_WITH_3_ITEMS);
+        assertEquals(3, adapter.getItemCount());
+    }
 
-    assertEquals(3, adapter.getItemCount());
-  }
+    @Test
+    public void testUpdateExistingItem_returnTrueAndReturnUpdatedItemAndDoNotChangeItemCount() {
+        Object updatedItem = new Object();
 
-  @Test public void testUpdateExistingItem_returnTrueAndReturnUpdatedItemAndDoNotChangeItemCount()
-      throws Exception {
-    Object updatedItem = new Object();
+        adapter.add(ITEM);
+        boolean updated = adapter.update(updatedItem, 0);
 
-    adapter.add(ITEM);
-    boolean updated = adapter.update(updatedItem, 0);
+        assertTrue(updated);
+        assertEquals(1, adapter.getItemCount());
+        assertEquals(updatedItem, adapter.get(0));
+    }
 
-    assertTrue(updated);
-    assertEquals(1, adapter.getItemCount());
-    assertEquals(updatedItem, adapter.get(0));
-  }
+    @Test
+    public void testRemoveWithNullParameter_returnsFalse() {
+        boolean remove = adapter.remove(null);
 
-  @Test public void testRemoveWithNullParameter_returnsFalse() throws Exception {
-    boolean remove = adapter.remove(null);
+        assertFalse(remove);
+    }
 
-    assertFalse(remove);
-  }
+    @Test
+    public void testRemoveValidItem_returnsTrueAndRemovesObjectAndDecreaseItemCountByOne() {
+        adapter.add(ITEM);
 
-  @Test public void testRemoveValidItem_returnsTrueAndRemovesObjectAndDecreaseItemCountByOne()
-      throws Exception {
-    adapter.add(ITEM);
+        boolean remove = adapter.remove(ITEM);
 
-    boolean remove = adapter.remove(ITEM);
+        assertTrue(remove);
+        assertEquals(0, adapter.getItemCount());
+    }
 
-    assertTrue(remove);
-    assertEquals(0, adapter.getItemCount());
-  }
+    @Test
+    public void testRemovedInvalidIndex_returnsFalse() {
+        boolean remove = adapter.remove(-1);
 
-  @Test public void testRemovedInvalidIndex_returnsFalse() throws Exception {
-    boolean remove = adapter.remove(-1);
+        assertFalse(remove);
+    }
 
-    assertFalse(remove);
-  }
+    @Test
+    public void testGetItem_returnsCorrectItem() {
+        adapter.addAll(LIST_WITH_4_ITEMS);
 
-  @Test public void testGetItem_returnsCorrectItem() throws Exception {
-    adapter.addAll(LIST_WITH_4_ITEMS);
+        Object item = adapter.get(3);
 
-    Object item = adapter.get(3);
+        assertEquals(ITEM_AT_INDEX_3, item);
+    }
 
-    assertEquals(ITEM_AT_INDEX_3, item);
-  }
+    @Test
+    public void testGetIndex_returnsCorrectIndex() {
+        adapter.addAll(LIST_WITH_4_ITEMS);
 
-  @Test public void testGetIndex_returnsCorrectIndex() throws Exception {
-    adapter.addAll(LIST_WITH_4_ITEMS);
+        int adapterIndex = adapter.getIndex(ITEM_AT_INDEX_3);
 
-    int adapterIndex = adapter.getIndex(ITEM_AT_INDEX_3);
+        assertEquals(3, adapterIndex);
+    }
 
-    assertEquals(3, adapterIndex);
-  }
+    @Test
+    public void testRemoveValidIndex_returnsTrueAndRemovesObjectAndDecreaseItemCountByOne() {
+        adapter.add(ITEM);
 
-  @Test public void testRemoveValidIndex_returnsTrueAndRemovesObjectAndDecreaseItemCountByOne()
-      throws Exception {
-    adapter.add(ITEM);
+        boolean remove = adapter.remove(0);
 
-    boolean remove = adapter.remove(0);
+        assertTrue(remove);
+        assertEquals(0, adapter.getItemCount());
+    }
 
-    assertTrue(remove);
-    assertEquals(0, adapter.getItemCount());
-  }
+    @Test
+    public void testClear_emptyDataSet() {
+        adapter.addAll(LIST);
 
-  @Test public void testClear_emptyDataSet() throws Exception {
-    adapter.addAll(LIST);
+        adapter.clear();
 
-    adapter.clear();
+        assertIsEmpty();
+    }
 
-    assertIsEmpty();
-  }
+    @Test
+    public void testIsEmptyByDefault() {
+        assertIsEmpty();
+    }
 
-  @Test public void testIsEmptyByDefault() throws Exception {
-    assertIsEmpty();
-  }
+    @Test
+    public void testIsNotEmptyAfterAddingItem() {
+        adapter.add(ITEM);
 
-  @Test public void testIsNotEmptyAfterAddingItem() throws Exception {
-    adapter.add(ITEM);
+        assertFalse(adapter.isEmpty());
+        assertEquals(1, adapter.getItemCount());
+    }
 
-    assertFalse(adapter.isEmpty());
-    assertEquals(1, adapter.getItemCount());
-  }
-
-  private void assertIsEmpty() {
-    assertEquals(0, adapter.getItemCount());
-    assertTrue(adapter.isEmpty());
-  }
+    private void assertIsEmpty() {
+        assertEquals(0, adapter.getItemCount());
+        assertTrue(adapter.isEmpty());
+    }
 }

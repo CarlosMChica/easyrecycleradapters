@@ -1,10 +1,6 @@
 package com.carlosdelachica.sample;
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.ActionBarActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -14,19 +10,24 @@ import com.carlosdelachica.sample.fragments.FullCustomizationEasyRecyclerViewFra
 import com.carlosdelachica.sample.fragments.MultiViewEasyAdapterFragment;
 import com.carlosdelachica.sample.fragments.SimpleViewEasyAdapterFragment;
 
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
+import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.InjectView;
 
-public class MainActivity extends ActionBarActivity{
+public class MainActivity extends AppCompatActivity {
 
-    @InjectView(R.id.toolbar)
+    @BindView(R.id.toolbar)
     Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        ButterKnife.inject(this);
+        ButterKnife.bind(this);
         initToolbar();
         if (savedInstanceState == null) {
             navigateToFragment(new SimpleViewEasyAdapterFragment());
@@ -43,7 +44,9 @@ public class MainActivity extends ActionBarActivity{
     private void initToolbar() {
         if (toolbar != null) {
             setSupportActionBar(toolbar);
-            getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+            ActionBar supportActionBar = getSupportActionBar();
+            assert supportActionBar != null;
+            supportActionBar.setDisplayHomeAsUpEnabled(false);
         }
     }
 

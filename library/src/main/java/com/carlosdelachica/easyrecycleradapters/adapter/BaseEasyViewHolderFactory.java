@@ -2,6 +2,7 @@ package com.carlosdelachica.easyrecycleradapters.adapter;
 
 import android.content.Context;
 import android.view.ViewGroup;
+
 import java.lang.reflect.Constructor;
 import java.util.HashMap;
 import java.util.Map;
@@ -19,6 +20,7 @@ public class BaseEasyViewHolderFactory {
     public EasyViewHolder create(Class valueClass, ViewGroup parent) {
         try {
             Class<? extends EasyViewHolder> easyViewHolderClass = boundViewHolders.get(valueClass);
+            assert easyViewHolderClass != null;
             Constructor<? extends EasyViewHolder> constructor = easyViewHolderClass.getDeclaredConstructor(Context.class, ViewGroup.class);
             return constructor.newInstance(context, parent);
         } catch (Throwable e) {

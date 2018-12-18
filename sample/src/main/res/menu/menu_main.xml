@@ -1,26 +1,26 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".MainActivity">
+      xmlns:app="http://schemas.android.com/apk/res-auto"
+      xmlns:tools="http://schemas.android.com/tools"
+      tools:context=".MainActivity">
 
     <item
         android:id="@+id/simpleViewTypeFragment"
         android:title="@string/simpleViewTypeAdapter"
-        app:showAsAction="never" />
+        app:showAsAction="never"/>
 
     <item
         android:id="@+id/multiViewTypeFragment"
         android:title="@string/multi_view_fragment"
-        app:showAsAction="never" />
+        app:showAsAction="never"/>
 
     <item
         android:id="@+id/fullCustomizationFragment"
         android:title="@string/full_customization_fragment"
-        app:showAsAction="never" />
+        app:showAsAction="never"/>
 
     <item
         android:id="@+id/customFactoryFragment"
         android:title="@string/custom_factory_fragment"
-        app:showAsAction="never" />
+        app:showAsAction="never"/>
 
 </menu>

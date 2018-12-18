@@ -2,10 +2,6 @@ package com.carlosdelachica.sample.fragments;
 
 import android.graphics.Point;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,14 +9,19 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.carlosdelachica.easyrecycleradapters.adapter.EasyRecyclerAdapter;
-import com.carlosdelachica.easyrecycleradapters.decorations.DividerItemDecoration;
 import com.carlosdelachica.easyrecycleradapters.sample.R;
-import com.carlosdelachica.sample.data.ImageData;
 import com.carlosdelachica.sample.adapter.view_holders.ImageEasyViewHolder;
 import com.carlosdelachica.sample.data.DataGenerator;
+import com.carlosdelachica.sample.data.ImageData;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.InjectView;
 
 import static com.carlosdelachica.easyrecycleradapters.adapter.EasyViewHolder.OnItemClickListener;
 import static com.carlosdelachica.easyrecycleradapters.adapter.EasyViewHolder.OnItemLongClickListener;
@@ -28,20 +29,20 @@ import static com.carlosdelachica.easyrecycleradapters.adapter.EasyViewHolder.On
 public class SimpleViewEasyAdapterFragment extends Fragment implements OnItemLongClickListener,
         OnItemClickListener {
 
-    @InjectView(R.id.recyclerView)
+    @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
 
     private EasyRecyclerAdapter adapter;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.simple_recycler_view_layout, container, false);
-        ButterKnife.inject(this, rootView);
+        ButterKnife.bind(this, rootView);
         return rootView;
     }
 
     @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initUI();
         initData();
@@ -61,11 +62,11 @@ public class SimpleViewEasyAdapterFragment extends Fragment implements OnItemLon
     private void initRecyclerView() {
         recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), getResources().getInteger(R.integer.grid_columns)));
         recyclerView.setAdapter(adapter);
-        recyclerView.addItemDecoration(new DividerItemDecoration(getActivity()));
+        recyclerView.addItemDecoration(new DividerItemDecoration(requireActivity(), DividerItemDecoration.HORIZONTAL));
     }
 
     private void initData() {
-        Display display = getActivity().getWindowManager().getDefaultDisplay();
+        Display display = requireActivity().getWindowManager().getDefaultDisplay();
         Point size = new Point();
         display.getSize(size);
         int width = size.x;
