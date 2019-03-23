@@ -12,7 +12,7 @@
 bin/
 gen/
 out/
-
+.DS_Store
 
 # Ignored by AndroidStudio
 *.iws
