@@ -5,12 +5,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import androidx.recyclerview.widget.RecyclerView;
-
 import static android.view.View.OnClickListener;
 import static android.view.View.OnLongClickListener;
 
-public abstract class EasyViewHolder<V> extends RecyclerView.ViewHolder
+public abstract class EasyViewHolder<V> extends AutoDisposeViewHolder
         implements OnLongClickListener, OnClickListener {
 
     private OnItemClickListener itemClickListener;
