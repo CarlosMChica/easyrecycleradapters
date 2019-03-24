@@ -37,7 +37,8 @@ ext.libraries = [recyclerview       : 'androidx.recyclerview:recyclerview:1.0.0'
                  appcompat          : 'androidx.appcompat:appcompat:1.0.2',
                  butterknife        : 'com.jakewharton:butterknife:10.1.0',
                  butterknifeCompiler: 'com.jakewharton:butterknife-compiler:10.1.0',
-                 picasso            : 'com.squareup.picasso:picasso:2.71828']
+                 picasso            : 'com.squareup.picasso:picasso:2.71828',
+                 autodispose        : 'com.uber.autodispose:autodispose-android-archcomponents:1.1.0']
 
 ext.testLibraries = [mockito     : "org.mockito:mockito-core:2.23.4",
                      junit       : "junit:junit:4.12",
